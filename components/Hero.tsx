@@ -36,6 +36,29 @@ export default function Hero({ colorSrc, bwSrc, tagline, subtagline }: Props) {
     return () => observer.disconnect();
   }, []);
 
+  // Parallax: the portrait drifts slower than the page as you scroll.
+  useEffect(() => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+    let raf = 0;
+    const update = () => {
+      const el = figureRef.current;
+      if (!el) return;
+      const shift = Math.min(window.scrollY * 0.22, 160);
+      el.style.transform = `translate3d(0, ${shift.toFixed(1)}px, 0)`;
+    };
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('scroll', onScroll);
+    };
+  }, []);
+
   const showColor = colored || hovered;
 
   return (
