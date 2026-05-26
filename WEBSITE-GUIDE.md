@@ -10,8 +10,8 @@ A friendly guide to your website: where it lives, how to edit it, and the accoun
 | What | Link |
 |------|------|
 | **Your live website** | https://charlottewangmusic.com *(once the domain is connected)* |
-| **Temporary web address** | `<VERCEL-URL>` *(filled in after first deploy, e.g. `personal-website.vercel.app`)* |
-| **The editor (where you change content)** | `<YOUR-SITE>/keystatic` |
+| **Working web address (live now)** | https://charlottewangmusic.vercel.app |
+| **The editor (where you change content)** | https://charlottewangmusic.vercel.app/keystatic |
 
 ---
 
@@ -20,7 +20,7 @@ A friendly guide to your website: where it lives, how to edit it, and the accoun
 Everything on the site — your bio, taglines, photos, videos, writing — can be edited through a
 simple admin panel. **You never touch code.**
 
-1. Go to **`<YOUR-SITE>/keystatic`** in your browser.
+1. Go to **https://charlottewangmusic.vercel.app/keystatic** in your browser.
 2. **Log in with GitHub** when asked (use the `charlottewangandfriends-oss` account).
 3. You'll see a list of editable sections in the left sidebar:
    - **Home page** — tagline, the playful subtitle, intro paragraph, hero photos
