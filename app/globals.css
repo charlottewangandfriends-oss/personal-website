@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+@theme {
+  /* Warm, editorial-elegant palette (from Charlotte's mood board) */
+  --color-cream: #f4f1ea;
+  --color-paper: #fbfaf6;
+  --color-greige: #e3ded3;
+  --color-greige-deep: #d6cfc0;
+  --color-lavender: #c7c2d4;
+  --color-lavender-soft: #ddd9e6;
+  --color-olive: #74723f;
+  --color-olive-deep: #5d5b30;
+  --color-brown: #3f2f21;
+  --color-brown-soft: #5f4d3c;
+  --color-line: #d9d2c4;
+
+  --font-serif: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-mulish), ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --background: var(--color-cream);
+  --foreground: var(--color-brown);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--color-cream);
+    color: var(--color-brown);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.08;
+  }
+  ::selection {
+    background: var(--color-lavender);
+    color: var(--color-brown);
+  }
+}
+
+@layer components {
+  /* Reusable typographic helpers */
+  .eyebrow {
+    font-family: var(--font-sans);
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--color-olive);
+  }
+  .prose-warm p {
+    margin-bottom: 1.15em;
+    line-height: 1.85;
+    color: var(--color-brown-soft);
+  }
+  .prose-warm p:last-child {
+    margin-bottom: 0;
+  }
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    transition: background-size 0.4s ease;
+  }
+  .link-underline:hover {
+    background-size: 100% 1px;
+  }
+}
+
+/* Scroll-reveal animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
