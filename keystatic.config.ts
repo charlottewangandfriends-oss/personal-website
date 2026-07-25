@@ -1,16 +1,11 @@
 import { config, fields, collection, singleton } from '@keystatic/core';
 import { ABOUT_BIO, ABOUT_STATEMENT, HOME_INTRO, WRITING_INTRO } from './lib/defaults';
 
-// Storage: 'local' writes content files to disk during development.
-// For deployment, switch to:
-//   storage: { kind: 'github', repo: 'OWNER/REPO' }
-// so Charlotte's edits commit straight to GitHub and Vercel rebuilds.
+// Local development writes directly to disk. The deployed editor uses
+// Keystatic Cloud to authenticate and commit edits to GitHub.
 const storage =
-  process.env.NODE_ENV === 'production' && process.env.KEYSTATIC_GITHUB_REPO
-    ? ({
-        kind: 'github',
-        repo: process.env.KEYSTATIC_GITHUB_REPO as `${string}/${string}`,
-      } as const)
+  process.env.NODE_ENV === 'production'
+    ? ({ kind: 'cloud' } as const)
     : ({ kind: 'local' } as const);
 
 const image = (label: string, description?: string) =>
@@ -23,6 +18,9 @@ const image = (label: string, description?: string) =>
 
 export default config({
   storage,
+  cloud: {
+    project: 'charlotte/personal-website',
+  },
   ui: {
     brand: { name: 'Charlotte Wang' },
   },
