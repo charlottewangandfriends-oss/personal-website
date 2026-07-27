@@ -1,6 +1,6 @@
 import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../keystatic.config';
-import { ABOUT_BIO, ABOUT_STATEMENT, HOME_INTRO, WRITING_INTRO } from './defaults';
+import { ABOUT_BIO, ABOUT_STATEMENT, WRITING_INTRO } from './defaults';
 
 export const reader = createReader(process.cwd(), keystaticConfig);
 
@@ -32,7 +32,6 @@ export function youtubeId(url: string | null | undefined): string | null {
 export const DEFAULT_IMAGES = {
   heroColor: '/images/hero-color.jpg',
   heroBw: '/images/hero-bw.jpg',
-  meetCharlottePhoto: '/images/charlotte-lyrical.jpg',
   aboutPortrait: '/images/charlotte-podium.jpg',
   aboutParallax: '/images/charlotte-conducting-live-2.jpg',
   storyCardPhoto: '/images/charlotte-conducting-live-2.jpg',
@@ -145,40 +144,41 @@ export async function getHome() {
     subtagline:
       data?.subtagline ??
       '“Who plays some viola and percussion and sometimes sings tenor in choir”',
-    introHeading: data?.introHeading ?? 'Meet Charlotte',
-    intro: data?.intro || HOME_INTRO,
     heroColor: data?.heroColor ?? DEFAULT_IMAGES.heroColor,
     heroBw: data?.heroBw ?? DEFAULT_IMAGES.heroBw,
-    meetCharlottePhoto: data?.meetCharlottePhoto ?? DEFAULT_IMAGES.meetCharlottePhoto,
   };
 }
 
 export async function getAbout() {
-  const data = await reader.singletons.about.read();
+  const [data, story, community] = await Promise.all([
+    reader.singletons.about.read(),
+    reader.singletons.aboutStory.read(),
+    reader.singletons.aboutCommunity.read(),
+  ]);
+
   return {
     heading: data?.heading ?? 'Charlotte Wang, conductor and more',
     bio: data?.bio || ABOUT_BIO,
-    myStoryHeading: data?.myStoryHeading ?? 'My Story',
-    myStory: data?.myStory ?? '',
-    statementHeading: data?.statementHeading ?? 'Music, Community, and Human Connection',
-    statement: data?.statement || ABOUT_STATEMENT,
     cv: data?.cv ?? null,
     portrait: data?.portrait ?? DEFAULT_IMAGES.aboutPortrait,
     parallaxPhoto: data?.parallaxPhoto ?? DEFAULT_IMAGES.aboutParallax,
     parallaxQuote:
       data?.parallaxQuote ||
       'Rehearsal rooms where people feel heard, trusted, and inspired to give their best.',
-    storyCardPhoto: data?.storyCardPhoto ?? DEFAULT_IMAGES.storyCardPhoto,
-    storyCardTitle: data?.storyCardTitle || "Charlotte's Music Journey",
+    myStory: story?.body ?? '',
+    storyCardTitle: story?.title || "Charlotte's Music Journey",
     storyCardDescription:
-      data?.storyCardDescription ||
+      story?.cardDescription ||
       "Explore Charlotte's path from Amherst College to graduate studies in choral conducting at the University of Michigan, her mentors, and her musical development.",
-    statementCardPhoto: data?.statementCardPhoto ?? DEFAULT_IMAGES.statementCardPhoto,
+    storyCardPhoto: story?.cardPhoto ?? DEFAULT_IMAGES.storyCardPhoto,
+    myStoryHeroPhoto: story?.heroPhoto ?? DEFAULT_IMAGES.myStoryHeroPhoto,
+    statementHeading: community?.title || 'Music, Community, and Human Connection',
+    statement: community?.body || ABOUT_STATEMENT,
     statementCardDescription:
-      data?.statementCardDescription ||
+      community?.cardDescription ||
       "Charlotte's conducting philosophy, building trust and inspiration in rehearsal rooms, and approaching music as a shared human experience.",
-    myStoryHeroPhoto: data?.myStoryHeroPhoto ?? DEFAULT_IMAGES.myStoryHeroPhoto,
-    statementHeroPhoto: data?.statementHeroPhoto ?? DEFAULT_IMAGES.statementHeroPhoto,
+    statementCardPhoto: community?.cardPhoto ?? DEFAULT_IMAGES.statementCardPhoto,
+    statementHeroPhoto: community?.heroPhoto ?? DEFAULT_IMAGES.statementHeroPhoto,
   };
 }
 
