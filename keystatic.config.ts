@@ -370,6 +370,10 @@ export default config({
           description: 'Choose an existing entry from Media — Videos. Editing that video there updates this page too.',
           collection: 'videos',
         }),
+        librettoCredit: fields.text({
+          label: 'Requiem page — libretto credit',
+          defaultValue: 'Libretto by Haoran Tong',
+        }),
         librettoUrl: fields.text({
           label: 'Libretto link',
           description: 'Optional. Paste either a full URL or a path on this website.',
@@ -391,6 +395,10 @@ export default config({
           description: 'Upload a PDF to show the download button on the Requiem page.',
           directory: 'public/files/programs',
           publicPath: '/files/programs/',
+        }),
+        programUrl: fields.url({
+          label: 'Premiere concert — external program link',
+          description: 'Optional. Use this for a Google Doc or another hosted program. It takes priority over the uploaded PDF.',
         }),
         programButtonLabel: fields.text({
           label: 'Program download button',

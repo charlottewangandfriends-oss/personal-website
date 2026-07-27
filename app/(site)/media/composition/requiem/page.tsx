@@ -21,6 +21,8 @@ export default async function RequiemPage() {
   const about = toParagraphs(content.aboutBody);
   const premiere = toParagraphs(content.premiereBody);
   const collaboration = toParagraphs(content.collaborationBody);
+  const programHref = content.programUrl || content.programPdf;
+  const externalProgram = programHref?.startsWith('http');
 
   return (
     <div className="pt-32 pb-24 md:pt-40">
@@ -42,6 +44,16 @@ export default async function RequiemPage() {
                 <p key={index}>{paragraph}</p>
               ))}
             </div>
+          )}
+          {content.librettoUrl && (
+            <a
+              href={content.librettoUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="link-underline mt-5 inline-block text-sm tracking-wide text-olive"
+            >
+              {content.librettoCredit} ↗
+            </a>
           )}
         </Reveal>
       </header>
@@ -79,17 +91,41 @@ export default async function RequiemPage() {
 
         <section className="border-b border-line py-16 md:py-20">
           <Reveal>
-            <p className="eyebrow">Watch & Listen</p>
-            <h2 className="mt-3 font-serif text-3xl text-brown md:text-4xl">
-              {featuredVideo?.title || content.featureTitle}
-            </h2>
+            <div className="grid gap-8 md:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] md:gap-16">
+              <div>
+                <p className="eyebrow">In performance</p>
+                <h2 className="mt-3 font-serif text-3xl text-brown md:text-4xl">
+                  {content.premiereHeading}
+                </h2>
+              </div>
+              <div>
+                {premiere.length > 0 && (
+                  <div className="prose-warm text-base md:text-lg">
+                    {premiere.map((paragraph, index) => (
+                      <p key={index}>{paragraph}</p>
+                    ))}
+                  </div>
+                )}
+                {programHref && (
+                  <a
+                    href={programHref}
+                    target={externalProgram ? '_blank' : undefined}
+                    rel={externalProgram ? 'noreferrer' : undefined}
+                    download={externalProgram ? undefined : true}
+                    className="mt-8 inline-block rounded-full bg-brown px-7 py-3 text-sm tracking-wide text-cream transition-colors hover:bg-olive"
+                  >
+                    {content.programButtonLabel} {externalProgram ? '↗' : '↓'}
+                  </a>
+                )}
+              </div>
+            </div>
 
-            <figure className="mt-8 max-w-5xl">
+            <figure className="mt-12 max-w-5xl md:mt-16">
               <div className="relative aspect-video overflow-hidden rounded-sm border border-line bg-greige">
                 {videoId ? (
                   <iframe
                     className="absolute inset-0 h-full w-full"
-                    src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+                    src={`https://www.youtube-nocookie.com/embed/${videoId}?start=73`}
                     title={featuredVideo?.title || content.featureTitle}
                     loading="lazy"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -107,37 +143,6 @@ export default async function RequiemPage() {
                 </figcaption>
               )}
             </figure>
-          </Reveal>
-        </section>
-
-        <section className="border-b border-line py-16 md:py-20">
-          <Reveal>
-            <div className="grid gap-8 md:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] md:gap-16">
-              <div>
-                <p className="eyebrow">In performance</p>
-                <h2 className="mt-3 font-serif text-3xl text-brown md:text-4xl">
-                  {content.premiereHeading}
-                </h2>
-              </div>
-              <div>
-                {premiere.length > 0 && (
-                  <div className="prose-warm text-base md:text-lg">
-                    {premiere.map((paragraph, index) => (
-                      <p key={index}>{paragraph}</p>
-                    ))}
-                  </div>
-                )}
-                {content.programPdf && (
-                  <a
-                    href={content.programPdf}
-                    download
-                    className="mt-8 inline-block rounded-full bg-brown px-7 py-3 text-sm tracking-wide text-cream transition-colors hover:bg-olive"
-                  >
-                    {content.programButtonLabel} ↓
-                  </a>
-                )}
-              </div>
-            </div>
           </Reveal>
         </section>
 
