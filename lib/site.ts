@@ -285,6 +285,36 @@ export async function getMediaPage() {
   };
 }
 
+export async function getCompositionFeature() {
+  const data = await reader.singletons.compositionFeature.read();
+
+  return {
+    featureEyebrow: data?.featureEyebrow || 'Featured work',
+    featureTitle: data?.featureTitle || 'Requiem: Ceaseless Life',
+    featureSummary:
+      data?.featureSummary ||
+      "Charlotte's senior honors thesis at Amherst College: an eight-movement Requiem for soloist, SATB choir, and reduced orchestra. Libretto by Haoran Tong.",
+    featureLinkLabel: data?.featureLinkLabel || 'Explore the Requiem',
+    detailEyebrow: data?.detailEyebrow || 'Composition',
+    detailIntroduction:
+      data?.detailIntroduction ||
+      "An eight-movement Requiem for soloist, SATB choir, and reduced orchestra, composed as Charlotte's senior honors thesis at Amherst College. Libretto by Haoran Tong.",
+    aboutHeading: data?.aboutHeading || 'About the work',
+    aboutBody:
+      data?.aboutBody ||
+      "Requiem: Ceaseless Life brings together Charlotte's interests in composition, text, voice, and ensemble storytelling.",
+    featuredVideoSlug: data?.featuredVideo || 'requiem-ceaseless-life',
+    librettoUrl: data?.librettoUrl?.trim() || null,
+    librettoLinkLabel: data?.librettoLinkLabel || 'Read the libretto',
+    premiereHeading: data?.premiereHeading || 'Premiere concert',
+    premiereBody: data?.premiereBody || '',
+    programPdf: data?.programPdf ?? null,
+    programButtonLabel: data?.programButtonLabel || 'Download concert program',
+    collaborationHeading: data?.collaborationHeading || 'And what?',
+    collaborationBody: data?.collaborationBody || '',
+  };
+}
+
 export async function getVideoCategories() {
   const data = await reader.singletons.media.read();
   return [
