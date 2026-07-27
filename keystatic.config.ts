@@ -16,6 +16,26 @@ const image = (label: string, description?: string) =>
     publicPath: '/images/uploads/',
   });
 
+const imagePosition = (label: string, defaultValue = 'center') =>
+  fields.select({
+    label,
+    description:
+      'Choose the part of the image that must stay visible when the website trims it to the displayed shape.',
+    options: [
+      { label: 'Center', value: 'center' },
+      { label: 'Upper center', value: 'upper-center' },
+      { label: 'Top', value: 'top' },
+      { label: 'Bottom', value: 'bottom' },
+      { label: 'Left', value: 'left' },
+      { label: 'Right', value: 'right' },
+      { label: 'Top left', value: 'top-left' },
+      { label: 'Top right', value: 'top-right' },
+      { label: 'Bottom left', value: 'bottom-left' },
+      { label: 'Bottom right', value: 'bottom-right' },
+    ],
+    defaultValue,
+  });
+
 const mediaCategoryOptions = [
   { label: 'Conducting', value: 'conducting' },
   { label: 'Composition', value: 'composition' },
@@ -49,8 +69,15 @@ export default config({
           defaultValue:
             '“Who plays some viola and percussion and sometimes sings tenor in choir”',
         }),
-        heroColor: image('Hero photo (color)'),
-        heroBw: image('Hero photo (black & white)'),
+        heroColor: image(
+          'Hero photo (color)',
+          'Displayed at 3:4. Use the matching black-and-white photo below for a clean crossfade.',
+        ),
+        heroBw: image(
+          'Hero photo (black & white)',
+          'Displayed at 3:4. Use the same framing as the color photo above.',
+        ),
+        heroPhotoPosition: imagePosition('Hero photos — crop focus'),
       },
     }),
     about: singleton({
@@ -66,8 +93,13 @@ export default config({
           directory: 'public/files',
           publicPath: '/files/',
         }),
-        portrait: image('Portrait photo'),
-        parallaxPhoto: image('Wide quote photo'),
+        portrait: image('Portrait photo', 'Displayed at 4:5. The website trims anything outside that shape.'),
+        portraitPosition: imagePosition('Portrait — crop focus', 'top'),
+        parallaxPhoto: image(
+          'Wide quote photo',
+          'Displayed as a wide band. Its height changes by screen size, so choose the most important area below.',
+        ),
+        parallaxPhotoPosition: imagePosition('Wide quote photo — crop focus', 'upper-center'),
         parallaxQuote: fields.text({
           label: 'Quote over wide photo',
           multiline: true,
@@ -95,8 +127,10 @@ export default config({
           defaultValue:
             "Explore Charlotte's path from Amherst College to graduate studies in choral conducting at the University of Michigan, her mentors, and her musical development.",
         }),
-        cardPhoto: image('Card photo'),
-        heroPhoto: image('Header photo'),
+        cardPhoto: image('Card photo', 'Displayed at 16:10. The website trims anything outside that shape.'),
+        cardPhotoPosition: imagePosition('Card photo — crop focus'),
+        heroPhoto: image('Header photo', 'Displayed at 16:9. The website trims anything outside that shape.'),
+        heroPhotoPosition: imagePosition('Header photo — crop focus'),
       },
     }),
     aboutCommunity: singleton({
@@ -119,8 +153,10 @@ export default config({
           defaultValue:
             "Charlotte's conducting philosophy, building trust and inspiration in rehearsal rooms, and approaching music as a shared human experience.",
         }),
-        cardPhoto: image('Card photo'),
-        heroPhoto: image('Header photo'),
+        cardPhoto: image('Card photo', 'Displayed at 16:10. The website trims anything outside that shape.'),
+        cardPhotoPosition: imagePosition('Card photo — crop focus'),
+        heroPhoto: image('Header photo', 'Displayed at 16:9. The website trims anything outside that shape.'),
+        heroPhotoPosition: imagePosition('Header photo — crop focus'),
       },
     }),
     writing: singleton({
@@ -130,7 +166,8 @@ export default config({
       schema: {
         heading: fields.text({ label: 'Heading', defaultValue: 'Charlotte Wang, writer' }),
         intro: fields.text({ label: 'Intro', multiline: true, defaultValue: WRITING_INTRO }),
-        portrait: image('Portrait photo'),
+        portrait: image('Portrait photo', 'Displayed at 4:5. The website trims anything outside that shape.'),
+        portraitPosition: imagePosition('Portrait — crop focus'),
         categoriesEyebrow: fields.text({ label: 'Categories label', defaultValue: 'Categories' }),
         categoriesHeading: fields.text({
           label: 'Categories section heading',
@@ -142,14 +179,22 @@ export default config({
           multiline: true,
           defaultValue: 'Poetry in English, Chinese, and French.',
         }),
-        poetryImage: image('Poetry — card image'),
+        poetryImage: image(
+          'Poetry — card image',
+          'Displayed at 16:9. The website trims anything outside that shape.',
+        ),
+        poetryImagePosition: imagePosition('Poetry — crop focus'),
         shortStoryLabel: fields.text({ label: 'Short Story — display title', defaultValue: 'Short Story' }),
         shortStoryDescription: fields.text({
           label: 'Short Story — description',
           multiline: true,
           defaultValue: 'Short fiction exploring memory, identity, and human connection.',
         }),
-        shortStoryImage: image('Short Story — card image'),
+        shortStoryImage: image(
+          'Short Story — card image',
+          'Displayed at 16:9. The website trims anything outside that shape.',
+        ),
+        shortStoryImagePosition: imagePosition('Short Story — crop focus'),
         memoirLabel: fields.text({
           label: 'Dear Past, Dear Tomorrow — display title',
           defaultValue: 'Dear Past, Dear Tomorrow',
@@ -159,14 +204,22 @@ export default config({
           multiline: true,
           defaultValue: "Selections and reflections from Charlotte's memoir project.",
         }),
-        memoirImage: image('Dear Past, Dear Tomorrow — card image'),
+        memoirImage: image(
+          'Dear Past, Dear Tomorrow — card image',
+          'Displayed at 16:9. The website trims anything outside that shape.',
+        ),
+        memoirImagePosition: imagePosition('Dear Past, Dear Tomorrow — crop focus'),
         proseLabel: fields.text({ label: 'Prose & Blogs — display title', defaultValue: 'Prose & Blogs' }),
         proseDescription: fields.text({
           label: 'Prose & Blogs — description',
           multiline: true,
           defaultValue: 'Essays, reflections, and occasional notes.',
         }),
-        proseImage: image('Prose & Blogs — card image'),
+        proseImage: image(
+          'Prose & Blogs — card image',
+          'Displayed at 16:9. The website trims anything outside that shape.',
+        ),
+        proseImagePosition: imagePosition('Prose & Blogs — crop focus'),
       },
     }),
     media: singleton({
@@ -186,21 +239,33 @@ export default config({
           multiline: true,
           defaultValue: 'Conducting performances, rehearsals, and musical collaborations.',
         }),
-        conductingImage: image('Conducting — card image'),
+        conductingImage: image(
+          'Conducting — card image',
+          'Displayed at 16:10. The website trims anything outside that shape.',
+        ),
+        conductingImagePosition: imagePosition('Conducting — crop focus'),
         compositionLabel: fields.text({ label: 'Composition — display title', defaultValue: 'Composition' }),
         compositionDescription: fields.text({
           label: 'Composition — description',
           multiline: true,
           defaultValue: "Original compositions and performances of Charlotte's music.",
         }),
-        compositionImage: image('Composition — card image'),
+        compositionImage: image(
+          'Composition — card image',
+          'Displayed at 16:10. The website trims anything outside that shape.',
+        ),
+        compositionImagePosition: imagePosition('Composition — crop focus'),
         singingLabel: fields.text({ label: 'Singing — display title', defaultValue: 'Singing' }),
         singingDescription: fields.text({
           label: 'Singing — description',
           multiline: true,
           defaultValue: 'Solo and ensemble vocal performances.',
         }),
-        singingImage: image('Singing — card image'),
+        singingImage: image(
+          'Singing — card image',
+          'Displayed at 16:10. The website trims anything outside that shape.',
+        ),
+        singingImagePosition: imagePosition('Singing — crop focus'),
         pianoLabel: fields.text({
           label: 'Collaborative Piano — display title',
           defaultValue: 'Collaborative Piano',
@@ -210,7 +275,11 @@ export default config({
           multiline: true,
           defaultValue: 'Collaborative piano performances with singers and instrumentalists.',
         }),
-        pianoImage: image('Collaborative Piano — card image'),
+        pianoImage: image(
+          'Collaborative Piano — card image',
+          'Displayed at 16:10. The website trims anything outside that shape.',
+        ),
+        pianoImagePosition: imagePosition('Collaborative Piano — crop focus'),
         percussionViolaLabel: fields.text({
           label: 'Percussion & Viola — display title',
           defaultValue: 'Percussion & Viola',
@@ -221,7 +290,11 @@ export default config({
           defaultValue:
             'Performances on percussion and viola in orchestral, chamber, and collaborative settings.',
         }),
-        percussionViolaImage: image('Percussion & Viola — card image'),
+        percussionViolaImage: image(
+          'Percussion & Viola — card image',
+          'Displayed at 16:10. The website trims anything outside that shape.',
+        ),
+        percussionViolaImagePosition: imagePosition('Percussion & Viola — crop focus'),
         friendsLabel: fields.text({
           label: 'Charlotte with Friends — display title',
           defaultValue: 'Charlotte with Friends',
@@ -231,7 +304,11 @@ export default config({
           multiline: true,
           defaultValue: 'Performances and creative collaborations with friends and fellow musicians.',
         }),
-        friendsImage: image('Charlotte with Friends — card image'),
+        friendsImage: image(
+          'Charlotte with Friends — card image',
+          'Displayed at 16:10. The website trims anything outside that shape.',
+        ),
+        friendsImagePosition: imagePosition('Charlotte with Friends — crop focus'),
       },
     }),
     contact: singleton({
@@ -296,8 +373,9 @@ export default config({
         }),
         sectionImage: image(
           'Section image',
-          'Optional. Upload an image to place beside or below the text.',
+          'Optional. Displayed at 4:3; the website trims anything outside that shape.',
         ),
+        sectionImagePosition: imagePosition('Section image — crop focus'),
         imageAlt: fields.text({
           label: 'Image description (accessibility)',
           description: 'Briefly describe the image for visitors using screen readers.',
@@ -335,7 +413,11 @@ export default config({
           options: mediaCategoryOptions,
           defaultValue: 'conducting',
         }),
-        photo: image('Photo'),
+        photo: image(
+          'Photo',
+          'The category thumbnail is displayed at 4:3; the lightbox shows the full image.',
+        ),
+        photoPosition: imagePosition('Thumbnail — crop focus'),
         order: fields.integer({ label: 'Sort order', defaultValue: 0 }),
       },
     }),
