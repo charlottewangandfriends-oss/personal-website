@@ -1,5 +1,5 @@
 import { config, fields, collection, singleton } from '@keystatic/core';
-import { ABOUT_BIO, ABOUT_STATEMENT, HOME_INTRO, WRITING_INTRO } from './lib/defaults';
+import { ABOUT_BIO, ABOUT_STATEMENT, WRITING_INTRO } from './lib/defaults';
 
 // Local development writes directly to disk. The deployed editor uses
 // Keystatic Cloud to authenticate and commit edits to GitHub.
@@ -49,35 +49,17 @@ export default config({
           defaultValue:
             '“Who plays some viola and percussion and sometimes sings tenor in choir”',
         }),
-        introHeading: fields.text({ label: 'Intro heading', defaultValue: 'Meet Charlotte' }),
-        intro: fields.text({
-          label: 'Intro paragraph',
-          multiline: true,
-          defaultValue: HOME_INTRO,
-        }),
         heroColor: image('Hero photo (color)'),
         heroBw: image('Hero photo (black & white)'),
-        meetCharlottePhoto: image('Meet Charlotte photo'),
       },
     }),
     about: singleton({
-      label: 'About page',
+      label: 'About — Biography',
       path: 'content/about',
       format: { data: 'yaml' },
       schema: {
-        heading: fields.text({ label: 'Heading', defaultValue: 'Charlotte Wang, conductor and more' }),
+        heading: fields.text({ label: 'Page heading', defaultValue: 'Charlotte Wang, conductor and more' }),
         bio: fields.text({ label: 'Biography', multiline: true, defaultValue: ABOUT_BIO }),
-        myStoryHeading: fields.text({ label: 'My Story heading', defaultValue: 'My Story' }),
-        myStory: fields.text({
-          label: 'My Story',
-          multiline: true,
-          defaultValue: '(Coming soon.)',
-        }),
-        statementHeading: fields.text({
-          label: 'Statement heading',
-          defaultValue: 'Music, Community, and Human Connection',
-        }),
-        statement: fields.text({ label: 'Statement', multiline: true, defaultValue: ABOUT_STATEMENT }),
         cv: fields.file({
           label: 'CV (PDF)',
           description: 'Upload a PDF to enable the “Download CV” button.',
@@ -85,32 +67,60 @@ export default config({
           publicPath: '/files/',
         }),
         portrait: image('Portrait photo'),
-        parallaxPhoto: image('About — wide quote photo'),
+        parallaxPhoto: image('Wide quote photo'),
         parallaxQuote: fields.text({
-          label: 'About — quote over wide photo',
+          label: 'Quote over wide photo',
           multiline: true,
           defaultValue: 'Rehearsal rooms where people feel heard, trusted, and inspired to give their best.',
         }),
-        storyCardPhoto: image('About — My Story card photo'),
-        storyCardTitle: fields.text({
-          label: 'About — My Story card title',
+      },
+    }),
+    aboutStory: singleton({
+      label: 'About — My Story',
+      path: 'content/about-story',
+      format: { data: 'yaml' },
+      schema: {
+        title: fields.text({
+          label: 'Title',
           defaultValue: "Charlotte's Music Journey",
         }),
-        storyCardDescription: fields.text({
-          label: 'About — My Story card description',
+        body: fields.text({
+          label: 'My Story',
+          multiline: true,
+          defaultValue: '(Coming soon.)',
+        }),
+        cardDescription: fields.text({
+          label: 'Card description',
           multiline: true,
           defaultValue:
             "Explore Charlotte's path from Amherst College to graduate studies in choral conducting at the University of Michigan, her mentors, and her musical development.",
         }),
-        statementCardPhoto: image('About — Philosophy card photo'),
-        statementCardDescription: fields.text({
-          label: 'About — Philosophy card description',
+        cardPhoto: image('Card photo'),
+        heroPhoto: image('Header photo'),
+      },
+    }),
+    aboutCommunity: singleton({
+      label: 'About — Music & Community',
+      path: 'content/about-community',
+      format: { data: 'yaml' },
+      schema: {
+        title: fields.text({
+          label: 'Title',
+          defaultValue: 'Music, Community, and Human Connection',
+        }),
+        body: fields.text({
+          label: 'Statement',
+          multiline: true,
+          defaultValue: ABOUT_STATEMENT,
+        }),
+        cardDescription: fields.text({
+          label: 'Card description',
           multiline: true,
           defaultValue:
             "Charlotte's conducting philosophy, building trust and inspiration in rehearsal rooms, and approaching music as a shared human experience.",
         }),
-        myStoryHeroPhoto: image('My Story — header photo'),
-        statementHeroPhoto: image('Philosophy statement — header photo'),
+        cardPhoto: image('Card photo'),
+        heroPhoto: image('Header photo'),
       },
     }),
     writing: singleton({
