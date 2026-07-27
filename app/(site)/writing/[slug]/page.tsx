@@ -2,7 +2,13 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Reveal from '@/components/Reveal';
-import { getWriting, getWritings, toParagraphs, WRITING_CATEGORIES } from '@/lib/site';
+import {
+  getWriting,
+  getWritingCategories,
+  getWritings,
+  toParagraphs,
+  WRITING_CATEGORIES,
+} from '@/lib/site';
 
 const langLabel: Record<string, string> = { en: 'English', zh: '中文', fr: 'Français' };
 
@@ -19,7 +25,8 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const category = WRITING_CATEGORIES.find((c) => c.value === slug);
+  const categories = await getWritingCategories();
+  const category = categories.find((c) => c.value === slug);
   if (category) {
     return { title: `${category.label} — Writing` };
   }
@@ -33,9 +40,10 @@ export default async function WritingSlugPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const categories = await getWritingCategories();
 
   // 1. Check if slug matches a Writing Category
-  const category = WRITING_CATEGORIES.find((c) => c.value === slug);
+  const category = categories.find((c) => c.value === slug);
   if (category) {
     const allWritings = await getWritings();
     const items = allWritings.filter((w) => w.category === category.value);
@@ -112,7 +120,7 @@ export default async function WritingSlugPage({
   if (!piece) notFound();
 
   const body = toParagraphs(piece.body);
-  const pieceCat = WRITING_CATEGORIES.find((c) => c.value === piece.category);
+  const pieceCat = categories.find((c) => c.value === piece.category);
 
   return (
     <article className="pt-32 pb-24 md:pt-40">
