@@ -50,8 +50,9 @@ export const metadata: Metadata = {
     images: ['/image.png'],
   },
   icons: {
-    icon: '/image.png',
-    apple: '/image.png',
+    icon: [{ url: '/image.png?v=20260727', type: 'image/png' }],
+    shortcut: '/image.png?v=20260727',
+    apple: [{ url: '/image.png?v=20260727', type: 'image/png' }],
   },
 };
 
