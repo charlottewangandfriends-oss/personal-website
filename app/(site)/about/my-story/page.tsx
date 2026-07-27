@@ -25,7 +25,7 @@ export default async function MyStoryPage() {
           </Link>
           <p className="eyebrow mt-6">My Story</p>
           <h1 className="mt-3 font-serif text-4xl text-brown sm:text-5xl md:text-6xl">
-            Charlotte&apos;s Music Journey
+            {about.storyCardTitle}
           </h1>
         </Reveal>
 
