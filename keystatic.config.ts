@@ -105,7 +105,7 @@ export default config({
           directory: 'public/files',
           publicPath: '/files/',
         }),
-        portrait: image('Portrait photo', 'Displayed at 4:5. The website trims anything outside that shape.'),
+        portrait: image('Portrait photo', 'Displayed at 5:6 on the About page. The website trims anything outside that shape.'),
         portraitPosition: imagePosition('Portrait — crop focus', 'top'),
         parallaxPhoto: image(
           'Wide quote photo',
