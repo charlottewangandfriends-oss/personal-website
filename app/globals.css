@@ -7,10 +7,10 @@
   --color-greige: #e3ded3;
   --color-greige-deep: #d6cfc0;
 
-  /* Warm stone accents — neutral enough to bridge cream, olive, and brown */
-  --color-lavender: #d8d1c7;
-  --color-lavender-soft: #efebe4;
-  --color-lavender-deep: #a79b8c;
+  /* Muted lavender — used as atmosphere, never as a hard isolated block */
+  --color-lavender: #cfc7d8;
+  --color-lavender-soft: #f0ecf3;
+  --color-lavender-deep: #8f829a;
 
   /* 土绿色 (Earthy Olive Green) */
   --color-olive: #737142;
@@ -36,7 +36,11 @@
     scroll-behavior: smooth;
   }
   body {
-    background: var(--color-cream);
+    background-color: var(--color-cream);
+    background-image:
+      radial-gradient(circle at 92% 7%, rgba(207, 199, 216, 0.27) 0, rgba(207, 199, 216, 0) 32rem),
+      radial-gradient(circle at 5% 76%, rgba(228, 226, 200, 0.22) 0, rgba(228, 226, 200, 0) 30rem);
+    background-attachment: fixed;
     color: var(--color-brown);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
@@ -49,7 +53,7 @@
     line-height: 1.08;
   }
   ::selection {
-    background: var(--color-olive-soft);
+    background: var(--color-lavender);
     color: var(--color-brown);
   }
 }
@@ -81,6 +85,30 @@
   }
   .link-underline:hover {
     background-size: 100% 1px;
+  }
+
+  /* Paper cards carry a quiet lavender cast at one edge so the color feels woven in. */
+  .editorial-card {
+    background:
+      linear-gradient(
+        145deg,
+        rgba(251, 250, 246, 0.99) 0%,
+        rgba(251, 250, 246, 0.97) 68%,
+        rgba(207, 199, 216, 0.22) 100%
+      );
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.78),
+      0 10px 30px rgba(63, 47, 33, 0.035);
+    transition:
+      border-color 0.35s ease,
+      box-shadow 0.35s ease,
+      transform 0.35s ease;
+  }
+  .editorial-card:hover {
+    border-color: rgba(143, 130, 154, 0.42);
+    box-shadow:
+      0 18px 45px rgba(63, 47, 33, 0.09),
+      0 0 0 1px rgba(143, 130, 154, 0.06);
   }
 }
 
