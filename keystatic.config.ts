@@ -191,26 +191,18 @@ export default config({
       path: 'content/writing-intro',
       format: { data: 'yaml' },
       schema: {
-        heading: fields.text({ label: 'Heading', defaultValue: 'Charlotte Wang, writer' }),
+        heading: fields.text({
+          label: 'Writing hero — name and role',
+          description:
+            'Use a comma between the large name and smaller role, for example: Charlotte Wang, writer.',
+          defaultValue: 'Charlotte Wang, writer',
+        }),
         intro: fields.text({ label: 'Intro', multiline: true, defaultValue: WRITING_INTRO }),
         portrait: image(
-          'Thesis poster on the wall',
-          'Upload the full installation photo, including some wall around the poster. The website blends the wall into the page rather than placing the photo in a card.',
+          'Writing hero — poster on the wall',
+          'Upload the full installation photo. The website centers the main poster and feathers the surrounding wall and neighboring posters into the page.',
         ),
-        portraitPosition: imagePosition('Thesis poster photo — crop focus', 'upper-center'),
-        posterEyebrow: fields.text({
-          label: 'Poster feature — small label',
-          defaultValue: 'Amherst College · 2024',
-        }),
-        posterHeading: fields.text({
-          label: 'Poster feature — title',
-          multiline: true,
-          defaultValue: 'Dear Tomorrow,\nDear Past',
-        }),
-        posterCaption: fields.text({
-          label: 'Poster feature — caption',
-          defaultValue: 'English Department senior thesis poster',
-        }),
+        portraitPosition: imagePosition('Writing hero — photo focus', 'upper-center'),
         categoriesEyebrow: fields.text({ label: 'Categories label', defaultValue: 'Categories' }),
         categoriesHeading: fields.text({
           label: 'Categories section heading',
@@ -224,7 +216,7 @@ export default config({
         }),
         poetryImage: image(
           'Poetry — card image',
-          'Displayed at 16:9. The website trims anything outside that shape.',
+          'Displayed at 16:9. After choosing the file, click the blue Save button so the image is committed to the branch shown at top left.',
         ),
         poetryImagePosition: imagePosition('Poetry — crop focus'),
         shortStoryLabel: fields.text({ label: 'Short Story — display title', defaultValue: 'Short Story' }),
@@ -235,7 +227,7 @@ export default config({
         }),
         shortStoryImage: image(
           'Short Story — card image',
-          'Displayed at 16:9. The website trims anything outside that shape.',
+          'Displayed at 16:9. After choosing the file, click the blue Save button so the image is committed to the branch shown at top left.',
         ),
         shortStoryImagePosition: imagePosition('Short Story — crop focus'),
         memoirLabel: fields.text({
@@ -249,7 +241,7 @@ export default config({
         }),
         memoirImage: image(
           'Dear Tomorrow, Dear Past — card image',
-          'Displayed at 16:9. The website trims anything outside that shape.',
+          'Displayed at 16:9. After choosing the file, click the blue Save button so the image is committed to the branch shown at top left.',
         ),
         memoirImagePosition: imagePosition('Dear Tomorrow, Dear Past — crop focus'),
         memoirPdf: fields.file({
@@ -287,7 +279,7 @@ export default config({
         }),
         proseImage: image(
           'Prose & Blogs — card image',
-          'Displayed at 16:9. The website trims anything outside that shape.',
+          'Displayed at 16:9. After choosing the file, click the blue Save button so the image is committed to the branch shown at top left.',
         ),
         proseImagePosition: imagePosition('Prose & Blogs — crop focus'),
       },

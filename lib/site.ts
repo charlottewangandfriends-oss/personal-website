@@ -242,10 +242,6 @@ export async function getWritingIntro() {
     intro: data?.intro || WRITING_INTRO,
     portrait: data?.portrait ?? DEFAULT_IMAGES.writingPortrait,
     portraitPositionClass: imagePositionClass(data?.portraitPosition, 'upper-center'),
-    posterEyebrow: data?.posterEyebrow || 'Amherst College · 2024',
-    posterHeading: data?.posterHeading || 'Dear Tomorrow,\nDear Past',
-    posterCaption:
-      data?.posterCaption || 'English Department senior thesis poster',
     categoriesEyebrow: data?.categoriesEyebrow || 'Categories',
     categoriesHeading: data?.categoriesHeading || 'Explore Writing Works',
     memoirPdf: data?.memoirPdf ?? null,

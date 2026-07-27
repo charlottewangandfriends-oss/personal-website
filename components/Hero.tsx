@@ -15,28 +15,38 @@ type Props = {
 const chapters = [
   {
     number: '01',
+    eyebrow: 'Meet',
+    title: 'About',
+    description: 'The person, practice, and community behind the work.',
+    href: '/about',
+  },
+  {
+    number: '02',
     eyebrow: 'Listen',
     title: 'Media',
     description: 'Conducting, composition, voice, and music made with friends.',
     href: '/media',
   },
   {
-    number: '02',
+    number: '03',
     eyebrow: 'Read',
     title: 'Writing',
     description: 'Poetry, prose, and selections from Dear Tomorrow, Dear Past.',
     href: '/writing',
   },
-  {
-    number: '03',
-    eyebrow: 'Meet',
-    title: 'About',
-    description: 'The person, practice, and community behind the work.',
-    href: '/about',
-  },
 ] as const;
 
 const EYEBROW_REVEAL_STYLE = { transitionDelay: '100ms' } as const;
+const CHAPTER_CARD_CLASSES = [
+  'md:min-h-[20rem] md:px-9 md:py-11',
+  '-mt-px md:mt-5 md:min-h-[18rem] md:border-l md:px-8 md:py-10',
+  '-mt-px md:mt-10 md:min-h-[16rem] md:border-l md:px-7 md:py-9',
+] as const;
+const CHAPTER_TITLE_CLASSES = [
+  'md:text-6xl',
+  'md:text-5xl',
+  'md:text-[2.65rem]',
+] as const;
 
 /**
  * Editorial portrait that develops from black and white into color.
@@ -128,9 +138,10 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
               />
             </div>
 
-            {/* These feathers stay inside the photograph so neither edge can form a seam. */}
-            <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-[43%] bg-gradient-to-r from-cream via-cream/75 to-transparent md:block" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[17%] bg-gradient-to-l from-cream via-cream/55 to-transparent md:block" />
+            {/* Long, overlapping feathers keep the photograph from forming a visible seam. */}
+            <div className="pointer-events-none absolute inset-y-[-8%] -left-[9%] hidden w-[42%] bg-cream/70 blur-[52px] md:block" />
+            <div className="pointer-events-none absolute inset-y-0 -left-px hidden w-[61%] bg-[linear-gradient(90deg,#f4f1ea_0%,#f4f1ea_18%,rgba(244,241,234,0.98)_34%,rgba(244,241,234,0.86)_50%,rgba(244,241,234,0.58)_68%,rgba(244,241,234,0.22)_84%,transparent_100%)] md:block" />
+            <div className="pointer-events-none absolute inset-y-0 -right-px hidden w-[20%] bg-[linear-gradient(270deg,#f4f1ea_0%,rgba(244,241,234,0.92)_24%,rgba(244,241,234,0.58)_54%,rgba(244,241,234,0.18)_80%,transparent_100%)] md:block" />
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[27%] bg-gradient-to-b from-transparent via-cream/35 to-cream md:hidden" />
             <div className="pointer-events-none absolute inset-x-0 top-0 h-[14%] bg-gradient-to-b from-cream/25 to-transparent md:hidden" />
             <div
@@ -157,15 +168,11 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
               <h1 className="mt-5 font-serif text-[4rem] leading-[0.86] tracking-[-0.045em] text-brown sm:text-7xl md:text-[clamp(5.4rem,8vw,8rem)]">
                 Charlotte
                 <br />
-                <span className="ml-[0.42em] italic text-brown-soft">Wang</span>
+                <span className="ml-[0.28em] text-brown-soft">Wang</span>
               </h1>
 
               {subtagline && (
-                <div className="mt-9 flex max-w-md items-start gap-4 border-t border-line/90 pt-5">
-                  <span
-                    aria-hidden="true"
-                    className="mt-2 h-2 w-2 shrink-0 rounded-full bg-lavender-deep/70"
-                  />
+                <div className="mt-9 max-w-md border-t border-line/90 pt-5">
                   <p className="font-serif text-lg italic leading-relaxed text-olive md:text-xl">
                     {subtagline}
                   </p>
@@ -174,10 +181,10 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
 
               <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
                 <Link
-                  href="/media"
+                  href="/about"
                   className="group rounded-full bg-brown px-7 py-3.5 text-sm tracking-wide text-cream transition-colors duration-500 hover:bg-olive"
                 >
-                  Enter the work{' '}
+                  Meet Charlotte{' '}
                   <span
                     aria-hidden="true"
                     className="inline-block transition-transform duration-500 group-hover:translate-x-1"
@@ -186,10 +193,10 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
                   </span>
                 </Link>
                 <Link
-                  href="/about"
+                  href="/media"
                   className="link-underline text-sm tracking-wide text-brown-soft hover:text-brown"
                 >
-                  Meet Charlotte →
+                  Enter the work →
                 </Link>
               </div>
             </div>
@@ -220,14 +227,12 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
             </p>
           </div>
 
-          <div className="mt-12 grid border-y border-line md:grid-cols-3">
+          <div className="mt-12 grid md:grid-cols-[1.2fr_1fr_0.8fr] md:items-start">
             {chapters.map((chapter, index) => (
               <Link
                 key={chapter.href}
                 href={chapter.href}
-                className={`group relative overflow-hidden py-9 md:min-h-64 md:px-8 md:py-10 ${
-                  index > 0 ? 'border-t border-line md:border-l md:border-t-0' : ''
-                }`}
+                className={`group relative overflow-hidden border-y border-line px-0 py-9 ${CHAPTER_CARD_CLASSES[index]}`}
               >
                 <span
                   aria-hidden="true"
@@ -240,7 +245,7 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
                     </span>
                     <span className="eyebrow">{chapter.eyebrow}</span>
                   </div>
-                  <h3 className="mt-8 font-serif text-4xl text-brown transition-colors duration-500 group-hover:text-olive md:text-5xl">
+                  <h3 className={`mt-8 font-serif text-4xl text-brown transition-colors duration-500 group-hover:text-olive ${CHAPTER_TITLE_CLASSES[index]}`}>
                     {chapter.title}
                   </h3>
                   <p className="mt-4 max-w-xs text-sm leading-7 text-brown-soft">
