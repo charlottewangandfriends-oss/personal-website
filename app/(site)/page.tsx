@@ -8,6 +8,7 @@ export default async function HomePage() {
     <Hero
       colorSrc={home.heroColor}
       bwSrc={home.heroBw}
+      positionClass={home.heroPositionClass}
       tagline={home.tagline}
       subtagline={home.subtagline}
     />
