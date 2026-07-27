@@ -21,18 +21,37 @@ const mulish = Mulish({
 export const metadata: Metadata = {
   metadataBase: new URL('https://charlottewangmusic.com'),
   title: {
-    default: 'Charlotte Wang — Conductor & More',
+    default: 'Charlotte Wang — Conductor and More',
     template: '%s — Charlotte Wang',
   },
   description:
     'Shuyao “Charlotte” Wang is a conductor, composer, soprano, and collaborative pianist whose work bridges choral, orchestral, and literary imagination.',
   openGraph: {
-    title: ''Charlotte Wang — Conductor & More',
+    title: 'Charlotte Wang — Conductor and More',
     description:
       'Conductor, composer, soprano, and collaborative pianist whose work bridges choral, orchestral, and literary imagination.',
     url: 'https://charlottewangmusic.com',
     siteName: 'Charlotte Wang',
+    images: [
+      {
+        url: '/image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Charlotte Wang — Conductor & More',
+      },
+    ],
     type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Charlotte Wang — Conductor & More',
+    description:
+      'Conductor, composer, soprano, and collaborative pianist whose work bridges choral, orchestral, and literary imagination.',
+    images: ['/image.png'],
+  },
+  icons: {
+    icon: '/image.png',
+    apple: '/image.png',
   },
 };
 
