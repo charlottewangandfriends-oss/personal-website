@@ -26,20 +26,15 @@ export const metadata: Metadata = {
   },
   description:
     'Shuyao “Charlotte” Wang is a conductor, composer, soprano, and collaborative pianist whose work bridges choral, orchestral, and literary imagination.',
+  alternates: {
+    canonical: 'https://charlottewangmusic.com',
+  },
   openGraph: {
     title: 'Charlotte Wang — Conductor and More',
     description:
       'Conductor, composer, soprano, and collaborative pianist whose work bridges choral, orchestral, and literary imagination.',
     url: 'https://charlottewangmusic.com',
     siteName: 'Charlotte Wang',
-    images: [
-      {
-        url: '/image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Charlotte Wang — Conductor & More',
-      },
-    ],
     type: 'website',
   },
   twitter: {
@@ -47,12 +42,6 @@ export const metadata: Metadata = {
     title: 'Charlotte Wang — Conductor & More',
     description:
       'Conductor, composer, soprano, and collaborative pianist whose work bridges choral, orchestral, and literary imagination.',
-    images: ['/image.png'],
-  },
-  icons: {
-    icon: [{ url: '/image.png?v=20260727', type: 'image/png' }],
-    shortcut: '/image.png?v=20260727',
-    apple: [{ url: '/image.png?v=20260727', type: 'image/png' }],
   },
 };
 
