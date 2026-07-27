@@ -159,6 +159,8 @@ export default config({
         }),
         body: fields.text({
           label: 'Statement',
+          description:
+            'Separate paragraphs with a blank line. Begin a section heading with “## ”, for example “## Community & Education”.',
           multiline: true,
           defaultValue: ABOUT_STATEMENT,
         }),
@@ -166,7 +168,7 @@ export default config({
           label: 'Card description',
           multiline: true,
           defaultValue:
-            "Charlotte's conducting philosophy, building trust and inspiration in rehearsal rooms, and approaching music as a shared human experience.",
+            "Why Charlotte chose music—and how community, teaching, and chamber music shape her belief in music as a way of knowing one another.",
         }),
         cardPhoto: image('Card photo', 'Displayed at 16:10. The website trims anything outside that shape.'),
         cardPhotoPosition: imagePosition('Card photo — crop focus'),
