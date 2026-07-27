@@ -269,6 +269,14 @@ export async function getVideos() {
     .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 }
 
+export async function getMediaIntroSections(category: string) {
+  const entries = await reader.collections.mediaSections.all();
+  return entries
+    .map((e) => ({ slug: e.slug, ...e.entry }))
+    .filter((section) => section.category === category)
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+}
+
 export async function getGallery(category?: string) {
   const entries = await reader.collections.gallery.all();
   const uploaded = entries
