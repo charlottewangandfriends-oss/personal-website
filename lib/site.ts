@@ -96,6 +96,19 @@ export const VIDEO_CATEGORIES = [
     description: 'Collaborative piano performances with singers and instrumentalists.',
     img: '/images/charlotte-group-backstage.jpg',
   },
+  {
+    value: 'percussion-viola',
+    label: 'Percussion & Viola',
+    description:
+      'Performances on percussion and viola in orchestral, chamber, and collaborative settings.',
+    img: '/images/charlotte-conducting-live-2.jpg',
+  },
+  {
+    value: 'charlotte-with-friends',
+    label: 'Charlotte with Friends',
+    description: 'Performances and creative collaborations with friends and fellow musicians.',
+    img: '/images/charlotte-group-backstage.jpg',
+  },
 ] as const;
 
 export const WRITING_CATEGORIES = [
@@ -244,6 +257,18 @@ export async function getVideoCategories() {
       label: data?.pianoLabel || VIDEO_CATEGORIES[3].label,
       description: data?.pianoDescription || VIDEO_CATEGORIES[3].description,
       img: data?.pianoImage ?? VIDEO_CATEGORIES[3].img,
+    },
+    {
+      ...VIDEO_CATEGORIES[4],
+      label: data?.percussionViolaLabel || VIDEO_CATEGORIES[4].label,
+      description: data?.percussionViolaDescription || VIDEO_CATEGORIES[4].description,
+      img: data?.percussionViolaImage ?? VIDEO_CATEGORIES[4].img,
+    },
+    {
+      ...VIDEO_CATEGORIES[5],
+      label: data?.friendsLabel || VIDEO_CATEGORIES[5].label,
+      description: data?.friendsDescription || VIDEO_CATEGORIES[5].description,
+      img: data?.friendsImage ?? VIDEO_CATEGORIES[5].img,
     },
   ];
 }

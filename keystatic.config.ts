@@ -16,6 +16,15 @@ const image = (label: string, description?: string) =>
     publicPath: '/images/uploads/',
   });
 
+const mediaCategoryOptions = [
+  { label: 'Conducting', value: 'conducting' },
+  { label: 'Composition', value: 'composition' },
+  { label: 'Singing', value: 'singing' },
+  { label: 'Collaborative Piano', value: 'collaborative-piano' },
+  { label: 'Percussion & Viola', value: 'percussion-viola' },
+  { label: 'Charlotte with Friends', value: 'charlotte-with-friends' },
+];
+
 export default config({
   storage,
   cloud: {
@@ -192,6 +201,27 @@ export default config({
           defaultValue: 'Collaborative piano performances with singers and instrumentalists.',
         }),
         pianoImage: image('Collaborative Piano — card image'),
+        percussionViolaLabel: fields.text({
+          label: 'Percussion & Viola — display title',
+          defaultValue: 'Percussion & Viola',
+        }),
+        percussionViolaDescription: fields.text({
+          label: 'Percussion & Viola — description',
+          multiline: true,
+          defaultValue:
+            'Performances on percussion and viola in orchestral, chamber, and collaborative settings.',
+        }),
+        percussionViolaImage: image('Percussion & Viola — card image'),
+        friendsLabel: fields.text({
+          label: 'Charlotte with Friends — display title',
+          defaultValue: 'Charlotte with Friends',
+        }),
+        friendsDescription: fields.text({
+          label: 'Charlotte with Friends — description',
+          multiline: true,
+          defaultValue: 'Performances and creative collaborations with friends and fellow musicians.',
+        }),
+        friendsImage: image('Charlotte with Friends — card image'),
       },
     }),
     contact: singleton({
@@ -218,17 +248,13 @@ export default config({
       label: 'Media — Videos',
       path: 'content/videos/*',
       slugField: 'title',
+      columns: ['title', 'category', 'order'],
       format: { data: 'yaml' },
       schema: {
         title: fields.slug({ name: { label: 'Title' } }),
         category: fields.select({
           label: 'Category',
-          options: [
-            { label: 'Conducting', value: 'conducting' },
-            { label: 'Composition', value: 'composition' },
-            { label: 'Singing', value: 'singing' },
-            { label: 'Collaborative Piano', value: 'collaborative-piano' },
-          ],
+          options: mediaCategoryOptions,
           defaultValue: 'conducting',
         }),
         youtubeUrl: fields.url({ label: 'YouTube URL' }),
@@ -246,12 +272,7 @@ export default config({
         category: fields.select({
           label: 'Show this section under',
           description: 'This section will appear before the videos in the selected Media category.',
-          options: [
-            { label: 'Conducting', value: 'conducting' },
-            { label: 'Composition', value: 'composition' },
-            { label: 'Singing', value: 'singing' },
-            { label: 'Collaborative Piano', value: 'collaborative-piano' },
-          ],
+          options: mediaCategoryOptions,
           defaultValue: 'conducting',
         }),
         eyebrow: fields.text({
@@ -301,12 +322,7 @@ export default config({
         category: fields.select({
           label: 'Show this photo under',
           description: 'The photo will appear automatically in this Media category.',
-          options: [
-            { label: 'Conducting', value: 'conducting' },
-            { label: 'Composition', value: 'composition' },
-            { label: 'Singing', value: 'singing' },
-            { label: 'Collaborative Piano', value: 'collaborative-piano' },
-          ],
+          options: mediaCategoryOptions,
           defaultValue: 'conducting',
         }),
         photo: image('Photo'),

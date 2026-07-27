@@ -6,7 +6,7 @@ import { getMediaPage, getVideoCategories } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Media — Watch & Listen',
-  description: 'Conducting, composition, voice, collaborative piano, and Charlotte and Friends performances.',
+  description: 'Conducting, composition, voice, collaborative piano, percussion, viola, and Charlotte with Friends performances.',
 };
 
 export default async function MediaPage() {
