@@ -6,13 +6,21 @@
   --color-paper: #fbfaf6;
   --color-greige: #e3ded3;
   --color-greige-deep: #d6cfc0;
-  --color-lavender: #c7c2d4;
-  --color-lavender-soft: #ddd9e6;
-  --color-olive: #74723f;
-  --color-olive-deep: #5d5b30;
+
+  /* 浅紫色 (Soft Lavender / Violet) */
+  --color-lavender: #c5c0d4;
+  --color-lavender-soft: #e5e1ee;
+  --color-lavender-deep: #9d96b4;
+
+  /* 土绿色 (Earthy Olive Green) */
+  --color-olive: #737142;
+  --color-olive-soft: #e4e2c8;
+  --color-olive-deep: #55532d;
+
+  /* 深棕色 (Warm Brown) */
   --color-brown: #3f2f21;
   --color-brown-soft: #5f4d3c;
-  --color-line: #d9d2c4;
+  --color-line: #dcd5c9;
 
   --font-serif: var(--font-cormorant), Georgia, "Times New Roman", serif;
   --font-sans: var(--font-mulish), ui-sans-serif, system-ui, sans-serif;
@@ -41,7 +49,7 @@
     line-height: 1.08;
   }
   ::selection {
-    background: var(--color-lavender);
+    background: var(--color-lavender-soft);
     color: var(--color-brown);
   }
 }
