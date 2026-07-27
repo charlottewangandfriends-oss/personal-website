@@ -36,10 +36,13 @@ intro: >-
   woven into her daily life: a way of thinking, remembering, imagining, and
   understanding the world. She writes every day, and she will never stop
   writing.
-portrait: /images/uploads/portrait.png
+portrait: /images/uploads/portrait.JPG
 portraitPosition: center
-poetryImagePosition: center
-shortStoryImagePosition: center
+poetryImage: /images/uploads/poetryImage.png
+poetryImagePosition: right
+shortStoryImage: /images/uploads/shortStoryImage.png
+shortStoryImagePosition: top
 memoirImage: /images/uploads/memoirImage.png
-memoirImagePosition: bottom
+memoirImagePosition: upper-center
+proseImage: /images/uploads/proseImage.png
 proseImagePosition: center
