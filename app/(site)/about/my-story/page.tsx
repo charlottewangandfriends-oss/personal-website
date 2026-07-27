@@ -35,7 +35,7 @@ export default async function MyStoryPage() {
             alt="Charlotte Wang Conducting"
             fill
             priority
-            className="object-cover object-center"
+            className={`object-cover ${about.myStoryHeroPositionClass}`}
           />
         </Reveal>
 
