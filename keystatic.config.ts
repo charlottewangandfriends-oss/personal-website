@@ -105,8 +105,11 @@ export default config({
           directory: 'public/files',
           publicPath: '/files/',
         }),
-        portrait: image('Portrait photo', 'Displayed at 5:6 on the About page. The website trims anything outside that shape.'),
-        portraitPosition: imagePosition('Portrait — crop focus', 'top'),
+        portrait: image(
+          'Wide hero photo',
+          'Displayed at 4:3 on phones and 3:2 on larger screens. Place the subject on the left and leave calm space on the right for the page title.',
+        ),
+        portraitPosition: imagePosition('Wide hero photo — crop focus'),
         parallaxPhoto: image(
           'Wide quote photo',
           'Displayed as a wide band. Its height changes by screen size, so choose the most important area below.',
