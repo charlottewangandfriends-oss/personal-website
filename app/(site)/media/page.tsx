@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Reveal from '@/components/Reveal';
 import Gallery from '@/components/Gallery';
-import { getGallery, VIDEO_CATEGORIES } from '@/lib/site';
+import { getGallery, getMediaPage, getVideoCategories } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Media — Watch & Listen',
@@ -11,7 +11,11 @@ export const metadata: Metadata = {
 };
 
 export default async function MediaPage() {
-  const gallery = await getGallery();
+  const [gallery, media, categories] = await Promise.all([
+    getGallery(),
+    getMediaPage(),
+    getVideoCategories(),
+  ]);
 
   return (
     <div className="pt-32 pb-24 md:pt-40">
@@ -21,10 +25,10 @@ export default async function MediaPage() {
             Media
           </span>
           <h1 className="mt-4 max-w-2xl font-serif text-5xl text-brown md:text-6xl">
-            Watch &amp; Listen
+            {media.heading}
           </h1>
           <p className="mt-5 max-w-xl text-lg text-brown-soft">
-            Explore Charlotte&apos;s musical works by category below.
+            {media.intro}
           </p>
         </Reveal>
       </header>
@@ -32,7 +36,7 @@ export default async function MediaPage() {
       {/* Category Superlink Cards Grid */}
       <section className="mx-auto max-w-6xl px-6 mt-16 md:px-10">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {VIDEO_CATEGORIES.map((cat, i) => (
+          {categories.map((cat, i) => (
             <Reveal key={cat.value} delay={i * 90}>
               <Link
                 href={`/media/${cat.value}`}
@@ -74,7 +78,7 @@ export default async function MediaPage() {
         <div className="mx-auto max-w-6xl px-6 md:px-10">
           <Reveal>
             <h2 className="mb-8 flex items-baseline gap-4 font-serif text-3xl text-brown">
-              Photo Gallery
+              {media.galleryHeading}
               <span className="h-px flex-1 bg-line" />
             </h2>
           </Reveal>

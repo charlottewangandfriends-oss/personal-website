@@ -34,6 +34,11 @@ export const DEFAULT_IMAGES = {
   heroBw: '/images/hero-bw.jpg',
   meetCharlottePhoto: '/images/charlotte-lyrical.jpg',
   aboutPortrait: '/images/charlotte-podium.jpg',
+  aboutParallax: '/images/charlotte-conducting-live-2.jpg',
+  storyCardPhoto: '/images/charlotte-conducting-live-2.jpg',
+  statementCardPhoto: '/images/charlotte-group-backstage.jpg',
+  myStoryHeroPhoto: '/images/charlotte-conducting-live-2.jpg',
+  statementHeroPhoto: '/images/charlotte-group-backstage.jpg',
   writingPortrait: '/images/charlotte-lyrical.jpg',
 };
 
@@ -126,6 +131,21 @@ export async function getAbout() {
     statement: data?.statement || ABOUT_STATEMENT,
     cv: data?.cv ?? null,
     portrait: data?.portrait ?? DEFAULT_IMAGES.aboutPortrait,
+    parallaxPhoto: data?.parallaxPhoto ?? DEFAULT_IMAGES.aboutParallax,
+    parallaxQuote:
+      data?.parallaxQuote ||
+      'Rehearsal rooms where people feel heard, trusted, and inspired to give their best.',
+    storyCardPhoto: data?.storyCardPhoto ?? DEFAULT_IMAGES.storyCardPhoto,
+    storyCardTitle: data?.storyCardTitle || "Charlotte's Music Journey",
+    storyCardDescription:
+      data?.storyCardDescription ||
+      "Explore Charlotte's path from Amherst College to graduate studies in choral conducting at the University of Michigan, her mentors, and her musical development.",
+    statementCardPhoto: data?.statementCardPhoto ?? DEFAULT_IMAGES.statementCardPhoto,
+    statementCardDescription:
+      data?.statementCardDescription ||
+      "Charlotte's conducting philosophy, building trust and inspiration in rehearsal rooms, and approaching music as a shared human experience.",
+    myStoryHeroPhoto: data?.myStoryHeroPhoto ?? DEFAULT_IMAGES.myStoryHeroPhoto,
+    statementHeroPhoto: data?.statementHeroPhoto ?? DEFAULT_IMAGES.statementHeroPhoto,
   };
 }
 
@@ -135,7 +155,78 @@ export async function getWritingIntro() {
     heading: data?.heading ?? 'Charlotte Wang, writer',
     intro: data?.intro || WRITING_INTRO,
     portrait: data?.portrait ?? DEFAULT_IMAGES.writingPortrait,
+    categoriesEyebrow: data?.categoriesEyebrow || 'Categories',
+    categoriesHeading: data?.categoriesHeading || 'Explore Writing Works',
   };
+}
+
+export async function getWritingCategories() {
+  const data = await reader.singletons.writing.read();
+  return [
+    {
+      ...WRITING_CATEGORIES[0],
+      label: data?.poetryLabel || WRITING_CATEGORIES[0].label,
+      description: data?.poetryDescription || WRITING_CATEGORIES[0].description,
+      img: data?.poetryImage ?? WRITING_CATEGORIES[0].img,
+    },
+    {
+      ...WRITING_CATEGORIES[1],
+      label: data?.shortStoryLabel || WRITING_CATEGORIES[1].label,
+      description: data?.shortStoryDescription || WRITING_CATEGORIES[1].description,
+      img: data?.shortStoryImage ?? WRITING_CATEGORIES[1].img,
+    },
+    {
+      ...WRITING_CATEGORIES[2],
+      label: data?.memoirLabel || WRITING_CATEGORIES[2].label,
+      description: data?.memoirDescription || WRITING_CATEGORIES[2].description,
+      img: data?.memoirImage ?? WRITING_CATEGORIES[2].img,
+    },
+    {
+      ...WRITING_CATEGORIES[3],
+      label: data?.proseLabel || WRITING_CATEGORIES[3].label,
+      description: data?.proseDescription || WRITING_CATEGORIES[3].description,
+      img: data?.proseImage ?? WRITING_CATEGORIES[3].img,
+    },
+  ];
+}
+
+export async function getMediaPage() {
+  const data = await reader.singletons.media.read();
+  return {
+    heading: data?.heading || 'Watch & Listen',
+    intro: data?.intro || "Explore Charlotte's musical works by category below.",
+    galleryHeading: data?.galleryHeading || 'Photo Gallery',
+  };
+}
+
+export async function getVideoCategories() {
+  const data = await reader.singletons.media.read();
+  return [
+    {
+      ...VIDEO_CATEGORIES[0],
+      label: data?.conductingLabel || VIDEO_CATEGORIES[0].label,
+      description: data?.conductingDescription || VIDEO_CATEGORIES[0].description,
+      img: data?.conductingImage ?? VIDEO_CATEGORIES[0].img,
+    },
+    {
+      ...VIDEO_CATEGORIES[1],
+      label: data?.compositionLabel || VIDEO_CATEGORIES[1].label,
+      description: data?.compositionDescription || VIDEO_CATEGORIES[1].description,
+      img: data?.compositionImage ?? VIDEO_CATEGORIES[1].img,
+    },
+    {
+      ...VIDEO_CATEGORIES[2],
+      label: data?.singingLabel || VIDEO_CATEGORIES[2].label,
+      description: data?.singingDescription || VIDEO_CATEGORIES[2].description,
+      img: data?.singingImage ?? VIDEO_CATEGORIES[2].img,
+    },
+    {
+      ...VIDEO_CATEGORIES[3],
+      label: data?.pianoLabel || VIDEO_CATEGORIES[3].label,
+      description: data?.pianoDescription || VIDEO_CATEGORIES[3].description,
+      img: data?.pianoImage ?? VIDEO_CATEGORIES[3].img,
+    },
+  ];
 }
 
 export async function getContact() {
