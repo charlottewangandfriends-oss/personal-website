@@ -53,9 +53,9 @@ export default async function AboutPage() {
       {/* Parallax quote band */}
       <div className="mt-24">
         <Parallax
-          src="/images/charlotte-conducting-live-2.jpg"
+          src={about.parallaxPhoto}
           objectPosition="center 30%"
-          quote="Rehearsal rooms where people feel heard, trusted, and inspired to give their best."
+          quote={about.parallaxQuote}
           className="h-[52vh] md:h-[66vh]"
         />
       </div>
@@ -76,7 +76,7 @@ export default async function AboutPage() {
             >
               <div className="relative aspect-[16/10] overflow-hidden">
                 <Image
-                  src="/images/charlotte-conducting-live-2.jpg"
+                  src={about.storyCardPhoto}
                   alt="Charlotte's music journey"
                   fill
                   sizes="(max-width: 768px) 90vw, 45vw"
@@ -86,10 +86,10 @@ export default async function AboutPage() {
               <div className="p-8">
                 <p className="eyebrow">My Story</p>
                 <h3 className="mt-2 font-serif text-2xl text-brown transition-colors group-hover:text-olive">
-                  Charlotte&apos;s Music Journey
+                  {about.storyCardTitle}
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-brown-soft">
-                  Explore Charlotte&apos;s path from Amherst College to graduate studies in choral conducting at the University of Michigan, her mentors, and her musical development.
+                  {about.storyCardDescription}
                 </p>
                 <span className="link-underline mt-6 inline-block text-xs font-semibold uppercase tracking-wider text-olive">
                   Read full story →
@@ -106,7 +106,7 @@ export default async function AboutPage() {
             >
               <div className="relative aspect-[16/10] overflow-hidden">
                 <Image
-                  src="/images/charlotte-group-backstage.jpg"
+                  src={about.statementCardPhoto}
                   alt="Music, Community, and Human Connection"
                   fill
                   sizes="(max-width: 768px) 90vw, 45vw"
@@ -119,7 +119,7 @@ export default async function AboutPage() {
                   {about.statementHeading}
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-brown-soft">
-                  Charlotte&apos;s conducting philosophy, building trust and inspiration in rehearsal rooms, and approaching music as a shared human experience.
+                  {about.statementCardDescription}
                 </p>
                 <span className="link-underline mt-6 inline-block text-xs font-semibold uppercase tracking-wider text-olive">
                   Read statement →
