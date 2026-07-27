@@ -35,7 +35,7 @@ export default async function MediaPage() {
             <Reveal key={cat.value} delay={i * 90}>
               <Link
                 href={`/media/${cat.value}`}
-                className="group flex flex-col h-full overflow-hidden rounded-xl border border-line border-t-4 border-t-olive bg-paper transition-all hover:border-olive/60 hover:shadow-md"
+                className="editorial-card group flex h-full flex-col overflow-hidden rounded-xl border border-line"
               >
                 <div className="relative aspect-[16/10] overflow-hidden">
                   <Image
@@ -43,7 +43,7 @@ export default async function MediaPage() {
                     alt={cat.label}
                     fill
                     sizes="(max-width: 768px) 90vw, 30vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    className={`object-cover ${cat.imgPositionClass} transition-transform duration-700 group-hover:scale-105`}
                   />
                 </div>
                 <div className="p-7 flex flex-col flex-1 justify-between">

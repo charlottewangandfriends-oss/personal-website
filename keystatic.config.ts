@@ -1,5 +1,5 @@
 import { config, fields, collection, singleton } from '@keystatic/core';
-import { ABOUT_BIO, ABOUT_STATEMENT, HOME_INTRO, WRITING_INTRO } from './lib/defaults';
+import { ABOUT_BIO, ABOUT_STATEMENT, WRITING_INTRO } from './lib/defaults';
 
 // Local development writes directly to disk. The deployed editor uses
 // Keystatic Cloud to authenticate and commit edits to GitHub.
@@ -14,6 +14,38 @@ const image = (label: string, description?: string) =>
     description: description ?? 'Leave empty to keep the current default photo, or upload to replace it.',
     directory: 'public/images/uploads',
     publicPath: '/images/uploads/',
+  });
+
+type ImagePosition =
+  | 'center'
+  | 'upper-center'
+  | 'top'
+  | 'bottom'
+  | 'left'
+  | 'right'
+  | 'top-left'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-right';
+
+const imagePosition = (label: string, defaultValue: ImagePosition = 'center') =>
+  fields.select({
+    label,
+    description:
+      'Choose the part of the image that must stay visible when the website trims it to the displayed shape.',
+    options: [
+      { label: 'Center', value: 'center' },
+      { label: 'Upper center', value: 'upper-center' },
+      { label: 'Top', value: 'top' },
+      { label: 'Bottom', value: 'bottom' },
+      { label: 'Left', value: 'left' },
+      { label: 'Right', value: 'right' },
+      { label: 'Top left', value: 'top-left' },
+      { label: 'Top right', value: 'top-right' },
+      { label: 'Bottom left', value: 'bottom-left' },
+      { label: 'Bottom right', value: 'bottom-right' },
+    ],
+    defaultValue,
   });
 
 const mediaCategoryOptions = [
@@ -49,68 +81,94 @@ export default config({
           defaultValue:
             '“Who plays some viola and percussion and sometimes sings tenor in choir”',
         }),
-        introHeading: fields.text({ label: 'Intro heading', defaultValue: 'Meet Charlotte' }),
-        intro: fields.text({
-          label: 'Intro paragraph',
-          multiline: true,
-          defaultValue: HOME_INTRO,
-        }),
-        heroColor: image('Hero photo (color)'),
-        heroBw: image('Hero photo (black & white)'),
-        meetCharlottePhoto: image('Meet Charlotte photo'),
+        heroColor: image(
+          'Hero photo (color)',
+          'Displayed at 3:4. Use the matching black-and-white photo below for a clean crossfade.',
+        ),
+        heroBw: image(
+          'Hero photo (black & white)',
+          'Displayed at 3:4. Use the same framing as the color photo above.',
+        ),
+        heroPhotoPosition: imagePosition('Hero photos — crop focus'),
       },
     }),
     about: singleton({
-      label: 'About page',
+      label: 'About — Biography',
       path: 'content/about',
       format: { data: 'yaml' },
       schema: {
-        heading: fields.text({ label: 'Heading', defaultValue: 'Charlotte Wang, conductor and more' }),
+        heading: fields.text({ label: 'Page heading', defaultValue: 'Charlotte Wang, conductor and more' }),
         bio: fields.text({ label: 'Biography', multiline: true, defaultValue: ABOUT_BIO }),
-        myStoryHeading: fields.text({ label: 'My Story heading', defaultValue: 'My Story' }),
-        myStory: fields.text({
-          label: 'My Story',
-          multiline: true,
-          defaultValue: '(Coming soon.)',
-        }),
-        statementHeading: fields.text({
-          label: 'Statement heading',
-          defaultValue: 'Music, Community, and Human Connection',
-        }),
-        statement: fields.text({ label: 'Statement', multiline: true, defaultValue: ABOUT_STATEMENT }),
         cv: fields.file({
           label: 'CV (PDF)',
           description: 'Upload a PDF to enable the “Download CV” button.',
           directory: 'public/files',
           publicPath: '/files/',
         }),
-        portrait: image('Portrait photo'),
-        parallaxPhoto: image('About — wide quote photo'),
+        portrait: image('Portrait photo', 'Displayed at 4:5. The website trims anything outside that shape.'),
+        portraitPosition: imagePosition('Portrait — crop focus', 'top'),
+        parallaxPhoto: image(
+          'Wide quote photo',
+          'Displayed as a wide band. Its height changes by screen size, so choose the most important area below.',
+        ),
+        parallaxPhotoPosition: imagePosition('Wide quote photo — crop focus', 'upper-center'),
         parallaxQuote: fields.text({
-          label: 'About — quote over wide photo',
+          label: 'Quote over wide photo',
           multiline: true,
           defaultValue: 'Rehearsal rooms where people feel heard, trusted, and inspired to give their best.',
         }),
-        storyCardPhoto: image('About — My Story card photo'),
-        storyCardTitle: fields.text({
-          label: 'About — My Story card title',
+      },
+    }),
+    aboutStory: singleton({
+      label: 'About — My Story',
+      path: 'content/about-story',
+      format: { data: 'yaml' },
+      schema: {
+        title: fields.text({
+          label: 'Title',
           defaultValue: "Charlotte's Music Journey",
         }),
-        storyCardDescription: fields.text({
-          label: 'About — My Story card description',
+        body: fields.text({
+          label: 'My Story',
+          multiline: true,
+          defaultValue: '(Coming soon.)',
+        }),
+        cardDescription: fields.text({
+          label: 'Card description',
           multiline: true,
           defaultValue:
             "Explore Charlotte's path from Amherst College to graduate studies in choral conducting at the University of Michigan, her mentors, and her musical development.",
         }),
-        statementCardPhoto: image('About — Philosophy card photo'),
-        statementCardDescription: fields.text({
-          label: 'About — Philosophy card description',
+        cardPhoto: image('Card photo', 'Displayed at 16:10. The website trims anything outside that shape.'),
+        cardPhotoPosition: imagePosition('Card photo — crop focus'),
+        heroPhoto: image('Header photo', 'Displayed at 16:9. The website trims anything outside that shape.'),
+        heroPhotoPosition: imagePosition('Header photo — crop focus'),
+      },
+    }),
+    aboutCommunity: singleton({
+      label: 'About — Music & Community',
+      path: 'content/about-community',
+      format: { data: 'yaml' },
+      schema: {
+        title: fields.text({
+          label: 'Title',
+          defaultValue: 'Music, Community, and Human Connection',
+        }),
+        body: fields.text({
+          label: 'Statement',
+          multiline: true,
+          defaultValue: ABOUT_STATEMENT,
+        }),
+        cardDescription: fields.text({
+          label: 'Card description',
           multiline: true,
           defaultValue:
             "Charlotte's conducting philosophy, building trust and inspiration in rehearsal rooms, and approaching music as a shared human experience.",
         }),
-        myStoryHeroPhoto: image('My Story — header photo'),
-        statementHeroPhoto: image('Philosophy statement — header photo'),
+        cardPhoto: image('Card photo', 'Displayed at 16:10. The website trims anything outside that shape.'),
+        cardPhotoPosition: imagePosition('Card photo — crop focus'),
+        heroPhoto: image('Header photo', 'Displayed at 16:9. The website trims anything outside that shape.'),
+        heroPhotoPosition: imagePosition('Header photo — crop focus'),
       },
     }),
     writing: singleton({
@@ -120,7 +178,8 @@ export default config({
       schema: {
         heading: fields.text({ label: 'Heading', defaultValue: 'Charlotte Wang, writer' }),
         intro: fields.text({ label: 'Intro', multiline: true, defaultValue: WRITING_INTRO }),
-        portrait: image('Portrait photo'),
+        portrait: image('Portrait photo', 'Displayed at 4:5. The website trims anything outside that shape.'),
+        portraitPosition: imagePosition('Portrait — crop focus'),
         categoriesEyebrow: fields.text({ label: 'Categories label', defaultValue: 'Categories' }),
         categoriesHeading: fields.text({
           label: 'Categories section heading',
@@ -132,14 +191,22 @@ export default config({
           multiline: true,
           defaultValue: 'Poetry in English, Chinese, and French.',
         }),
-        poetryImage: image('Poetry — card image'),
+        poetryImage: image(
+          'Poetry — card image',
+          'Displayed at 16:9. The website trims anything outside that shape.',
+        ),
+        poetryImagePosition: imagePosition('Poetry — crop focus'),
         shortStoryLabel: fields.text({ label: 'Short Story — display title', defaultValue: 'Short Story' }),
         shortStoryDescription: fields.text({
           label: 'Short Story — description',
           multiline: true,
           defaultValue: 'Short fiction exploring memory, identity, and human connection.',
         }),
-        shortStoryImage: image('Short Story — card image'),
+        shortStoryImage: image(
+          'Short Story — card image',
+          'Displayed at 16:9. The website trims anything outside that shape.',
+        ),
+        shortStoryImagePosition: imagePosition('Short Story — crop focus'),
         memoirLabel: fields.text({
           label: 'Dear Past, Dear Tomorrow — display title',
           defaultValue: 'Dear Past, Dear Tomorrow',
@@ -149,14 +216,22 @@ export default config({
           multiline: true,
           defaultValue: "Selections and reflections from Charlotte's memoir project.",
         }),
-        memoirImage: image('Dear Past, Dear Tomorrow — card image'),
+        memoirImage: image(
+          'Dear Past, Dear Tomorrow — card image',
+          'Displayed at 16:9. The website trims anything outside that shape.',
+        ),
+        memoirImagePosition: imagePosition('Dear Past, Dear Tomorrow — crop focus'),
         proseLabel: fields.text({ label: 'Prose & Blogs — display title', defaultValue: 'Prose & Blogs' }),
         proseDescription: fields.text({
           label: 'Prose & Blogs — description',
           multiline: true,
           defaultValue: 'Essays, reflections, and occasional notes.',
         }),
-        proseImage: image('Prose & Blogs — card image'),
+        proseImage: image(
+          'Prose & Blogs — card image',
+          'Displayed at 16:9. The website trims anything outside that shape.',
+        ),
+        proseImagePosition: imagePosition('Prose & Blogs — crop focus'),
       },
     }),
     media: singleton({
@@ -176,21 +251,33 @@ export default config({
           multiline: true,
           defaultValue: 'Conducting performances, rehearsals, and musical collaborations.',
         }),
-        conductingImage: image('Conducting — card image'),
+        conductingImage: image(
+          'Conducting — card image',
+          'Displayed at 16:10. The website trims anything outside that shape.',
+        ),
+        conductingImagePosition: imagePosition('Conducting — crop focus'),
         compositionLabel: fields.text({ label: 'Composition — display title', defaultValue: 'Composition' }),
         compositionDescription: fields.text({
           label: 'Composition — description',
           multiline: true,
           defaultValue: "Original compositions and performances of Charlotte's music.",
         }),
-        compositionImage: image('Composition — card image'),
+        compositionImage: image(
+          'Composition — card image',
+          'Displayed at 16:10. The website trims anything outside that shape.',
+        ),
+        compositionImagePosition: imagePosition('Composition — crop focus'),
         singingLabel: fields.text({ label: 'Singing — display title', defaultValue: 'Singing' }),
         singingDescription: fields.text({
           label: 'Singing — description',
           multiline: true,
           defaultValue: 'Solo and ensemble vocal performances.',
         }),
-        singingImage: image('Singing — card image'),
+        singingImage: image(
+          'Singing — card image',
+          'Displayed at 16:10. The website trims anything outside that shape.',
+        ),
+        singingImagePosition: imagePosition('Singing — crop focus'),
         pianoLabel: fields.text({
           label: 'Collaborative Piano — display title',
           defaultValue: 'Collaborative Piano',
@@ -200,7 +287,11 @@ export default config({
           multiline: true,
           defaultValue: 'Collaborative piano performances with singers and instrumentalists.',
         }),
-        pianoImage: image('Collaborative Piano — card image'),
+        pianoImage: image(
+          'Collaborative Piano — card image',
+          'Displayed at 16:10. The website trims anything outside that shape.',
+        ),
+        pianoImagePosition: imagePosition('Collaborative Piano — crop focus'),
         percussionViolaLabel: fields.text({
           label: 'Percussion & Viola — display title',
           defaultValue: 'Percussion & Viola',
@@ -211,7 +302,11 @@ export default config({
           defaultValue:
             'Performances on percussion and viola in orchestral, chamber, and collaborative settings.',
         }),
-        percussionViolaImage: image('Percussion & Viola — card image'),
+        percussionViolaImage: image(
+          'Percussion & Viola — card image',
+          'Displayed at 16:10. The website trims anything outside that shape.',
+        ),
+        percussionViolaImagePosition: imagePosition('Percussion & Viola — crop focus'),
         friendsLabel: fields.text({
           label: 'Charlotte with Friends — display title',
           defaultValue: 'Charlotte with Friends',
@@ -221,7 +316,11 @@ export default config({
           multiline: true,
           defaultValue: 'Performances and creative collaborations with friends and fellow musicians.',
         }),
-        friendsImage: image('Charlotte with Friends — card image'),
+        friendsImage: image(
+          'Charlotte with Friends — card image',
+          'Displayed at 16:10. The website trims anything outside that shape.',
+        ),
+        friendsImagePosition: imagePosition('Charlotte with Friends — crop focus'),
       },
     }),
     contact: singleton({
@@ -286,8 +385,9 @@ export default config({
         }),
         sectionImage: image(
           'Section image',
-          'Optional. Upload an image to place beside or below the text.',
+          'Optional. Displayed at 4:3; the website trims anything outside that shape.',
         ),
+        sectionImagePosition: imagePosition('Section image — crop focus'),
         imageAlt: fields.text({
           label: 'Image description (accessibility)',
           description: 'Briefly describe the image for visitors using screen readers.',
@@ -325,7 +425,11 @@ export default config({
           options: mediaCategoryOptions,
           defaultValue: 'conducting',
         }),
-        photo: image('Photo'),
+        photo: image(
+          'Photo',
+          'The category thumbnail is displayed at 4:3; the lightbox shows the full image.',
+        ),
+        photoPosition: imagePosition('Thumbnail — crop focus'),
         order: fields.integer({ label: 'Sort order', defaultValue: 0 }),
       },
     }),

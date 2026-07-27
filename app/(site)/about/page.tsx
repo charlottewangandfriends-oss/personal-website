@@ -37,7 +37,7 @@ export default async function AboutPage() {
               alt="Charlotte Wang"
               fill
               sizes="(max-width: 768px) 90vw, 40vw"
-              className="object-cover object-top"
+              className={`object-cover ${about.portraitPositionClass}`}
             />
           </Reveal>
         </div>
@@ -54,7 +54,7 @@ export default async function AboutPage() {
       <div className="mt-24">
         <Parallax
           src={about.parallaxPhoto}
-          objectPosition="center 30%"
+          objectPosition={about.parallaxPhotoPosition}
           quote={about.parallaxQuote}
           className="h-[52vh] md:h-[66vh]"
         />
@@ -72,7 +72,7 @@ export default async function AboutPage() {
           <Reveal delay={100}>
             <Link
               href="/about/my-story"
-              className="group block overflow-hidden rounded-sm border border-line bg-paper transition-all hover:border-brown/40"
+              className="editorial-card group block overflow-hidden rounded-sm border border-line"
             >
               <div className="relative aspect-[16/10] overflow-hidden">
                 <Image
@@ -80,7 +80,7 @@ export default async function AboutPage() {
                   alt="Charlotte's music journey"
                   fill
                   sizes="(max-width: 768px) 90vw, 45vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  className={`object-cover ${about.storyCardPositionClass} transition-transform duration-700 group-hover:scale-105`}
                 />
               </div>
               <div className="p-8">
@@ -102,7 +102,7 @@ export default async function AboutPage() {
           <Reveal delay={200}>
             <Link
               href="/about/music-community-human-connection"
-              className="group block overflow-hidden rounded-sm border border-line bg-paper transition-all hover:border-brown/40"
+              className="editorial-card group block overflow-hidden rounded-sm border border-line"
             >
               <div className="relative aspect-[16/10] overflow-hidden">
                 <Image
@@ -110,7 +110,7 @@ export default async function AboutPage() {
                   alt="Music, Community, and Human Connection"
                   fill
                   sizes="(max-width: 768px) 90vw, 45vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  className={`object-cover ${about.statementCardPositionClass} transition-transform duration-700 group-hover:scale-105`}
                 />
               </div>
               <div className="p-8">

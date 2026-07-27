@@ -35,7 +35,7 @@ export default async function MusicCommunityPage() {
             alt="Charlotte Wang with ensemble"
             fill
             priority
-            className="object-cover object-center"
+            className={`object-cover ${about.statementHeroPositionClass}`}
           />
         </Reveal>
 

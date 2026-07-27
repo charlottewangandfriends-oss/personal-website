@@ -40,7 +40,7 @@ function SectionImage({ section }: { section: MediaIntroSection }) {
           alt={section.imageAlt || section.title}
           fill
           sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-cover"
+          className={`object-cover ${section.imagePositionClass}`}
         />
       </div>
       {section.imageCaption && (
@@ -67,7 +67,7 @@ export default function MediaIntroSections({
 
         return (
           <Reveal key={section.slug} delay={Math.min(index * 80, 240)} as="article">
-            <div className="overflow-hidden rounded-sm border border-line bg-paper/65 p-6 shadow-[0_16px_50px_rgba(63,47,33,0.05)] md:p-10">
+            <div className="editorial-card overflow-hidden rounded-sm border border-line p-6 md:p-10">
               {isWide ? (
                 <>
                   <SectionCopy section={section} />
