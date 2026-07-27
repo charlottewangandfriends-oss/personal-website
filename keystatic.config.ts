@@ -375,11 +375,18 @@ export default config({
           defaultValue: 'Libretto by Haoran Tong',
         }),
         librettoUrl: fields.text({
-          label: 'Libretto link',
-          description: 'Optional. Paste either a full URL or a path on this website.',
+          label: 'Libretto source document',
+          description:
+            'Optional reference for editors. The public website links to the internal libretto page instead.',
+        }),
+        librettoBody: fields.text({
+          label: 'Libretto page — full text',
+          description:
+            'Paste the full libretto here. Keep verse lines on separate lines and use a blank line between stanzas.',
+          multiline: true,
         }),
         librettoLinkLabel: fields.text({
-          label: 'Libretto link label',
+          label: 'Internal libretto link label',
           defaultValue: 'Read the libretto',
         }),
         premiereHeading: fields.text({
@@ -401,7 +408,7 @@ export default config({
           description: 'Optional. Use this for a Google Doc or another hosted program. It takes priority over the uploaded PDF.',
         }),
         programButtonLabel: fields.text({
-          label: 'Program download button',
+          label: 'Program superlink label',
           defaultValue: 'Download concert program',
         }),
         collaborationHeading: fields.text({

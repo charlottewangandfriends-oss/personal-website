@@ -305,6 +305,7 @@ export async function getCompositionFeature() {
       "Requiem: Ceaseless Life brings together Charlotte's interests in composition, text, voice, and ensemble storytelling.",
     featuredVideoSlug: data?.featuredVideo || 'requiem-ceaseless-life',
     librettoUrl: data?.librettoUrl?.trim() || null,
+    librettoBody: data?.librettoBody || '',
     librettoCredit: data?.librettoCredit || 'Libretto by Haoran Tong',
     librettoLinkLabel: data?.librettoLinkLabel || 'Read the libretto',
     premiereHeading: data?.premiereHeading || 'Premiere concert',

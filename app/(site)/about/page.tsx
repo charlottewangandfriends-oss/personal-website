@@ -7,27 +7,39 @@ import { getAbout, toParagraphs } from '@/lib/site';
 
 export const metadata: Metadata = { title: 'About' };
 
+const HERO_FADE_STYLE = {
+  background:
+    'linear-gradient(to right, rgba(244, 241, 234, 0) 0%, rgba(244, 241, 234, 0.7) 58%, #f4f1ea 100%)',
+} as const;
+
 export default async function AboutPage() {
   const about = await getAbout();
   const bio = toParagraphs(about.bio);
 
   return (
-    <article>
+    <article className="pt-[4.25rem] md:pt-[4.5rem]">
       {/* Full-bleed feathered hero */}
       <header className="overflow-hidden bg-cream">
         <Reveal className="relative h-[82vw] min-h-[23rem] max-h-[34rem] overflow-hidden bg-cream md:h-[clamp(38rem,54vw,54rem)] md:max-h-none">
-          <Image
-            src={about.portrait}
-            alt="Charlotte Wang with a conductor's baton"
-            fill
-            priority
-            unoptimized={about.portrait.endsWith('.svg')}
-            sizes="100vw"
-            className={`scale-[1.006] object-cover ${about.portraitPositionClass} md:object-contain md:object-left`}
-          />
+          <div className="absolute left-0 top-0 h-full w-full overflow-hidden md:aspect-[1346/1010] md:w-auto md:max-w-full">
+            <Image
+              src={about.portrait}
+              alt="Charlotte Wang with a conductor's baton"
+              fill
+              priority
+              unoptimized={about.portrait.endsWith('.svg')}
+              sizes="(max-width: 767px) 100vw, 75vw"
+              className={`scale-[1.006] object-cover ${about.portraitPositionClass} md:object-left`}
+            />
 
-          {/* Soft edge fades blend the photograph into the page without obscuring its details. */}
-          <div className="absolute inset-y-0 right-0 hidden w-[62%] bg-gradient-to-r from-transparent via-cream/75 to-cream md:block" />
+            {/* The fade ends inside the image, so its right edge can never form a hard seam. */}
+            <div
+              className="absolute inset-y-0 right-0 hidden w-[42%] md:block"
+              style={HERO_FADE_STYLE}
+            />
+          </div>
+
+          {/* Keep the lower feather light enough that the score on the table remains visible. */}
           <div className="absolute inset-x-0 bottom-0 h-[12%] bg-gradient-to-b from-transparent via-cream/15 to-cream md:h-[10%]" />
 
           <div className="relative z-10 mx-auto hidden h-full max-w-7xl items-center px-10 md:flex">
