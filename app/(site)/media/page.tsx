@@ -1,46 +1,73 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
 import Reveal from '@/components/Reveal';
-import VideoGrid from '@/components/VideoGrid';
 import Gallery from '@/components/Gallery';
-import { getVideos, getGallery, VIDEO_CATEGORIES } from '@/lib/site';
+import { getGallery, VIDEO_CATEGORIES } from '@/lib/site';
 
-export const metadata: Metadata = { title: 'Media' };
+export const metadata: Metadata = {
+  title: 'Media — Watch & Listen',
+  description: 'Conducting, composition, voice, collaborative piano, and Charlotte and Friends performances.',
+};
 
 export default async function MediaPage() {
-  const [videos, gallery] = await Promise.all([getVideos(), getGallery()]);
+  const gallery = await getGallery();
 
   return (
-    <div className="pt-32 md:pt-40">
+    <div className="pt-32 pb-24 md:pt-40">
       <header className="mx-auto max-w-6xl px-6 md:px-10">
         <Reveal>
-          <p className="eyebrow">Media</p>
+          <span className="inline-block px-3.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-olive-soft/70 text-olive-deep">
+            Media
+          </span>
           <h1 className="mt-4 max-w-2xl font-serif text-5xl text-brown md:text-6xl">
-            Watch &amp; listen
+            Watch &amp; Listen
           </h1>
           <p className="mt-5 max-w-xl text-lg text-brown-soft">
-            A growing collection of conducting, composition, singing, and collaborative piano.
+            Explore Charlotte&apos;s musical works by category below.
           </p>
         </Reveal>
       </header>
 
-      <div className="mx-auto max-w-6xl px-6 md:px-10">
-        {VIDEO_CATEGORIES.map((cat) => {
-          const items = videos.filter((v) => v.category === cat.value);
-          return (
-            <section key={cat.value} className="mt-20 first:mt-16">
-              <Reveal>
-                <h2 className="mb-8 flex items-baseline gap-4 font-serif text-3xl text-brown">
-                  {cat.label}
-                  <span className="h-px flex-1 bg-line" />
-                </h2>
-              </Reveal>
-              <Reveal delay={80}>
-                <VideoGrid videos={items} />
-              </Reveal>
-            </section>
-          );
-        })}
-      </div>
+      {/* Category Superlink Cards Grid */}
+      <section className="mx-auto max-w-6xl px-6 mt-16 md:px-10">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {VIDEO_CATEGORIES.map((cat, i) => (
+            <Reveal key={cat.value} delay={i * 90}>
+              <Link
+                href={`/media/${cat.value}`}
+                className="group flex flex-col h-full overflow-hidden rounded-xl border border-line border-t-4 border-t-olive bg-paper transition-all hover:border-olive/60 hover:shadow-md"
+              >
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <Image
+                    src={cat.img}
+                    alt={cat.label}
+                    fill
+                    sizes="(max-width: 768px) 90vw, 30vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+                <div className="p-7 flex flex-col flex-1 justify-between">
+                  <div>
+                    <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-olive-soft/60 text-olive-deep">
+                      Category
+                    </span>
+                    <h3 className="mt-3 font-serif text-2xl text-brown transition-colors group-hover:text-olive">
+                      {cat.label}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-brown-soft">
+                      {cat.description}
+                    </p>
+                  </div>
+                  <span className="link-underline mt-6 inline-block text-xs font-semibold uppercase tracking-wider text-olive">
+                    Watch &amp; listen →
+                  </span>
+                </div>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
+      </section>
 
       {/* Photo gallery */}
       <section className="mt-28 bg-greige/40 py-20">
