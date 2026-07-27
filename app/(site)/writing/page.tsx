@@ -23,7 +23,7 @@ export default async function WritingPage() {
       <header className="mx-auto max-w-6xl px-6 md:px-10">
         <div className="grid items-center gap-12 md:grid-cols-[1.1fr_0.9fr] md:gap-16">
           <Reveal>
-            <span className="inline-block px-3.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-lavender-soft text-brown">
+            <span className="inline-block rounded-full bg-lavender-soft/75 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-brown ring-1 ring-lavender/40">
               Writing
             </span>
             <h1 className="mt-4 font-serif text-5xl text-brown md:text-6xl">{intro.heading}</h1>
@@ -44,7 +44,7 @@ export default async function WritingPage() {
               alt="Charlotte Wang"
               fill
               sizes="(max-width: 768px) 90vw, 40vw"
-              className="object-cover"
+              className={`object-cover ${intro.portraitPositionClass}`}
             />
           </Reveal>
         </div>
@@ -66,7 +66,7 @@ export default async function WritingPage() {
               <Reveal key={cat.value} delay={i * 100}>
                 <Link
                   href={`/writing/${cat.value}`}
-                  className="group flex flex-col h-full overflow-hidden rounded-xl border border-line border-t-4 border-t-lavender-deep bg-paper transition-all hover:border-lavender-deep/60 hover:shadow-md"
+                  className="editorial-card group flex h-full flex-col overflow-hidden rounded-xl border border-line"
                 >
                   <div className="relative aspect-[16/9] overflow-hidden">
                     <Image
@@ -74,7 +74,7 @@ export default async function WritingPage() {
                       alt={cat.label}
                       fill
                       sizes="(max-width: 768px) 90vw, 45vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      className={`object-cover ${cat.imgPositionClass} transition-transform duration-700 group-hover:scale-105`}
                     />
                   </div>
                   <div className="p-8 flex flex-col flex-1 justify-between">
