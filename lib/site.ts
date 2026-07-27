@@ -4,6 +4,48 @@ import { ABOUT_BIO, ABOUT_STATEMENT, WRITING_INTRO } from './defaults';
 
 export const reader = createReader(process.cwd(), keystaticConfig);
 
+const IMAGE_POSITION_CLASSES = {
+  center: 'object-center',
+  'upper-center': 'object-[center_30%]',
+  top: 'object-top',
+  bottom: 'object-bottom',
+  left: 'object-left',
+  right: 'object-right',
+  'top-left': 'object-left-top',
+  'top-right': 'object-right-top',
+  'bottom-left': 'object-left-bottom',
+  'bottom-right': 'object-right-bottom',
+} as const;
+
+const IMAGE_POSITION_VALUES = {
+  center: 'center',
+  'upper-center': 'center 30%',
+  top: 'center top',
+  bottom: 'center bottom',
+  left: 'left center',
+  right: 'right center',
+  'top-left': 'left top',
+  'top-right': 'right top',
+  'bottom-left': 'left bottom',
+  'bottom-right': 'right bottom',
+} as const;
+
+function imagePositionClass(value: string | null | undefined, fallback = 'center') {
+  return (
+    IMAGE_POSITION_CLASSES[value as keyof typeof IMAGE_POSITION_CLASSES] ??
+    IMAGE_POSITION_CLASSES[fallback as keyof typeof IMAGE_POSITION_CLASSES] ??
+    IMAGE_POSITION_CLASSES.center
+  );
+}
+
+function imagePositionValue(value: string | null | undefined, fallback = 'center') {
+  return (
+    IMAGE_POSITION_VALUES[value as keyof typeof IMAGE_POSITION_VALUES] ??
+    IMAGE_POSITION_VALUES[fallback as keyof typeof IMAGE_POSITION_VALUES] ??
+    IMAGE_POSITION_VALUES.center
+  );
+}
+
 /** Split a multiline text field into clean paragraphs. */
 export function toParagraphs(text: string | null | undefined): string[] {
   if (!text) return [];
@@ -146,6 +188,7 @@ export async function getHome() {
       '“Who plays some viola and percussion and sometimes sings tenor in choir”',
     heroColor: data?.heroColor ?? DEFAULT_IMAGES.heroColor,
     heroBw: data?.heroBw ?? DEFAULT_IMAGES.heroBw,
+    heroPositionClass: imagePositionClass(data?.heroPhotoPosition),
   };
 }
 
@@ -161,7 +204,9 @@ export async function getAbout() {
     bio: data?.bio || ABOUT_BIO,
     cv: data?.cv ?? null,
     portrait: data?.portrait ?? DEFAULT_IMAGES.aboutPortrait,
+    portraitPositionClass: imagePositionClass(data?.portraitPosition, 'top'),
     parallaxPhoto: data?.parallaxPhoto ?? DEFAULT_IMAGES.aboutParallax,
+    parallaxPhotoPosition: imagePositionValue(data?.parallaxPhotoPosition, 'upper-center'),
     parallaxQuote:
       data?.parallaxQuote ||
       'Rehearsal rooms where people feel heard, trusted, and inspired to give their best.',
@@ -171,14 +216,18 @@ export async function getAbout() {
       story?.cardDescription ||
       "Explore Charlotte's path from Amherst College to graduate studies in choral conducting at the University of Michigan, her mentors, and her musical development.",
     storyCardPhoto: story?.cardPhoto ?? DEFAULT_IMAGES.storyCardPhoto,
+    storyCardPositionClass: imagePositionClass(story?.cardPhotoPosition),
     myStoryHeroPhoto: story?.heroPhoto ?? DEFAULT_IMAGES.myStoryHeroPhoto,
+    myStoryHeroPositionClass: imagePositionClass(story?.heroPhotoPosition),
     statementHeading: community?.title || 'Music, Community, and Human Connection',
     statement: community?.body || ABOUT_STATEMENT,
     statementCardDescription:
       community?.cardDescription ||
       "Charlotte's conducting philosophy, building trust and inspiration in rehearsal rooms, and approaching music as a shared human experience.",
     statementCardPhoto: community?.cardPhoto ?? DEFAULT_IMAGES.statementCardPhoto,
+    statementCardPositionClass: imagePositionClass(community?.cardPhotoPosition),
     statementHeroPhoto: community?.heroPhoto ?? DEFAULT_IMAGES.statementHeroPhoto,
+    statementHeroPositionClass: imagePositionClass(community?.heroPhotoPosition),
   };
 }
 
@@ -188,6 +237,7 @@ export async function getWritingIntro() {
     heading: data?.heading ?? 'Charlotte Wang, writer',
     intro: data?.intro || WRITING_INTRO,
     portrait: data?.portrait ?? DEFAULT_IMAGES.writingPortrait,
+    portraitPositionClass: imagePositionClass(data?.portraitPosition),
     categoriesEyebrow: data?.categoriesEyebrow || 'Categories',
     categoriesHeading: data?.categoriesHeading || 'Explore Writing Works',
   };
@@ -201,24 +251,28 @@ export async function getWritingCategories() {
       label: data?.poetryLabel || WRITING_CATEGORIES[0].label,
       description: data?.poetryDescription || WRITING_CATEGORIES[0].description,
       img: data?.poetryImage ?? WRITING_CATEGORIES[0].img,
+      imgPositionClass: imagePositionClass(data?.poetryImagePosition),
     },
     {
       ...WRITING_CATEGORIES[1],
       label: data?.shortStoryLabel || WRITING_CATEGORIES[1].label,
       description: data?.shortStoryDescription || WRITING_CATEGORIES[1].description,
       img: data?.shortStoryImage ?? WRITING_CATEGORIES[1].img,
+      imgPositionClass: imagePositionClass(data?.shortStoryImagePosition),
     },
     {
       ...WRITING_CATEGORIES[2],
       label: data?.memoirLabel || WRITING_CATEGORIES[2].label,
       description: data?.memoirDescription || WRITING_CATEGORIES[2].description,
       img: data?.memoirImage ?? WRITING_CATEGORIES[2].img,
+      imgPositionClass: imagePositionClass(data?.memoirImagePosition),
     },
     {
       ...WRITING_CATEGORIES[3],
       label: data?.proseLabel || WRITING_CATEGORIES[3].label,
       description: data?.proseDescription || WRITING_CATEGORIES[3].description,
       img: data?.proseImage ?? WRITING_CATEGORIES[3].img,
+      imgPositionClass: imagePositionClass(data?.proseImagePosition),
     },
   ];
 }
@@ -239,36 +293,42 @@ export async function getVideoCategories() {
       label: data?.conductingLabel || VIDEO_CATEGORIES[0].label,
       description: data?.conductingDescription || VIDEO_CATEGORIES[0].description,
       img: data?.conductingImage ?? VIDEO_CATEGORIES[0].img,
+      imgPositionClass: imagePositionClass(data?.conductingImagePosition),
     },
     {
       ...VIDEO_CATEGORIES[1],
       label: data?.compositionLabel || VIDEO_CATEGORIES[1].label,
       description: data?.compositionDescription || VIDEO_CATEGORIES[1].description,
       img: data?.compositionImage ?? VIDEO_CATEGORIES[1].img,
+      imgPositionClass: imagePositionClass(data?.compositionImagePosition),
     },
     {
       ...VIDEO_CATEGORIES[2],
       label: data?.singingLabel || VIDEO_CATEGORIES[2].label,
       description: data?.singingDescription || VIDEO_CATEGORIES[2].description,
       img: data?.singingImage ?? VIDEO_CATEGORIES[2].img,
+      imgPositionClass: imagePositionClass(data?.singingImagePosition),
     },
     {
       ...VIDEO_CATEGORIES[3],
       label: data?.pianoLabel || VIDEO_CATEGORIES[3].label,
       description: data?.pianoDescription || VIDEO_CATEGORIES[3].description,
       img: data?.pianoImage ?? VIDEO_CATEGORIES[3].img,
+      imgPositionClass: imagePositionClass(data?.pianoImagePosition),
     },
     {
       ...VIDEO_CATEGORIES[4],
       label: data?.percussionViolaLabel || VIDEO_CATEGORIES[4].label,
       description: data?.percussionViolaDescription || VIDEO_CATEGORIES[4].description,
       img: data?.percussionViolaImage ?? VIDEO_CATEGORIES[4].img,
+      imgPositionClass: imagePositionClass(data?.percussionViolaImagePosition),
     },
     {
       ...VIDEO_CATEGORIES[5],
       label: data?.friendsLabel || VIDEO_CATEGORIES[5].label,
       description: data?.friendsDescription || VIDEO_CATEGORIES[5].description,
       img: data?.friendsImage ?? VIDEO_CATEGORIES[5].img,
+      imgPositionClass: imagePositionClass(data?.friendsImagePosition),
     },
   ];
 }
@@ -297,7 +357,11 @@ export async function getVideos() {
 export async function getMediaIntroSections(category: string) {
   const entries = await reader.collections.mediaSections.all();
   return entries
-    .map((e) => ({ slug: e.slug, ...e.entry }))
+    .map((e) => ({
+      slug: e.slug,
+      ...e.entry,
+      imagePositionClass: imagePositionClass(e.entry.sectionImagePosition),
+    }))
     .filter((section) => section.category === category)
     .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 }
@@ -311,14 +375,20 @@ export async function getGallery(category?: string) {
       src: e.photo ?? '',
       caption: e.caption,
       category: e.category ?? 'conducting',
+      positionClass: imagePositionClass(e.photoPosition),
     }))
     .filter((e) => e.src);
 
-  if (!category) return uploaded.length ? uploaded : DEFAULT_GALLERY;
+  const defaultGallery = DEFAULT_GALLERY.map((photo) => ({
+    ...photo,
+    positionClass: IMAGE_POSITION_CLASSES.center,
+  }));
+
+  if (!category) return uploaded.length ? uploaded : defaultGallery;
 
   const categoryUploads = uploaded.filter((e) => e.category === category);
   if (categoryUploads.length) return categoryUploads;
-  return DEFAULT_GALLERY.filter((e) => e.category === category);
+  return defaultGallery.filter((e) => e.category === category);
 }
 
 export async function getWritings() {
