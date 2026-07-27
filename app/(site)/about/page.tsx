@@ -13,21 +13,25 @@ export default async function AboutPage() {
 
   return (
     <article className="pt-24 sm:pt-28 lg:pt-32">
-      {/* Wide hero */}
-      <header className="mx-auto max-w-6xl px-6 md:px-10">
-        <Reveal className="relative overflow-hidden rounded-[3px] border border-line bg-greige/40 shadow-[0_24px_70px_rgba(63,47,33,0.08)]">
-          <div className="relative aspect-[4/3] md:aspect-[3/2]">
-            <Image
-              src={about.portrait}
-              alt="Charlotte Wang with a conductor's baton"
-              fill
-              priority
-              unoptimized={about.portrait.endsWith('.svg')}
-              sizes="(max-width: 768px) 92vw, 72rem"
-              className={`scale-[1.004] object-cover ${about.portraitPositionClass}`}
-            />
-            <div className="absolute inset-y-0 right-0 hidden w-[52%] bg-gradient-to-r from-transparent via-cream/5 to-cream/15 md:block" />
-            <div className="absolute inset-y-0 left-[55%] right-[5%] hidden flex-col justify-center md:flex">
+      {/* Full-bleed feathered hero */}
+      <header className="overflow-hidden bg-cream">
+        <Reveal className="relative h-[82vw] min-h-[23rem] max-h-[34rem] overflow-hidden bg-cream md:h-[clamp(38rem,54vw,54rem)] md:max-h-none">
+          <Image
+            src={about.portrait}
+            alt="Charlotte Wang with a conductor's baton"
+            fill
+            priority
+            unoptimized={about.portrait.endsWith('.svg')}
+            sizes="100vw"
+            className={`object-cover ${about.portraitPositionClass}`}
+          />
+
+          {/* Long fades remove the feeling of a framed image. */}
+          <div className="absolute inset-y-0 right-0 hidden w-[62%] bg-gradient-to-r from-transparent via-cream/75 to-cream md:block" />
+          <div className="absolute inset-x-0 bottom-0 h-[30%] bg-gradient-to-b from-transparent via-cream/60 to-cream md:h-[34%]" />
+
+          <div className="relative z-10 mx-auto hidden h-full max-w-7xl items-center px-10 md:flex">
+            <div className="ml-auto w-[44%] -translate-y-[3%] lg:w-[43%]">
               <p className="eyebrow">About</p>
               <h1 className="mt-4 font-serif text-[2.3rem] leading-[0.98] text-brown lg:text-5xl xl:text-[3.6rem]">
                 {about.heading}
@@ -44,7 +48,7 @@ export default async function AboutPage() {
           </div>
         </Reveal>
 
-        <Reveal className="mt-7 md:hidden">
+        <Reveal className="relative z-10 -mt-9 px-6 md:hidden">
           <p className="eyebrow">About</p>
           <h1 className="mt-3 font-serif text-5xl leading-[0.98] text-brown">
             {about.heading}
@@ -61,7 +65,7 @@ export default async function AboutPage() {
       </header>
 
       {/* Bio Summary */}
-      <section className="mx-auto mt-16 max-w-3xl px-6 md:mt-20 md:px-10">
+      <section className="mx-auto mt-14 max-w-3xl px-6 md:mt-8 md:px-10">
         <Reveal className="prose-warm text-[1.08rem]">
           {bio.length ? bio.map((p, i) => <p key={i}>{p}</p>) : <p>Biography coming soon.</p>}
         </Reveal>

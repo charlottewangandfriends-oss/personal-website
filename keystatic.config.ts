@@ -107,7 +107,7 @@ export default config({
         }),
         portrait: image(
           'Wide hero photo',
-          'Displayed at 4:3 on phones and 3:2 on larger screens. Place the subject on the left and leave calm space on the right for the page title.',
+          'Displayed full-width and feathered into the page. Use a landscape image with the subject on the left and calm space on the right for the page title.',
         ),
         portraitPosition: imagePosition('Wide hero photo — crop focus'),
         parallaxPhoto: image(
@@ -324,6 +324,87 @@ export default config({
           'Displayed at 16:10. The website trims anything outside that shape.',
         ),
         friendsImagePosition: imagePosition('Charlotte with Friends — crop focus'),
+      },
+    }),
+    compositionFeature: singleton({
+      label: 'Composition — Requiem',
+      path: 'content/composition-feature',
+      format: { data: 'yaml' },
+      schema: {
+        featureEyebrow: fields.text({
+          label: 'Composition page — small label',
+          defaultValue: 'Featured work',
+        }),
+        featureTitle: fields.text({
+          label: 'Composition page — work title',
+          defaultValue: 'Requiem: Ceaseless Life',
+        }),
+        featureSummary: fields.text({
+          label: 'Composition page — short introduction',
+          description: 'Shown in the standalone Requiem section before the other composition videos.',
+          multiline: true,
+        }),
+        featureLinkLabel: fields.text({
+          label: 'Composition page — link label',
+          defaultValue: 'Explore the Requiem',
+        }),
+        detailEyebrow: fields.text({
+          label: 'Requiem page — small label',
+          defaultValue: 'Composition',
+        }),
+        detailIntroduction: fields.text({
+          label: 'Requiem page — introduction',
+          multiline: true,
+        }),
+        aboutHeading: fields.text({
+          label: 'About section — heading',
+          defaultValue: 'About the work',
+        }),
+        aboutBody: fields.text({
+          label: 'About section — text',
+          description: 'Separate paragraphs with a blank line.',
+          multiline: true,
+        }),
+        featuredVideo: fields.relationship({
+          label: 'Featured video',
+          description: 'Choose an existing entry from Media — Videos. Editing that video there updates this page too.',
+          collection: 'videos',
+        }),
+        librettoUrl: fields.text({
+          label: 'Libretto link',
+          description: 'Optional. Paste either a full URL or a path on this website.',
+        }),
+        librettoLinkLabel: fields.text({
+          label: 'Libretto link label',
+          defaultValue: 'Read the libretto',
+        }),
+        premiereHeading: fields.text({
+          label: 'Premiere concert — heading',
+          defaultValue: 'Premiere concert',
+        }),
+        premiereBody: fields.text({
+          label: 'Premiere concert — text',
+          multiline: true,
+        }),
+        programPdf: fields.file({
+          label: 'Premiere concert — program PDF',
+          description: 'Upload a PDF to show the download button on the Requiem page.',
+          directory: 'public/files/programs',
+          publicPath: '/files/programs/',
+        }),
+        programButtonLabel: fields.text({
+          label: 'Program download button',
+          defaultValue: 'Download concert program',
+        }),
+        collaborationHeading: fields.text({
+          label: 'Collaboration section — heading',
+          defaultValue: 'And what?',
+        }),
+        collaborationBody: fields.text({
+          label: 'Collaboration section — text',
+          description: 'Use this space for future performances, commissions, or collaboration ideas.',
+          multiline: true,
+        }),
       },
     }),
     contact: singleton({
