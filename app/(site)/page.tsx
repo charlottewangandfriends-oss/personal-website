@@ -18,13 +18,14 @@ export default async function HomePage() {
       />
 
       {/* Meet Charlotte */}
-      <section className="relative py-16 md:py-24 my-6 overflow-hidden">
-        {/* Soft lavender background gradient wash */}
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-lavender-soft/40 to-transparent" />
+      <section className="relative my-6 overflow-hidden py-16 md:py-24">
+        {/* A quiet warm-stone wash connects the hero to the editorial card. */}
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-greige/45 to-transparent" />
         
         <div className="mx-auto max-w-6xl px-6 md:px-10">
-          <div className="grid items-center gap-12 md:grid-cols-[0.9fr_1.1fr] md:gap-16 bg-paper/90 backdrop-blur-sm p-8 sm:p-12 md:p-14 rounded-2xl border border-lavender/40 shadow-sm">
-            <Reveal className="relative aspect-[4/5] overflow-hidden rounded-xl border border-lavender/50 shadow-md">
+          <div className="relative grid items-center gap-12 overflow-hidden rounded-[1.5rem] border border-line bg-paper/95 p-8 shadow-[0_24px_70px_-50px_rgba(63,47,33,0.45)] sm:p-12 md:grid-cols-[0.9fr_1.1fr] md:gap-16 md:p-14">
+            <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-olive/15 via-olive/65 to-brown/35" />
+            <Reveal className="relative aspect-[4/5] overflow-hidden rounded-[1rem] border border-line shadow-[0_18px_45px_-28px_rgba(63,47,33,0.55)]">
               <Image
                 src={home.meetCharlottePhoto}
                 alt="Charlotte Wang"
@@ -34,7 +35,7 @@ export default async function HomePage() {
               />
             </Reveal>
             <Reveal delay={120}>
-              <span className="inline-block px-3.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-lavender text-brown shadow-xs">
+              <span className="inline-block rounded-full border border-olive/20 bg-olive-soft/65 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-olive-deep">
                 {home.introHeading}
               </span>
               <h2 className="mt-4 font-serif text-4xl text-brown md:text-5xl">
