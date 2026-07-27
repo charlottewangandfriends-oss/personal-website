@@ -74,7 +74,7 @@ export function youtubeId(url: string | null | undefined): string | null {
 export const DEFAULT_IMAGES = {
   heroColor: '/images/hero-color.jpg',
   heroBw: '/images/hero-bw.jpg',
-  aboutPortrait: '/images/charlotte-podium.jpg',
+  aboutPortrait: '/images/charlotte-about-wide.svg',
   aboutParallax: '/images/charlotte-conducting-live-2.jpg',
   storyCardPhoto: '/images/charlotte-conducting-live-2.jpg',
   statementCardPhoto: '/images/charlotte-group-backstage.jpg',
@@ -204,7 +204,7 @@ export async function getAbout() {
     bio: data?.bio || ABOUT_BIO,
     cv: data?.cv ?? null,
     portrait: data?.portrait ?? DEFAULT_IMAGES.aboutPortrait,
-    portraitPositionClass: imagePositionClass(data?.portraitPosition, 'top'),
+    portraitPositionClass: imagePositionClass(data?.portraitPosition),
     parallaxPhoto: data?.parallaxPhoto ?? DEFAULT_IMAGES.aboutParallax,
     parallaxPhotoPosition: imagePositionValue(data?.parallaxPhotoPosition, 'upper-center'),
     parallaxQuote:
