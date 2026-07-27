@@ -12,13 +12,15 @@ export default async function AboutPage() {
   const bio = toParagraphs(about.bio);
 
   return (
-    <article className="pt-32 md:pt-40">
+    <article className="pt-28 sm:pt-32 lg:pt-36">
       {/* Header */}
       <header className="mx-auto max-w-6xl px-6 md:px-10">
-        <div className="grid items-end gap-10 md:grid-cols-[1.1fr_0.9fr]">
-          <Reveal>
+        <div className="grid items-center gap-12 lg:grid-cols-[1.12fr_0.88fr] lg:gap-20 xl:gap-24">
+          <Reveal className="max-w-2xl">
             <p className="eyebrow">About</p>
-            <h1 className="mt-4 font-serif text-5xl text-brown md:text-6xl">{about.heading}</h1>
+            <h1 className="mt-4 max-w-2xl font-serif text-5xl leading-[0.98] text-brown sm:text-6xl lg:text-[4.25rem]">
+              {about.heading}
+            </h1>
             {about.cv && (
               <a
                 href={about.cv}
@@ -30,13 +32,13 @@ export default async function AboutPage() {
           </Reveal>
           <Reveal
             delay={120}
-            className="relative aspect-[4/5] overflow-hidden rounded-sm border border-line"
+            className="relative mx-auto aspect-[5/6] w-full max-w-[28rem] overflow-hidden rounded-[2px] border border-line shadow-[0_24px_70px_rgba(63,47,33,0.10)] ring-1 ring-lavender/20 lg:mx-0 lg:justify-self-end"
           >
             <Image
               src={about.portrait}
               alt="Charlotte Wang"
               fill
-              sizes="(max-width: 768px) 90vw, 40vw"
+              sizes="(max-width: 1023px) 90vw, 28rem"
               className={`object-cover ${about.portraitPositionClass}`}
             />
           </Reveal>
@@ -44,7 +46,7 @@ export default async function AboutPage() {
       </header>
 
       {/* Bio Summary */}
-      <section className="mx-auto mt-20 max-w-3xl px-6 md:px-10">
+      <section className="mx-auto mt-16 max-w-3xl px-6 md:mt-20 md:px-10">
         <Reveal className="prose-warm text-[1.08rem]">
           {bio.length ? bio.map((p, i) => <p key={i}>{p}</p>) : <p>Biography coming soon.</p>}
         </Reveal>
