@@ -31,7 +31,7 @@ export default async function MyStoryPage() {
 
         <Reveal delay={120} className="relative mt-10 aspect-[16/9] w-full overflow-hidden rounded-sm border border-line">
           <Image
-            src="/images/charlotte-conducting-live-2.jpg"
+            src={about.myStoryHeroPhoto}
             alt="Charlotte Wang Conducting"
             fill
             priority
