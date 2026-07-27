@@ -107,7 +107,7 @@ export default config({
         }),
         portrait: image(
           'Wide hero photo',
-          'Displayed at 4:3 on phones and 3:2 on larger screens. Place the subject on the left and leave calm space on the right for the page title.',
+          'Displayed full-width and feathered into the page. Use a landscape image with the subject on the left and calm space on the right for the page title.',
         ),
         portraitPosition: imagePosition('Wide hero photo — crop focus'),
         parallaxPhoto: image(
