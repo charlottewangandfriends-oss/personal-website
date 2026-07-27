@@ -16,9 +16,9 @@ const WALL_BACKGROUND_STYLE = {
 
 const PHOTO_FEATHER_STYLE = {
   WebkitMaskImage:
-    'radial-gradient(ellipse 58% 94% at 52% 45%, black 43%, rgba(0,0,0,0.9) 55%, rgba(0,0,0,0.52) 72%, rgba(0,0,0,0.12) 88%, transparent 100%)',
+    'radial-gradient(ellipse 54% 92% at 52% 45%, black 45%, rgba(0,0,0,0.96) 54%, rgba(0,0,0,0.72) 60%, rgba(0,0,0,0.26) 68%, rgba(0,0,0,0.06) 75%, transparent 82%)',
   maskImage:
-    'radial-gradient(ellipse 58% 94% at 52% 45%, black 43%, rgba(0,0,0,0.9) 55%, rgba(0,0,0,0.52) 72%, rgba(0,0,0,0.12) 88%, transparent 100%)',
+    'radial-gradient(ellipse 54% 92% at 52% 45%, black 45%, rgba(0,0,0,0.96) 54%, rgba(0,0,0,0.72) 60%, rgba(0,0,0,0.26) 68%, rgba(0,0,0,0.06) 75%, transparent 82%)',
 } as const;
 
 export default async function WritingPage() {
@@ -81,25 +81,38 @@ export default async function WritingPage() {
       </section>
 
       {/* The rest of the introduction reads like an editorial essay, with a
-          generous title column and a drop cap marking each new movement. */}
+          generous title column and quiet section markers for each movement. */}
       {bodyParagraphs.length > 0 && (
-        <section className="mx-auto mt-16 max-w-[88rem] px-6 pb-6 md:mt-24 md:px-10">
-          <Reveal className="grid gap-10 border-t border-line pt-14 md:grid-cols-[0.22fr_0.78fr] md:gap-10 md:pt-20">
+        <section className="mx-auto mt-20 max-w-[94rem] px-6 pb-6 md:mt-32 md:px-8">
+          <Reveal className="grid gap-12 border-t border-line pt-16 md:grid-cols-[0.23fr_0.77fr] md:gap-8 md:pt-24">
             <div>
-              <h2 className="font-serif text-4xl leading-[0.92] tracking-[-0.035em] text-brown md:text-5xl">
-                A writer
-                <br />
-                first
+              <h2 className="max-w-[18rem] font-serif text-brown">
+                <span className="flex items-baseline gap-2 whitespace-nowrap">
+                  <span className="text-4xl leading-none tracking-[-0.035em] md:text-[2.7rem]">
+                    A
+                  </span>
+                  <span className="text-5xl uppercase leading-none tracking-[-0.065em] md:text-[3.7rem]">
+                    writer
+                  </span>
+                </span>
+                <span className="ml-[42%] mt-2 block text-4xl italic leading-none tracking-[-0.035em] md:text-5xl">
+                  first
+                </span>
               </h2>
             </div>
             <div className="grid gap-x-16 lg:grid-cols-2">
               {bodyParagraphs.map((paragraph, index) => (
-                <p
-                  key={index}
-                  className="mb-10 break-inside-avoid text-[1.02rem] leading-8 text-brown-soft first-letter:float-left first-letter:mr-3 first-letter:mt-2 first-letter:font-serif first-letter:text-6xl first-letter:leading-[0.72] first-letter:text-olive md:text-[1.08rem] md:leading-9"
-                >
-                  {paragraph}
-                </p>
+                <div key={index} className="mb-12 break-inside-avoid">
+                  <span
+                    aria-hidden="true"
+                    className="block text-[0.62rem] font-semibold tracking-[0.24em] text-olive/55"
+                  >
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <p className="mt-3 text-[1.02rem] leading-8 text-brown-soft md:text-[1.08rem] md:leading-9">
+                    {paragraph}
+                  </p>
+                </div>
               ))}
             </div>
           </Reveal>
