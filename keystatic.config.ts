@@ -161,7 +161,6 @@ export default config({
           multiline: true,
           defaultValue: "Explore Charlotte's musical works by category below.",
         }),
-        galleryHeading: fields.text({ label: 'Gallery heading', defaultValue: 'Photo Gallery' }),
         conductingLabel: fields.text({ label: 'Conducting — display title', defaultValue: 'Conducting' }),
         conductingDescription: fields.text({
           label: 'Conducting — description',
@@ -238,12 +237,23 @@ export default config({
       },
     }),
     gallery: collection({
-      label: 'Photo gallery',
+      label: 'Media — Category photos',
       path: 'content/gallery/*',
       slugField: 'caption',
       format: { data: 'yaml' },
       schema: {
         caption: fields.slug({ name: { label: 'Caption' } }),
+        category: fields.select({
+          label: 'Show this photo under',
+          description: 'The photo will appear automatically in this Media category.',
+          options: [
+            { label: 'Conducting', value: 'conducting' },
+            { label: 'Composition', value: 'composition' },
+            { label: 'Singing', value: 'singing' },
+            { label: 'Collaborative Piano', value: 'collaborative-piano' },
+          ],
+          defaultValue: 'conducting',
+        }),
         photo: image('Photo'),
         order: fields.integer({ label: 'Sort order', defaultValue: 0 }),
       },
