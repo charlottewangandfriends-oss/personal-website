@@ -236,6 +236,61 @@ export default config({
         order: fields.integer({ label: 'Sort order', defaultValue: 0 }),
       },
     }),
+    mediaSections: collection({
+      label: 'Media — Introduction sections',
+      path: 'content/media-sections/*',
+      slugField: 'title',
+      format: { data: 'yaml' },
+      schema: {
+        title: fields.slug({ name: { label: 'Section heading' } }),
+        category: fields.select({
+          label: 'Show this section under',
+          description: 'This section will appear before the videos in the selected Media category.',
+          options: [
+            { label: 'Conducting', value: 'conducting' },
+            { label: 'Composition', value: 'composition' },
+            { label: 'Singing', value: 'singing' },
+            { label: 'Collaborative Piano', value: 'collaborative-piano' },
+          ],
+          defaultValue: 'conducting',
+        }),
+        eyebrow: fields.text({
+          label: 'Small label above heading',
+          description: 'Optional. For example: About the work, Selected projects, or In rehearsal.',
+        }),
+        body: fields.text({
+          label: 'Body text',
+          description: 'Optional. Separate paragraphs with a blank line.',
+          multiline: true,
+        }),
+        sectionImage: image(
+          'Section image',
+          'Optional. Upload an image to place beside or below the text.',
+        ),
+        imageAlt: fields.text({
+          label: 'Image description (accessibility)',
+          description: 'Briefly describe the image for visitors using screen readers.',
+        }),
+        imageCaption: fields.text({
+          label: 'Image caption',
+          description: 'Optional caption shown below the image.',
+        }),
+        layout: fields.select({
+          label: 'Layout',
+          options: [
+            { label: 'Text left, image right', value: 'image-right' },
+            { label: 'Image left, text right', value: 'image-left' },
+            { label: 'Wide image below text', value: 'wide-image' },
+          ],
+          defaultValue: 'image-right',
+        }),
+        order: fields.integer({
+          label: 'Sort order',
+          description: 'Lower numbers appear first.',
+          defaultValue: 0,
+        }),
+      },
+    }),
     gallery: collection({
       label: 'Media — Category photos',
       path: 'content/gallery/*',
