@@ -32,6 +32,7 @@ export function youtubeId(url: string | null | undefined): string | null {
 export const DEFAULT_IMAGES = {
   heroColor: '/images/hero-color.jpg',
   heroBw: '/images/hero-bw.jpg',
+  meetCharlottePhoto: '/images/charlotte-lyrical.jpg',
   aboutPortrait: '/images/charlotte-podium.jpg',
   writingPortrait: '/images/charlotte-lyrical.jpg',
 };
@@ -46,17 +47,57 @@ export const DEFAULT_GALLERY = [
 ];
 
 export const VIDEO_CATEGORIES = [
-  { value: 'conducting', label: 'Conducting' },
-  { value: 'composition', label: 'Composition' },
-  { value: 'singing', label: 'Singing' },
-  { value: 'collaborative-piano', label: 'Collaborative Piano' },
+  {
+    value: 'conducting',
+    label: 'Conducting',
+    description: 'Conducting performances, rehearsals, and musical collaborations.',
+    img: '/images/charlotte-conducting-live-1.jpg',
+  },
+  {
+    value: 'composition',
+    label: 'Composition',
+    description: 'Original compositions and performances of Charlotte’s music.',
+    img: '/images/charlotte-podium.jpg',
+  },
+  {
+    value: 'singing',
+    label: 'Singing',
+    description: 'Solo and ensemble vocal performances.',
+    img: '/images/charlotte-lyrical.jpg',
+  },
+  {
+    value: 'collaborative-piano',
+    label: 'Collaborative Piano',
+    description: 'Collaborative piano performances with singers and instrumentalists.',
+    img: '/images/charlotte-group-backstage.jpg',
+  },
 ] as const;
 
 export const WRITING_CATEGORIES = [
-  { value: 'poetry', label: 'Poetry' },
-  { value: 'short-story', label: 'Short Story' },
-  { value: 'dear-past-dear-tomorrow', label: 'Dear Past, Dear Tomorrow' },
-  { value: 'prose-blog', label: 'Proses & Blogs' },
+  {
+    value: 'poetry',
+    label: 'Poetry',
+    description: 'Poetry in English, Chinese, and French.',
+    img: '/images/charlotte-lyrical.jpg',
+  },
+  {
+    value: 'short-story',
+    label: 'Short Story',
+    description: 'Short fiction exploring memory, identity, and human connection.',
+    img: '/images/charlotte-group-backstage.jpg',
+  },
+  {
+    value: 'dear-past-dear-tomorrow',
+    label: 'Dear Past, Dear Tomorrow',
+    description: 'Selections and reflections from Charlotte’s memoir project.',
+    img: '/images/hero-bw.jpg',
+  },
+  {
+    value: 'prose-blog',
+    label: 'Prose & Blogs',
+    description: 'Essays, reflections, and occasional notes.',
+    img: '/images/charlotte-podium.jpg',
+  },
 ] as const;
 
 export async function getHome() {
@@ -70,6 +111,7 @@ export async function getHome() {
     intro: data?.intro || HOME_INTRO,
     heroColor: data?.heroColor ?? DEFAULT_IMAGES.heroColor,
     heroBw: data?.heroBw ?? DEFAULT_IMAGES.heroBw,
+    meetCharlottePhoto: data?.meetCharlottePhoto ?? DEFAULT_IMAGES.meetCharlottePhoto,
   };
 }
 
