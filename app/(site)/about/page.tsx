@@ -12,7 +12,7 @@ export default async function AboutPage() {
   const bio = toParagraphs(about.bio);
 
   return (
-    <article className="pt-24 sm:pt-28 lg:pt-32">
+    <article>
       {/* Full-bleed feathered hero */}
       <header className="overflow-hidden bg-cream">
         <Reveal className="relative h-[82vw] min-h-[23rem] max-h-[34rem] overflow-hidden bg-cream md:h-[clamp(38rem,54vw,54rem)] md:max-h-none">
@@ -27,7 +27,6 @@ export default async function AboutPage() {
           />
 
           {/* Soft edge fades blend the photograph into the page without obscuring its details. */}
-          <div className="absolute inset-x-0 top-0 h-[12%] bg-gradient-to-b from-cream via-cream/40 to-transparent" />
           <div className="absolute inset-y-0 right-0 hidden w-[62%] bg-gradient-to-r from-transparent via-cream/75 to-cream md:block" />
           <div className="absolute inset-x-0 bottom-0 h-[12%] bg-gradient-to-b from-transparent via-cream/15 to-cream md:h-[10%]" />
 
