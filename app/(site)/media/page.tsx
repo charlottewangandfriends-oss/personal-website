@@ -2,8 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import Reveal from '@/components/Reveal';
-import Gallery from '@/components/Gallery';
-import { getGallery, getMediaPage, getVideoCategories } from '@/lib/site';
+import { getMediaPage, getVideoCategories } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Media — Watch & Listen',
@@ -11,11 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default async function MediaPage() {
-  const [gallery, media, categories] = await Promise.all([
-    getGallery(),
-    getMediaPage(),
-    getVideoCategories(),
-  ]);
+  const [media, categories] = await Promise.all([getMediaPage(), getVideoCategories()]);
 
   return (
     <div className="pt-32 pb-24 md:pt-40">
@@ -53,9 +48,6 @@ export default async function MediaPage() {
                 </div>
                 <div className="p-7 flex flex-col flex-1 justify-between">
                   <div>
-                    <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-olive-soft/60 text-olive-deep">
-                      Category
-                    </span>
                     <h3 className="mt-3 font-serif text-2xl text-brown transition-colors group-hover:text-olive">
                       {cat.label}
                     </h3>
@@ -73,20 +65,6 @@ export default async function MediaPage() {
         </div>
       </section>
 
-      {/* Photo gallery */}
-      <section className="mt-28 bg-greige/40 py-20">
-        <div className="mx-auto max-w-6xl px-6 md:px-10">
-          <Reveal>
-            <h2 className="mb-8 flex items-baseline gap-4 font-serif text-3xl text-brown">
-              {media.galleryHeading}
-              <span className="h-px flex-1 bg-line" />
-            </h2>
-          </Reveal>
-          <Reveal delay={80}>
-            <Gallery photos={gallery} />
-          </Reveal>
-        </div>
-      </section>
     </div>
   );
 }

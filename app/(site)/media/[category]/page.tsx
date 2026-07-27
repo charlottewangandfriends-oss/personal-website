@@ -2,8 +2,9 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Reveal from '@/components/Reveal';
+import Gallery from '@/components/Gallery';
 import VideoGrid from '@/components/VideoGrid';
-import { getVideoCategories, getVideos, VIDEO_CATEGORIES } from '@/lib/site';
+import { getGallery, getVideoCategories, getVideos, VIDEO_CATEGORIES } from '@/lib/site';
 
 export async function generateStaticParams() {
   return VIDEO_CATEGORIES.map((c) => ({ category: c.value }));
@@ -32,6 +33,7 @@ export default async function MediaCategoryPage({
 
 
   const videos = allVideos.filter((v) => v.category === cat.value);
+  const photos = await getGallery(cat.value);
 
   return (
     <div className="pt-32 pb-24 md:pt-40">
@@ -43,7 +45,7 @@ export default async function MediaCategoryPage({
           >
             ← Back to Media
           </Link>
-          <p className="eyebrow mt-6">Media Category</p>
+          <p className="eyebrow mt-6">Media</p>
           <h1 className="mt-3 font-serif text-4xl text-brown sm:text-5xl md:text-6xl">
             {cat.label}
           </h1>
@@ -57,6 +59,20 @@ export default async function MediaCategoryPage({
         <Reveal delay={80}>
           <VideoGrid videos={videos} />
         </Reveal>
+
+        {photos.length > 0 && (
+          <section className="mt-20 border-t border-line pt-14">
+            <Reveal>
+              <p className="eyebrow">Photography</p>
+              <h2 className="mt-3 font-serif text-3xl text-brown md:text-4xl">
+                {cat.label} in photos
+              </h2>
+            </Reveal>
+            <Reveal delay={80} className="mt-8">
+              <Gallery photos={photos} />
+            </Reveal>
+          </section>
+        )}
 
         <Reveal delay={200} className="mt-16 border-t border-line pt-8">
           <Link

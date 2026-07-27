@@ -44,11 +44,31 @@ export const DEFAULT_IMAGES = {
 
 /** Curated gallery shown until Charlotte adds her own photos in the editor. */
 export const DEFAULT_GALLERY = [
-  { src: '/images/charlotte-conducting-live-1.jpg', caption: 'In concert' },
-  { src: '/images/charlotte-conducting-live-2.jpg', caption: 'On the podium' },
-  { src: '/images/charlotte-group-backstage.jpg', caption: 'After the performance' },
-  { src: '/images/charlotte-podium.jpg', caption: 'Studio portrait' },
-  { src: '/images/charlotte-lyrical.jpg', caption: 'Studio portrait' },
+  {
+    src: '/images/charlotte-conducting-live-1.jpg',
+    caption: 'In concert',
+    category: 'conducting',
+  },
+  {
+    src: '/images/charlotte-conducting-live-2.jpg',
+    caption: 'On the podium',
+    category: 'conducting',
+  },
+  {
+    src: '/images/charlotte-group-backstage.jpg',
+    caption: 'After the performance',
+    category: 'collaborative-piano',
+  },
+  {
+    src: '/images/charlotte-podium.jpg',
+    caption: 'Studio portrait',
+    category: 'composition',
+  },
+  {
+    src: '/images/charlotte-lyrical.jpg',
+    caption: 'Studio portrait',
+    category: 'singing',
+  },
 ];
 
 export const VIDEO_CATEGORIES = [
@@ -195,7 +215,6 @@ export async function getMediaPage() {
   return {
     heading: data?.heading || 'Watch & Listen',
     intro: data?.intro || "Explore Charlotte's musical works by category below.",
-    galleryHeading: data?.galleryHeading || 'Photo Gallery',
   };
 }
 
@@ -250,14 +269,23 @@ export async function getVideos() {
     .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 }
 
-export async function getGallery() {
+export async function getGallery(category?: string) {
   const entries = await reader.collections.gallery.all();
-  if (entries.length === 0) return DEFAULT_GALLERY;
-  return entries
+  const uploaded = entries
     .map((e) => e.entry)
     .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
-    .map((e) => ({ src: e.photo ?? '', caption: e.caption }))
+    .map((e) => ({
+      src: e.photo ?? '',
+      caption: e.caption,
+      category: e.category ?? 'conducting',
+    }))
     .filter((e) => e.src);
+
+  if (!category) return uploaded.length ? uploaded : DEFAULT_GALLERY;
+
+  const categoryUploads = uploaded.filter((e) => e.category === category);
+  if (categoryUploads.length) return categoryUploads;
+  return DEFAULT_GALLERY.filter((e) => e.category === category);
 }
 
 export async function getWritings() {
