@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Reveal from '@/components/Reveal';
 import VideoGrid from '@/components/VideoGrid';
-import { getVideos, VIDEO_CATEGORIES } from '@/lib/site';
+import { getVideoCategories, getVideos, VIDEO_CATEGORIES } from '@/lib/site';
 
 export async function generateStaticParams() {
   return VIDEO_CATEGORIES.map((c) => ({ category: c.value }));
@@ -15,7 +15,8 @@ export async function generateMetadata({
   params: Promise<{ category: string }>;
 }): Promise<Metadata> {
   const { category } = await params;
-  const cat = VIDEO_CATEGORIES.find((c) => c.value === category);
+  const categories = await getVideoCategories();
+  const cat = categories.find((c) => c.value === category);
   return { title: cat ? `${cat.label} — Media` : 'Media' };
 }
 
@@ -25,10 +26,11 @@ export default async function MediaCategoryPage({
   params: Promise<{ category: string }>;
 }) {
   const { category } = await params;
-  const cat = VIDEO_CATEGORIES.find((c) => c.value === category);
+  const [categories, allVideos] = await Promise.all([getVideoCategories(), getVideos()]);
+  const cat = categories.find((c) => c.value === category);
   if (!cat) notFound();
 
-  const allVideos = await getVideos();
+
   const videos = allVideos.filter((v) => v.category === cat.value);
 
   return (
