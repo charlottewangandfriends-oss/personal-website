@@ -19,7 +19,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const category = WRITING_CATEGORIES.find((c) => c.value === slug || (slug === 'prose' && c.value === 'prose'));
+  const category = WRITING_CATEGORIES.find((c) => c.value === slug);
   if (category) {
     return { title: `${category.label} — Writing` };
   }
@@ -35,12 +35,10 @@ export default async function WritingSlugPage({
   const { slug } = await params;
 
   // 1. Check if slug matches a Writing Category
-  const category = WRITING_CATEGORIES.find((c) => c.value === slug || (slug === 'prose' && c.value === 'prose'));
+  const category = WRITING_CATEGORIES.find((c) => c.value === slug);
   if (category) {
     const allWritings = await getWritings();
-    const items = allWritings.filter(
-      (w) => w.category === category.value || (category.value === 'prose' && w.category === 'prose-blog')
-    );
+    const items = allWritings.filter((w) => w.category === category.value);
 
     return (
       <div className="pt-32 pb-24 md:pt-40">
@@ -114,7 +112,7 @@ export default async function WritingSlugPage({
   if (!piece) notFound();
 
   const body = toParagraphs(piece.body);
-  const pieceCat = WRITING_CATEGORIES.find((c) => c.value === piece.category || (c.value === 'prose' && piece.category === 'prose-blog'));
+  const pieceCat = WRITING_CATEGORIES.find((c) => c.value === piece.category);
 
   return (
     <article className="pt-32 pb-24 md:pt-40">
