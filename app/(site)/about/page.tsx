@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import Reveal from '@/components/Reveal';
 import Parallax from '@/components/Parallax';
 import { getAbout, toParagraphs } from '@/lib/site';
@@ -9,8 +10,6 @@ export const metadata: Metadata = { title: 'About' };
 export default async function AboutPage() {
   const about = await getAbout();
   const bio = toParagraphs(about.bio);
-  const myStory = toParagraphs(about.myStory);
-  const statement = toParagraphs(about.statement);
 
   return (
     <article className="pt-32 md:pt-40">
@@ -44,7 +43,7 @@ export default async function AboutPage() {
         </div>
       </header>
 
-      {/* Bio */}
+      {/* Bio Summary */}
       <section className="mx-auto mt-20 max-w-3xl px-6 md:px-10">
         <Reveal className="prose-warm text-[1.08rem]">
           {bio.length ? bio.map((p, i) => <p key={i}>{p}</p>) : <p>Biography coming soon.</p>}
@@ -61,32 +60,72 @@ export default async function AboutPage() {
         />
       </div>
 
-      {/* My Story */}
-      <section className="mx-auto mt-24 max-w-3xl px-6 md:px-10">
+      {/* Explore Sub-pages (Superlinks) */}
+      <section className="mx-auto max-w-6xl px-6 py-24 md:px-10">
         <Reveal>
-          <p className="eyebrow">{about.myStoryHeading}</p>
-          <div className="prose-warm mt-5 text-[1.08rem]">
-            {myStory.length ? (
-              myStory.map((p, i) => <p key={i}>{p}</p>)
-            ) : (
-              <p className="italic text-brown-soft/70">Coming soon.</p>
-            )}
-          </div>
+          <p className="eyebrow mb-2">Explore Further</p>
+          <h2 className="font-serif text-3xl text-brown md:text-4xl">Stories & Philosophy</h2>
         </Reveal>
-      </section>
 
-      {/* Statement */}
-      <section className="mt-24 bg-greige/40 py-20">
-        <div className="mx-auto max-w-3xl px-6 md:px-10">
-          <Reveal>
-            <h2 className="font-serif text-3xl text-brown md:text-4xl">
-              {about.statementHeading}
-            </h2>
-            <div className="prose-warm mt-6 text-[1.08rem]">
-              {statement.map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
-            </div>
+        <div className="mt-10 grid gap-8 md:grid-cols-2">
+          {/* Card 1: Charlotte's Music Journey */}
+          <Reveal delay={100}>
+            <Link
+              href="/about/my-story"
+              className="group block overflow-hidden rounded-sm border border-line bg-paper transition-all hover:border-brown/40"
+            >
+              <div className="relative aspect-[16/10] overflow-hidden">
+                <Image
+                  src="/images/charlotte-conducting-live-2.jpg"
+                  alt="Charlotte's music journey"
+                  fill
+                  sizes="(max-width: 768px) 90vw, 45vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+              </div>
+              <div className="p-8">
+                <p className="eyebrow">My Story</p>
+                <h3 className="mt-2 font-serif text-2xl text-brown transition-colors group-hover:text-olive">
+                  Charlotte&apos;s Music Journey
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-brown-soft">
+                  Explore Charlotte&apos;s path from Amherst College to graduate studies in choral conducting at the University of Michigan, her mentors, and her musical development.
+                </p>
+                <span className="link-underline mt-6 inline-block text-xs font-semibold uppercase tracking-wider text-olive">
+                  Read full story →
+                </span>
+              </div>
+            </Link>
+          </Reveal>
+
+          {/* Card 2: Music, Community, and Human Connection */}
+          <Reveal delay={200}>
+            <Link
+              href="/about/music-community-human-connection"
+              className="group block overflow-hidden rounded-sm border border-line bg-paper transition-all hover:border-brown/40"
+            >
+              <div className="relative aspect-[16/10] overflow-hidden">
+                <Image
+                  src="/images/charlotte-group-backstage.jpg"
+                  alt="Music, Community, and Human Connection"
+                  fill
+                  sizes="(max-width: 768px) 90vw, 45vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+              </div>
+              <div className="p-8">
+                <p className="eyebrow">Philosophy</p>
+                <h3 className="mt-2 font-serif text-2xl text-brown transition-colors group-hover:text-olive">
+                  {about.statementHeading}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-brown-soft">
+                  Charlotte&apos;s conducting philosophy, building trust and inspiration in rehearsal rooms, and approaching music as a shared human experience.
+                </p>
+                <span className="link-underline mt-6 inline-block text-xs font-semibold uppercase tracking-wider text-olive">
+                  Read statement →
+                </span>
+              </div>
+            </Link>
           </Reveal>
         </div>
       </section>
