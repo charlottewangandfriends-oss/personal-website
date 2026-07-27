@@ -3,8 +3,15 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Reveal from '@/components/Reveal';
 import Gallery from '@/components/Gallery';
+import MediaIntroSections from '@/components/MediaIntroSections';
 import VideoGrid from '@/components/VideoGrid';
-import { getGallery, getVideoCategories, getVideos, VIDEO_CATEGORIES } from '@/lib/site';
+import {
+  getGallery,
+  getMediaIntroSections,
+  getVideoCategories,
+  getVideos,
+  VIDEO_CATEGORIES,
+} from '@/lib/site';
 
 export async function generateStaticParams() {
   return VIDEO_CATEGORIES.map((c) => ({ category: c.value }));
@@ -33,7 +40,10 @@ export default async function MediaCategoryPage({
 
 
   const videos = allVideos.filter((v) => v.category === cat.value);
-  const photos = await getGallery(cat.value);
+  const [photos, introSections] = await Promise.all([
+    getGallery(cat.value),
+    getMediaIntroSections(cat.value),
+  ]);
 
   return (
     <div className="pt-32 pb-24 md:pt-40">
@@ -55,10 +65,22 @@ export default async function MediaCategoryPage({
         </Reveal>
       </header>
 
-      <div className="mx-auto max-w-6xl px-6 mt-16 md:px-10">
-        <Reveal delay={80}>
-          <VideoGrid videos={videos} />
-        </Reveal>
+      <div className="mx-auto mt-16 max-w-6xl px-6 md:px-10">
+        <MediaIntroSections sections={introSections} />
+
+        <section className={introSections.length > 0 ? 'border-t border-line pt-14' : ''}>
+          {introSections.length > 0 && (
+            <Reveal>
+              <p className="eyebrow">Watch & Listen</p>
+              <h2 className="mt-3 font-serif text-3xl text-brown md:text-4xl">
+                Selected {cat.label} videos
+              </h2>
+            </Reveal>
+          )}
+          <Reveal delay={80} className={introSections.length > 0 ? 'mt-8' : ''}>
+            <VideoGrid videos={videos} />
+          </Reveal>
+        </section>
 
         {photos.length > 0 && (
           <section className="mt-20 border-t border-line pt-14">
