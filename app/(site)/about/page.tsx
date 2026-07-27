@@ -21,7 +21,7 @@ export default async function AboutPage() {
       {/* Full-bleed feathered hero */}
       <header className="overflow-hidden bg-cream">
         <Reveal className="relative h-[82vw] min-h-[23rem] max-h-[34rem] overflow-hidden bg-cream md:h-[clamp(38rem,54vw,54rem)] md:max-h-none">
-          <div className="absolute left-0 top-0 h-full w-full md:aspect-[1346/1010] md:w-auto md:max-w-full">
+          <div className="absolute left-0 top-0 h-full w-full overflow-hidden md:aspect-[1346/1010] md:w-auto md:max-w-full">
             <Image
               src={about.portrait}
               alt="Charlotte Wang with a conductor's baton"
