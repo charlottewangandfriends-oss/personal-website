@@ -16,7 +16,19 @@ const image = (label: string, description?: string) =>
     publicPath: '/images/uploads/',
   });
 
-const imagePosition = (label: string, defaultValue = 'center') =>
+type ImagePosition =
+  | 'center'
+  | 'upper-center'
+  | 'top'
+  | 'bottom'
+  | 'left'
+  | 'right'
+  | 'top-left'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-right';
+
+const imagePosition = (label: string, defaultValue: ImagePosition = 'center') =>
   fields.select({
     label,
     description:
