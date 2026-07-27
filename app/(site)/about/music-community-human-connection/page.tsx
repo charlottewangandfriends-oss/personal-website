@@ -31,7 +31,7 @@ export default async function MusicCommunityPage() {
 
         <Reveal delay={120} className="relative mt-10 aspect-[16/9] w-full overflow-hidden rounded-sm border border-line">
           <Image
-            src="/images/charlotte-group-backstage.jpg"
+            src={about.statementHeroPhoto}
             alt="Charlotte Wang with ensemble"
             fill
             priority
