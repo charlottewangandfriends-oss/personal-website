@@ -12,37 +12,52 @@ export default async function AboutPage() {
   const bio = toParagraphs(about.bio);
 
   return (
-    <article className="pt-28 sm:pt-32 lg:pt-36">
-      {/* Header */}
+    <article className="pt-24 sm:pt-28 lg:pt-32">
+      {/* Wide hero */}
       <header className="mx-auto max-w-6xl px-6 md:px-10">
-        <div className="grid items-center gap-12 lg:grid-cols-[1.12fr_0.88fr] lg:gap-20 xl:gap-24">
-          <Reveal className="max-w-2xl">
-            <p className="eyebrow">About</p>
-            <h1 className="mt-4 max-w-2xl font-serif text-5xl leading-[0.98] text-brown sm:text-6xl lg:text-[4.25rem]">
-              {about.heading}
-            </h1>
-            {about.cv && (
-              <a
-                href={about.cv}
-                className="mt-8 inline-block rounded-full border border-brown px-7 py-3 text-sm tracking-wide text-brown transition-colors hover:bg-brown hover:text-cream"
-              >
-                Download CV
-              </a>
-            )}
-          </Reveal>
-          <Reveal
-            delay={120}
-            className="relative mx-auto aspect-[5/6] w-full max-w-[28rem] overflow-hidden rounded-[2px] border border-line shadow-[0_24px_70px_rgba(63,47,33,0.10)] ring-1 ring-lavender/20 lg:mx-0 lg:justify-self-end"
-          >
+        <Reveal className="relative overflow-hidden rounded-[3px] border border-line bg-greige/40 shadow-[0_24px_70px_rgba(63,47,33,0.08)]">
+          <div className="relative aspect-[4/3] md:aspect-[3/2]">
             <Image
               src={about.portrait}
-              alt="Charlotte Wang"
+              alt="Charlotte Wang with a conductor's baton"
               fill
-              sizes="(max-width: 1023px) 90vw, 28rem"
-              className={`object-cover ${about.portraitPositionClass}`}
+              priority
+              unoptimized={about.portrait.endsWith('.svg')}
+              sizes="(max-width: 768px) 92vw, 72rem"
+              className={`scale-[1.004] object-cover ${about.portraitPositionClass}`}
             />
-          </Reveal>
-        </div>
+            <div className="absolute inset-y-0 right-0 hidden w-[52%] bg-gradient-to-r from-transparent via-cream/5 to-cream/15 md:block" />
+            <div className="absolute inset-y-0 left-[55%] right-[5%] hidden flex-col justify-center md:flex">
+              <p className="eyebrow">About</p>
+              <h1 className="mt-4 font-serif text-[2.3rem] leading-[0.98] text-brown lg:text-5xl xl:text-[3.6rem]">
+                {about.heading}
+              </h1>
+              {about.cv && (
+                <a
+                  href={about.cv}
+                  className="mt-7 w-fit rounded-full border border-brown/70 px-6 py-2.5 text-sm tracking-wide text-brown transition-colors hover:bg-brown hover:text-cream"
+                >
+                  Download CV
+                </a>
+              )}
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal className="mt-7 md:hidden">
+          <p className="eyebrow">About</p>
+          <h1 className="mt-3 font-serif text-5xl leading-[0.98] text-brown">
+            {about.heading}
+          </h1>
+          {about.cv && (
+            <a
+              href={about.cv}
+              className="mt-7 inline-block rounded-full border border-brown px-7 py-3 text-sm tracking-wide text-brown transition-colors hover:bg-brown hover:text-cream"
+            >
+              Download CV
+            </a>
+          )}
+        </Reveal>
       </header>
 
       {/* Bio Summary */}
