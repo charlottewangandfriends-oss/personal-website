@@ -48,6 +48,7 @@ export default config({
         }),
         heroColor: image('Hero photo (color)'),
         heroBw: image('Hero photo (black & white)'),
+        meetCharlottePhoto: image('Meet Charlotte photo'),
       },
     }),
     about: singleton({
