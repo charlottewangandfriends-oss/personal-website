@@ -7,10 +7,10 @@
   --color-greige: #e3ded3;
   --color-greige-deep: #d6cfc0;
 
-  /* 浅紫色 (Soft Lavender / Violet) */
-  --color-lavender: #c5c0d4;
-  --color-lavender-soft: #e5e1ee;
-  --color-lavender-deep: #9d96b4;
+  /* Warm stone accents — neutral enough to bridge cream, olive, and brown */
+  --color-lavender: #d8d1c7;
+  --color-lavender-soft: #efebe4;
+  --color-lavender-deep: #a79b8c;
 
   /* 土绿色 (Earthy Olive Green) */
   --color-olive: #737142;
@@ -49,7 +49,7 @@
     line-height: 1.08;
   }
   ::selection {
-    background: var(--color-lavender-soft);
+    background: var(--color-olive-soft);
     color: var(--color-brown);
   }
 }

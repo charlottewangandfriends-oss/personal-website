@@ -104,8 +104,8 @@ export default function Hero({ colorSrc, bwSrc, tagline, subtagline }: Props) {
             onMouseLeave={() => setHovered(false)}
             className="group relative mx-auto aspect-[3/4] w-full max-w-sm overflow-hidden rounded-[2px] md:max-w-md"
           >
-            {/* soft lavender wash behind */}
-            <div className="absolute -inset-3 -z-10 rounded-sm bg-lavender-soft/60 blur-2xl" />
+            {/* soft warm-stone glow behind */}
+            <div className="absolute -inset-3 -z-10 rounded-sm bg-greige/70 blur-2xl" />
             <Image
               src={bwSrc}
               alt="Charlotte Wang"
