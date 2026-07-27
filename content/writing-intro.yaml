@@ -36,10 +36,23 @@ intro: >-
   woven into her daily life: a way of thinking, remembering, imagining, and
   understanding the world. She writes every day, and she will never stop
   writing.
-portrait: /images/uploads/portrait.png
-portraitPosition: center
+portrait: /images/writing-thesis-poster-wall.jpg
+portraitPosition: upper-center
+posterEyebrow: Amherst College · 2024
+posterHeading: |-
+  Dear Tomorrow,
+  Dear Past
+posterCaption: English Department senior thesis poster
 poetryImagePosition: center
 shortStoryImagePosition: center
 memoirImage: /images/uploads/memoirImage.png
 memoirImagePosition: bottom
+memoirPdf: /files/writing/dear-tomorrow-dear-past.pdf
+memoirButtonLabel: Read the Novella
+memoirCollaborationEyebrow: Publishing & Collaboration
+memoirCollaborationHeading: A story looking for its next life
+memoirCollaborationBody: >-
+  This novella is open to conversations with publishers, editors, translators,
+  and creative collaborators. For inquiries about publication, adaptation,
+  translation, or related partnerships, please get in touch.
 proseImagePosition: center

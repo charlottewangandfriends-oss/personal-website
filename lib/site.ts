@@ -167,8 +167,8 @@ export const WRITING_CATEGORIES = [
   },
   {
     value: 'dear-past-dear-tomorrow',
-    label: 'Dear Past, Dear Tomorrow',
-    description: 'Selections and reflections from Charlotte’s memoir project.',
+    label: 'Dear Tomorrow, Dear Past',
+    description: 'Charlotte’s English honors thesis: a novella of friendship, memory, and becoming.',
     img: '/images/hero-bw.jpg',
   },
   {
@@ -188,7 +188,7 @@ export async function getHome() {
       '“Who plays some viola and percussion and sometimes sings tenor in choir”',
     heroColor: data?.heroColor ?? DEFAULT_IMAGES.heroColor,
     heroBw: data?.heroBw ?? DEFAULT_IMAGES.heroBw,
-    heroPositionClass: imagePositionClass(data?.heroPhotoPosition),
+    heroPositionClass: imagePositionClass(data?.heroPhotoPosition, 'upper-center'),
   };
 }
 
@@ -199,10 +199,14 @@ export async function getAbout() {
     reader.singletons.aboutCommunity.read(),
   ]);
 
+  const cvUrl = data?.cvUrl?.trim();
+
   return {
-    heading: data?.heading ?? 'Charlotte Wang, conductor and more',
+    heading: data?.heading ?? 'Charlotte Wang',
+    subtitle: data?.subtitle ?? 'conductor and more',
     bio: data?.bio || ABOUT_BIO,
-    cv: data?.cv ?? null,
+    resumeHref: cvUrl || data?.cv || null,
+    resumeExternal: Boolean(cvUrl),
     portrait: data?.portrait ?? DEFAULT_IMAGES.aboutPortrait,
     portraitPositionClass: imagePositionClass(data?.portraitPosition),
     parallaxPhoto: data?.parallaxPhoto ?? DEFAULT_IMAGES.aboutParallax,
@@ -237,9 +241,22 @@ export async function getWritingIntro() {
     heading: data?.heading ?? 'Charlotte Wang, writer',
     intro: data?.intro || WRITING_INTRO,
     portrait: data?.portrait ?? DEFAULT_IMAGES.writingPortrait,
-    portraitPositionClass: imagePositionClass(data?.portraitPosition),
+    portraitPositionClass: imagePositionClass(data?.portraitPosition, 'upper-center'),
+    posterEyebrow: data?.posterEyebrow || 'Amherst College · 2024',
+    posterHeading: data?.posterHeading || 'Dear Tomorrow,\nDear Past',
+    posterCaption:
+      data?.posterCaption || 'English Department senior thesis poster',
     categoriesEyebrow: data?.categoriesEyebrow || 'Categories',
     categoriesHeading: data?.categoriesHeading || 'Explore Writing Works',
+    memoirPdf: data?.memoirPdf ?? null,
+    memoirButtonLabel: data?.memoirButtonLabel || 'Read the Novella',
+    memoirCollaborationEyebrow:
+      data?.memoirCollaborationEyebrow || 'Publishing & Collaboration',
+    memoirCollaborationHeading:
+      data?.memoirCollaborationHeading || 'A story looking for its next life',
+    memoirCollaborationBody:
+      data?.memoirCollaborationBody ||
+      'This novella is open to conversations with publishers, editors, translators, and creative collaborators. For inquiries about publication, adaptation, translation, or related partnerships, please get in touch.',
   };
 }
 
@@ -378,6 +395,31 @@ export async function getContact() {
     instagram: data?.instagram ?? 'https://www.instagram.com/char_l_o_t_te/',
     youtube: data?.youtube ?? 'https://www.youtube.com/@lottiethepotato1529/featured',
   };
+}
+
+export async function getEngagementsPage() {
+  const data = await reader.singletons.engagementsPage.read();
+  return {
+    heading: data?.heading || 'Engagements',
+    intro:
+      data?.intro ||
+      'Upcoming performances, conducting engagements, collaborations, and appearances.',
+    footerHeading: data?.footerHeading || 'Work with Charlotte',
+    footerBody:
+      data?.footerBody ||
+      'For performance, conducting, commissioning, and collaboration inquiries, please get in touch.',
+  };
+}
+
+export async function getEngagements() {
+  const entries = await reader.collections.engagements.all();
+  return entries
+    .map((entry) => ({ slug: entry.slug, ...entry.entry }))
+    .filter((entry) => !entry.hidden)
+    .sort((a, b) => {
+      const dateOrder = (a.date || '9999-12-31').localeCompare(b.date || '9999-12-31');
+      return dateOrder || (a.order ?? 0) - (b.order ?? 0);
+    });
 }
 
 export async function getVideos() {
