@@ -2,12 +2,20 @@ heading: Watch & Listen
 intro: Explore Charlotte's musical works by category below.
 conductingLabel: Conducting
 conductingDescription: Conducting performances, rehearsals, and musical collaborations.
+conductingImagePosition: center
 compositionLabel: Composition
 compositionDescription: Original compositions and performances of Charlotte's music.
 compositionImage: /images/uploads/compositionImage.png
+compositionImagePosition: center
 singingLabel: Singing
 singingDescription: Solo and ensemble vocal performances.
 singingImage: /images/uploads/singingImage.png
+singingImagePosition: center
 pianoLabel: Collaborative Piano
 pianoDescription: Collaborative piano performances with singers and instrumentalists.
+pianoImagePosition: center
+percussionViolaLabel: Percussion/Viola
+percussionViolaDescription: Secondary instruments as Charlotte's additional lens for music making.
 percussionViolaImage: /images/uploads/percussionViolaImage.png
+percussionViolaImagePosition: center
+friendsImagePosition: center
