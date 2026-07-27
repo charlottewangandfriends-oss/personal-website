@@ -54,7 +54,7 @@ export default async function RequiemPage() {
         </Reveal>
       </header>
 
-      <main className="mx-auto mt-16 max-w-6xl px-6 md:mt-20 md:px-10">
+      <div className="mx-auto mt-16 max-w-6xl px-6 md:mt-20 md:px-10">
         <section className="border-y border-line py-14 md:py-20">
           <Reveal>
             <div className="grid gap-8 md:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] md:gap-16">
@@ -177,7 +177,7 @@ export default async function RequiemPage() {
             ← Back to Composition
           </Link>
         </Reveal>
-      </main>
+      </div>
     </div>
   );
 }
