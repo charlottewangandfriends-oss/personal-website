@@ -39,8 +39,11 @@ export default async function LibrettoPage() {
         </Reveal>
       </header>
 
-      <main className="mx-auto mt-14 max-w-3xl px-6 md:mt-20 md:px-10">
-        <Reveal>
+      <section
+        aria-label="Complete libretto"
+        className="mx-auto mt-14 max-w-3xl px-6 md:mt-20 md:px-10"
+      >
+        <div>
           {sections.length > 0 ? (
             <article className="border-t border-line pt-10">
               {sections.map((section, index) => {
@@ -87,8 +90,8 @@ export default async function LibrettoPage() {
               ← Back to Requiem
             </Link>
           </div>
-        </Reveal>
-      </main>
+        </div>
+      </section>
     </div>
   );
 }
