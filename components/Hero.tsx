@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 type Props = {
   colorSrc: string;
   bwSrc: string;
+  positionClass: string;
   tagline: string;
   subtagline: string;
 };
@@ -14,7 +15,7 @@ type Props = {
  * Hero portrait that begins in black & white and blooms into color
  * as it enters view (and on hover), echoing Charlotte's mood board.
  */
-export default function Hero({ colorSrc, bwSrc, tagline, subtagline }: Props) {
+export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagline }: Props) {
   const [colored, setColored] = useState(false);
   const [hovered, setHovered] = useState(false);
   const figureRef = useRef<HTMLDivElement | null>(null);
@@ -102,17 +103,15 @@ export default function Hero({ colorSrc, bwSrc, tagline, subtagline }: Props) {
             ref={figureRef}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            className="group relative mx-auto aspect-[3/4] w-full max-w-sm overflow-hidden rounded-[2px] md:max-w-md"
+            className="group relative mx-auto aspect-[3/4] w-full max-w-sm overflow-hidden rounded-[2px] shadow-[0_24px_70px_rgba(143,130,154,0.16)] ring-1 ring-lavender/45 md:max-w-md"
           >
-            {/* soft warm-stone glow behind */}
-            <div className="absolute -inset-3 -z-10 rounded-sm bg-greige/70 blur-2xl" />
             <Image
               src={bwSrc}
               alt="Charlotte Wang"
               fill
               priority
               sizes="(max-width: 768px) 90vw, 38vw"
-              className="object-cover object-center"
+              className={`object-cover ${positionClass}`}
             />
             <Image
               src={colorSrc}
@@ -121,7 +120,7 @@ export default function Hero({ colorSrc, bwSrc, tagline, subtagline }: Props) {
               fill
               priority
               sizes="(max-width: 768px) 90vw, 38vw"
-              className={`object-cover object-center transition-opacity duration-[1400ms] ease-out ${
+              className={`object-cover ${positionClass} transition-opacity duration-[1400ms] ease-out ${
                 showColor ? 'opacity-100' : 'opacity-0'
               }`}
             />
