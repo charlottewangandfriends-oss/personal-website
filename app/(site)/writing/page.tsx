@@ -57,7 +57,7 @@ export default async function WritingPage() {
 
         <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-2">
           {WRITING_CATEGORIES.map((cat, i) => {
-            const count = writings.filter((w) => w.category === cat.value || (cat.value === 'prose' && w.category === 'prose-blog')).length;
+            const count = writings.filter((w) => w.category === cat.value).length;
             return (
               <Reveal key={cat.value} delay={i * 100}>
                 <Link
