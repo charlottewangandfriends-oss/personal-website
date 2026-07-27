@@ -39,7 +39,8 @@ intro: >-
 portrait: /images/uploads/portrait.JPG
 portraitPosition: center
 poetryImagePosition: center
-shortStoryImagePosition: center
+shortStoryImage: /images/uploads/shortStoryImage.png
+shortStoryImagePosition: top
 memoirImage: /images/uploads/memoirImage.png
 memoirImagePosition: top
 proseImagePosition: center
