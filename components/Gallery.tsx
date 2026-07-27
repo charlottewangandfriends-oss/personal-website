@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 
-type Photo = { src: string; caption: string };
+type Photo = { src: string; caption: string; positionClass?: string };
 
 export default function Gallery({ photos }: { photos: Photo[] }) {
   const [index, setIndex] = useState<number | null>(null);
@@ -48,7 +48,7 @@ export default function Gallery({ photos }: { photos: Photo[] }) {
               width={800}
               height={600}
               sizes="(max-width: 768px) 45vw, 30vw"
-              className="h-auto w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+              className={`h-auto w-full object-cover ${p.positionClass ?? 'object-center'} transition-transform duration-700 group-hover:scale-[1.04]`}
             />
             <span className="pointer-events-none absolute inset-0 bg-brown/0 transition-colors duration-500 group-hover:bg-brown/10" />
           </button>
