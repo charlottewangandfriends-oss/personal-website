@@ -70,7 +70,7 @@ export default function Hero({ colorSrc, bwSrc, tagline, subtagline }: Props) {
             className="reveal is-visible eyebrow"
             style={{ transitionDelay: '120ms' }}
           >
-            Conductor · Composer · Vocalist
+            Conductor · Composer · Soprano · Collaborator
           </p>
           <h1 className="mt-5 font-serif text-[2.9rem] leading-[1.04] text-brown sm:text-6xl md:text-[4.4rem]">
             Charlotte
