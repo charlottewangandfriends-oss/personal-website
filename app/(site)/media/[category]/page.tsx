@@ -49,11 +49,11 @@ export default async function MediaCategoryPage({
   const videos = allVideos
     .filter((v) => v.category === cat.value)
     .filter((v) => !isComposition || v.slug !== compositionFeature.featuredVideoSlug);
-  const showVideosHeading = introSections.length > 0 || isComposition;
   const [photos, introSections] = await Promise.all([
     getGallery(cat.value),
     getMediaIntroSections(cat.value),
   ]);
+  const showVideosHeading = introSections.length > 0 || isComposition;
 
   return (
     <div className="pt-32 pb-24 md:pt-40">
