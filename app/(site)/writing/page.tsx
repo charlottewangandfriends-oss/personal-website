@@ -4,21 +4,24 @@ import Link from 'next/link';
 import Reveal from '@/components/Reveal';
 import { getWritingIntro, getWritings, toParagraphs, WRITING_CATEGORIES } from '@/lib/site';
 
-export const metadata: Metadata = { title: 'Writing' };
-
-const langLabel: Record<string, string> = { en: 'English', zh: '中文', fr: 'Français' };
+export const metadata: Metadata = {
+  title: 'Writing — Charlotte Wang',
+  description: 'Poetry, short stories, reflections, and prose in English, Chinese, and French.',
+};
 
 export default async function WritingPage() {
   const [intro, writings] = await Promise.all([getWritingIntro(), getWritings()]);
   const introParas = toParagraphs(intro.intro);
 
   return (
-    <div className="pt-32 md:pt-40">
-      {/* Intro */}
+    <div className="pt-32 pb-24 md:pt-40">
+      {/* Intro Header */}
       <header className="mx-auto max-w-6xl px-6 md:px-10">
         <div className="grid items-center gap-12 md:grid-cols-[1.1fr_0.9fr] md:gap-16">
           <Reveal>
-            <p className="eyebrow">Writing</p>
+            <span className="inline-block px-3.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-lavender-soft text-brown">
+              Writing
+            </span>
             <h1 className="mt-4 font-serif text-5xl text-brown md:text-6xl">{intro.heading}</h1>
             <div className="prose-warm mt-6 max-w-xl">
               {introParas.length ? (
@@ -30,7 +33,7 @@ export default async function WritingPage() {
           </Reveal>
           <Reveal
             delay={120}
-            className="relative aspect-[4/5] overflow-hidden rounded-sm border border-line"
+            className="relative aspect-[4/5] overflow-hidden rounded-sm border border-line shadow-sm"
           >
             <Image
               src={intro.portrait}
@@ -43,52 +46,60 @@ export default async function WritingPage() {
         </div>
       </header>
 
-      {/* Pieces by category */}
-      <div className="mx-auto max-w-4xl px-6 md:px-10">
-        {WRITING_CATEGORIES.map((cat) => {
-          const items = writings.filter((w) => w.category === cat.value);
-          return (
-            <section key={cat.value} className="mt-20">
-              <Reveal>
-                <h2 className="mb-7 flex items-baseline gap-4 font-serif text-3xl text-brown">
-                  {cat.label}
-                  <span className="h-px flex-1 bg-line" />
-                </h2>
+      {/* Writing Categories Superlink Cards */}
+      <section className="mx-auto max-w-6xl px-6 mt-20 md:px-10">
+        <Reveal>
+          <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-olive-soft/70 text-olive-deep">
+            Categories
+          </span>
+          <h2 className="mt-3 font-serif text-3xl text-brown md:text-4xl">Explore Writing Works</h2>
+        </Reveal>
+
+        <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-2">
+          {WRITING_CATEGORIES.map((cat, i) => {
+            const count = writings.filter((w) => w.category === cat.value || (cat.value === 'prose' && w.category === 'prose-blog')).length;
+            return (
+              <Reveal key={cat.value} delay={i * 100}>
+                <Link
+                  href={`/writing/${cat.value}`}
+                  className="group flex flex-col h-full overflow-hidden rounded-xl border border-line border-t-4 border-t-lavender-deep bg-paper transition-all hover:border-lavender-deep/60 hover:shadow-md"
+                >
+                  <div className="relative aspect-[16/9] overflow-hidden">
+                    <Image
+                      src={cat.img}
+                      alt={cat.label}
+                      fill
+                      sizes="(max-width: 768px) 90vw, 45vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="p-8 flex flex-col flex-1 justify-between">
+                    <div>
+                      <div className="flex items-center justify-between">
+                        <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-lavender-soft text-brown">
+                          {cat.label}
+                        </span>
+                        <span className="text-xs text-brown-soft/70 font-medium">
+                          {count} {count === 1 ? 'piece' : 'pieces'}
+                        </span>
+                      </div>
+                      <h3 className="mt-3 font-serif text-2xl text-brown transition-colors group-hover:text-olive">
+                        {cat.label}
+                      </h3>
+                      <p className="mt-2 text-sm leading-relaxed text-brown-soft">
+                        {cat.description}
+                      </p>
+                    </div>
+                    <span className="link-underline mt-6 inline-block text-xs font-semibold uppercase tracking-wider text-olive">
+                      Read category →
+                    </span>
+                  </div>
+                </Link>
               </Reveal>
-              {items.length === 0 ? (
-                <Reveal>
-                  <p className="text-sm italic text-brown-soft/70">Coming soon.</p>
-                </Reveal>
-              ) : (
-                <ul className="flex flex-col">
-                  {items.map((w, i) => (
-                    <Reveal as="li" key={w.slug} delay={i * 60}>
-                      <Link
-                        href={`/writing/${w.slug}`}
-                        className="group block border-b border-line py-6 transition-colors hover:bg-paper/60"
-                      >
-                        <div className="flex items-baseline justify-between gap-4">
-                          <h3 className="font-serif text-2xl text-brown group-hover:text-olive">
-                            {w.title}
-                          </h3>
-                          <span className="shrink-0 text-xs uppercase tracking-widest text-brown-soft/60">
-                            {langLabel[w.language] ?? ''}
-                          </span>
-                        </div>
-                        {w.excerpt && (
-                          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-brown-soft">
-                            {w.excerpt}
-                          </p>
-                        )}
-                      </Link>
-                    </Reveal>
-                  ))}
-                </ul>
-              )}
-            </section>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      </section>
     </div>
   );
 }
