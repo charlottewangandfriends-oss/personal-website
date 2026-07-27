@@ -8,8 +8,7 @@ featureLinkLabel: Explore the Requiem
 detailEyebrow: Composition
 detailIntroduction: >-
   An eight-movement Requiem for soloist, SATB choir, and reduced orchestra,
-  composed as Charlotte's senior honors thesis at Amherst College. Libretto by
-  Haoran Tong.
+  composed as Charlotte's senior honors thesis at Amherst College.
 aboutHeading: About the work
 aboutBody: >-
   Requiem: Ceaseless Life brings together Charlotte's interests in composition,
@@ -17,12 +16,15 @@ aboutBody: >-
   archive of the work, including its background, performance history, and
   related materials.
 featuredVideo: requiem-ceaseless-life
+librettoCredit: Libretto by Haoran Tong
+librettoUrl: https://docs.google.com/document/d/1cQ5qAi74rcpfAj8ScZ_fXq9sz7i0lAgya8X2DscXWE0/edit?tab=t.0
 librettoLinkLabel: Read the libretto
 premiereHeading: Premiere concert
 premiereBody: >-
   Premiere details and program notes will appear here. A downloadable concert
   program can be added from the editor.
-programButtonLabel: Download concert program
+programUrl: https://docs.google.com/document/d/1MTFiTQUKQfaBbOoF9dl4D_OlZxnIwkan_9-HZCJ3tug/edit?tab=t.0
+programButtonLabel: View concert program
 collaborationHeading: And what?
 collaborationBody: >-
   Interested in performing, programming, or developing Requiem: Ceaseless Life?
