@@ -45,16 +45,12 @@ export default async function RequiemPage() {
               ))}
             </div>
           )}
-          {content.librettoUrl && (
-            <a
-              href={content.librettoUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="link-underline mt-5 inline-block text-sm tracking-wide text-olive"
-            >
-              {content.librettoCredit} ↗
-            </a>
-          )}
+          <Link
+            href="/media/composition/requiem/libretto"
+            className="link-underline mt-5 inline-block text-sm tracking-wide text-olive"
+          >
+            {content.librettoCredit} →
+          </Link>
         </Reveal>
       </header>
 
@@ -76,14 +72,12 @@ export default async function RequiemPage() {
                     ))}
                   </div>
                 )}
-                {content.librettoUrl && (
-                  <a
-                    href={content.librettoUrl}
-                    className="link-underline mt-7 inline-block text-sm font-semibold uppercase tracking-wider text-olive"
-                  >
-                    {content.librettoLinkLabel} →
-                  </a>
-                )}
+                <Link
+                  href="/media/composition/requiem/libretto"
+                  className="link-underline mt-7 inline-block text-sm font-semibold uppercase tracking-wider text-olive"
+                >
+                  {content.librettoLinkLabel} →
+                </Link>
               </div>
             </div>
           </Reveal>
@@ -112,9 +106,20 @@ export default async function RequiemPage() {
                     target={externalProgram ? '_blank' : undefined}
                     rel={externalProgram ? 'noreferrer' : undefined}
                     download={externalProgram ? undefined : true}
-                    className="mt-8 inline-block rounded-full bg-brown px-7 py-3 text-sm tracking-wide text-cream transition-colors hover:bg-olive"
+                    className="group mt-9 flex items-end justify-between gap-8 border-y border-line py-5 text-brown transition-colors hover:text-olive"
                   >
-                    {content.programButtonLabel} {externalProgram ? '↗' : '↓'}
+                    <span>
+                      <span className="eyebrow block">Concert materials</span>
+                      <span className="mt-2 block font-serif text-2xl md:text-3xl">
+                        {content.programButtonLabel}
+                      </span>
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="pb-1 text-2xl transition-transform duration-300 group-hover:translate-x-1"
+                    >
+                      {externalProgram ? '↗' : '↓'}
+                    </span>
                   </a>
                 )}
               </div>
