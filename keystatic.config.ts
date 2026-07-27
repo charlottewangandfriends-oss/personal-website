@@ -76,6 +76,32 @@ export default config({
           publicPath: '/files/',
         }),
         portrait: image('Portrait photo'),
+        parallaxPhoto: image('About — wide quote photo'),
+        parallaxQuote: fields.text({
+          label: 'About — quote over wide photo',
+          multiline: true,
+          defaultValue: 'Rehearsal rooms where people feel heard, trusted, and inspired to give their best.',
+        }),
+        storyCardPhoto: image('About — My Story card photo'),
+        storyCardTitle: fields.text({
+          label: 'About — My Story card title',
+          defaultValue: "Charlotte's Music Journey",
+        }),
+        storyCardDescription: fields.text({
+          label: 'About — My Story card description',
+          multiline: true,
+          defaultValue:
+            "Explore Charlotte's path from Amherst College to graduate studies in choral conducting at the University of Michigan, her mentors, and her musical development.",
+        }),
+        statementCardPhoto: image('About — Philosophy card photo'),
+        statementCardDescription: fields.text({
+          label: 'About — Philosophy card description',
+          multiline: true,
+          defaultValue:
+            "Charlotte's conducting philosophy, building trust and inspiration in rehearsal rooms, and approaching music as a shared human experience.",
+        }),
+        myStoryHeroPhoto: image('My Story — header photo'),
+        statementHeroPhoto: image('Philosophy statement — header photo'),
       },
     }),
     writing: singleton({
@@ -86,6 +112,87 @@ export default config({
         heading: fields.text({ label: 'Heading', defaultValue: 'Charlotte Wang, writer' }),
         intro: fields.text({ label: 'Intro', multiline: true, defaultValue: WRITING_INTRO }),
         portrait: image('Portrait photo'),
+        categoriesEyebrow: fields.text({ label: 'Categories label', defaultValue: 'Categories' }),
+        categoriesHeading: fields.text({
+          label: 'Categories section heading',
+          defaultValue: 'Explore Writing Works',
+        }),
+        poetryLabel: fields.text({ label: 'Poetry — display title', defaultValue: 'Poetry' }),
+        poetryDescription: fields.text({
+          label: 'Poetry — description',
+          multiline: true,
+          defaultValue: 'Poetry in English, Chinese, and French.',
+        }),
+        poetryImage: image('Poetry — card image'),
+        shortStoryLabel: fields.text({ label: 'Short Story — display title', defaultValue: 'Short Story' }),
+        shortStoryDescription: fields.text({
+          label: 'Short Story — description',
+          multiline: true,
+          defaultValue: 'Short fiction exploring memory, identity, and human connection.',
+        }),
+        shortStoryImage: image('Short Story — card image'),
+        memoirLabel: fields.text({
+          label: 'Dear Past, Dear Tomorrow — display title',
+          defaultValue: 'Dear Past, Dear Tomorrow',
+        }),
+        memoirDescription: fields.text({
+          label: 'Dear Past, Dear Tomorrow — description',
+          multiline: true,
+          defaultValue: "Selections and reflections from Charlotte's memoir project.",
+        }),
+        memoirImage: image('Dear Past, Dear Tomorrow — card image'),
+        proseLabel: fields.text({ label: 'Prose & Blogs — display title', defaultValue: 'Prose & Blogs' }),
+        proseDescription: fields.text({
+          label: 'Prose & Blogs — description',
+          multiline: true,
+          defaultValue: 'Essays, reflections, and occasional notes.',
+        }),
+        proseImage: image('Prose & Blogs — card image'),
+      },
+    }),
+    media: singleton({
+      label: 'Media page & category cards',
+      path: 'content/media',
+      format: { data: 'yaml' },
+      schema: {
+        heading: fields.text({ label: 'Page heading', defaultValue: 'Watch & Listen' }),
+        intro: fields.text({
+          label: 'Page introduction',
+          multiline: true,
+          defaultValue: "Explore Charlotte's musical works by category below.",
+        }),
+        galleryHeading: fields.text({ label: 'Gallery heading', defaultValue: 'Photo Gallery' }),
+        conductingLabel: fields.text({ label: 'Conducting — display title', defaultValue: 'Conducting' }),
+        conductingDescription: fields.text({
+          label: 'Conducting — description',
+          multiline: true,
+          defaultValue: 'Conducting performances, rehearsals, and musical collaborations.',
+        }),
+        conductingImage: image('Conducting — card image'),
+        compositionLabel: fields.text({ label: 'Composition — display title', defaultValue: 'Composition' }),
+        compositionDescription: fields.text({
+          label: 'Composition — description',
+          multiline: true,
+          defaultValue: "Original compositions and performances of Charlotte's music.",
+        }),
+        compositionImage: image('Composition — card image'),
+        singingLabel: fields.text({ label: 'Singing — display title', defaultValue: 'Singing' }),
+        singingDescription: fields.text({
+          label: 'Singing — description',
+          multiline: true,
+          defaultValue: 'Solo and ensemble vocal performances.',
+        }),
+        singingImage: image('Singing — card image'),
+        pianoLabel: fields.text({
+          label: 'Collaborative Piano — display title',
+          defaultValue: 'Collaborative Piano',
+        }),
+        pianoDescription: fields.text({
+          label: 'Collaborative Piano — description',
+          multiline: true,
+          defaultValue: 'Collaborative piano performances with singers and instrumentalists.',
+        }),
+        pianoImage: image('Collaborative Piano — card image'),
       },
     }),
     contact: singleton({
