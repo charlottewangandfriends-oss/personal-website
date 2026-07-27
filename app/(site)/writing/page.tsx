@@ -79,10 +79,7 @@ export default async function WritingPage() {
                   </div>
                   <div className="p-8 flex flex-col flex-1 justify-between">
                     <div>
-                      <div className="flex items-center justify-between">
-                        <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-lavender-soft text-brown">
-                          {cat.label}
-                        </span>
+                      <div className="flex justify-end">
                         <span className="text-xs text-brown-soft/70 font-medium">
                           {count} {count === 1 ? 'piece' : 'pieces'}
                         </span>
