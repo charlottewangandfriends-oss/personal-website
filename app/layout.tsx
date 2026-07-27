@@ -19,6 +19,8 @@ const mulish = Mulish({
 });
 
 export const metadata: Metadata = {
+  // App Router file conventions provide /icon.png, /apple-icon.png, and
+  // /opengraph-image so every surface receives the correctly sized artwork.
   metadataBase: new URL('https://charlottewangmusic.com'),
   title: {
     default: 'Charlotte Wang — Conductor and More',
