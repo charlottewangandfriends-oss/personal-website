@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import Reveal from '@/components/Reveal';
-import { getWritingIntro, getWritings, toParagraphs, WRITING_CATEGORIES } from '@/lib/site';
+import { getWritingCategories, getWritingIntro, getWritings, toParagraphs } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Writing — Charlotte Wang',
@@ -10,7 +10,11 @@ export const metadata: Metadata = {
 };
 
 export default async function WritingPage() {
-  const [intro, writings] = await Promise.all([getWritingIntro(), getWritings()]);
+  const [intro, writings, categories] = await Promise.all([
+    getWritingIntro(),
+    getWritings(),
+    getWritingCategories(),
+  ]);
   const introParas = toParagraphs(intro.intro);
 
   return (
@@ -50,13 +54,13 @@ export default async function WritingPage() {
       <section className="mx-auto max-w-6xl px-6 mt-20 md:px-10">
         <Reveal>
           <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-olive-soft/70 text-olive-deep">
-            Categories
+            {intro.categoriesEyebrow}
           </span>
-          <h2 className="mt-3 font-serif text-3xl text-brown md:text-4xl">Explore Writing Works</h2>
+          <h2 className="mt-3 font-serif text-3xl text-brown md:text-4xl">{intro.categoriesHeading}</h2>
         </Reveal>
 
         <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-2">
-          {WRITING_CATEGORIES.map((cat, i) => {
+          {categories.map((cat, i) => {
             const count = writings.filter((w) => w.category === cat.value).length;
             return (
               <Reveal key={cat.value} delay={i * 100}>
