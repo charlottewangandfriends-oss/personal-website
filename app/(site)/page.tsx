@@ -2,7 +2,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Hero from '@/components/Hero';
 import Reveal from '@/components/Reveal';
-import Parallax from '@/components/Parallax';
 import { getHome, toParagraphs } from '@/lib/site';
 
 export default async function HomePage() {
@@ -50,15 +49,8 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Parallax quote band */}
-      <Parallax
-        src="/images/charlotte-podium.jpg"
-        objectPosition="center 20%"
-        quote="Conducting as a practice of listening, clarity, and collaboration."
-      />
-
-      {/* Entry tiles */}
-      <section className="mx-auto max-w-6xl px-6 py-24 md:px-10">
+      {/* Entry tiles (Media / Writing / About) */}
+      <section className="mx-auto max-w-6xl px-6 pb-24 md:px-10">
         <div className="grid gap-6 md:grid-cols-3">
           {[
             {
@@ -107,15 +99,6 @@ export default async function HomePage() {
           ))}
         </div>
       </section>
-
-      {/* Closing parallax quote band */}
-      <Parallax
-        src="/images/charlotte-conducting-live-1.jpg"
-        objectPosition="center 35%"
-        quote="Music as a shared human experience."
-        cite="Charlotte Wang"
-        className="h-[56vh] md:h-[70vh]"
-      />
     </>
   );
 }
