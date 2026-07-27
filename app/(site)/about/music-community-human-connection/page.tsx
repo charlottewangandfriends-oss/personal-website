@@ -6,7 +6,7 @@ import { getAbout, toParagraphs } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Music, Community, and Human Connection',
-  description: "Charlotte's conducting philosophy, building trust and inspiration in rehearsal rooms.",
+  description: "Why Charlotte chose music: its power to cross boundaries, create community, and help people truly know one another.",
 };
 
 export default async function MusicCommunityPage() {
@@ -42,7 +42,20 @@ export default async function MusicCommunityPage() {
         <section className="mt-14 max-w-3xl">
           <Reveal className="prose-warm text-[1.1rem] leading-relaxed">
             {statement.length ? (
-              statement.map((p, i) => <p key={i} className="mb-6">{p}</p>)
+              statement.map((block, i) =>
+                block.startsWith('## ') ? (
+                  <h2
+                    key={i}
+                    className="mb-7 mt-16 border-t border-line pt-10 font-serif text-3xl leading-tight text-brown md:text-4xl"
+                  >
+                    {block.slice(3)}
+                  </h2>
+                ) : (
+                  <p key={i} className="mb-6">
+                    {block}
+                  </p>
+                ),
+              )
             ) : (
               <p className="italic text-brown-soft/70">Statement coming soon.</p>
             )}

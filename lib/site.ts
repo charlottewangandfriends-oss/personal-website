@@ -223,7 +223,7 @@ export async function getAbout() {
     statement: community?.body || ABOUT_STATEMENT,
     statementCardDescription:
       community?.cardDescription ||
-      "Charlotte's conducting philosophy, building trust and inspiration in rehearsal rooms, and approaching music as a shared human experience.",
+      "Why Charlotte chose music—and how community, teaching, and chamber music shape her belief in music as a way of knowing one another.",
     statementCardPhoto: community?.cardPhoto ?? DEFAULT_IMAGES.statementCardPhoto,
     statementCardPositionClass: imagePositionClass(community?.cardPhotoPosition),
     statementHeroPhoto: community?.heroPhoto ?? DEFAULT_IMAGES.statementHeroPhoto,
