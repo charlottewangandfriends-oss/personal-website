@@ -14,6 +14,11 @@ const POSTER_WALL_STYLE = {
     'radial-gradient(ellipse 78% 88% at 54% 50%, rgba(137, 124, 77, 0.52) 0%, rgba(137, 124, 77, 0.32) 42%, rgba(137, 124, 77, 0.12) 64%, rgba(244, 241, 234, 0) 84%)',
 } as const;
 
+const PROFILE_FEATHER_STYLE = {
+  background:
+    'linear-gradient(to bottom, rgba(199, 172, 198, 0.26) 0%, transparent 6%, transparent 92%, rgba(47, 22, 54, 0.32) 100%), linear-gradient(to right, rgba(190, 160, 189, 0.22) 0%, transparent 7%, transparent 93%, rgba(190, 160, 189, 0.22) 100%)',
+} as const;
+
 export default async function WritingPage() {
   const [intro, writings, categories] = await Promise.all([
     getWritingIntro(),
@@ -58,7 +63,7 @@ export default async function WritingPage() {
           </Reveal>
 
           <div
-            className="relative mx-auto h-[132vw] min-h-[29rem] max-h-[36rem] w-full max-w-[26rem] px-4 pb-12 md:absolute md:inset-y-[5%] md:left-auto md:right-[2%] md:h-auto md:max-h-none md:max-w-none md:w-[50%] md:px-0 md:pb-0"
+            className="relative mx-auto mb-12 aspect-[463/708] w-[min(90vw,23.5rem)] md:absolute md:inset-y-[5%] md:right-[2%] md:mx-0 md:mb-0 md:w-auto"
           >
             <div
               aria-hidden="true"
@@ -74,6 +79,13 @@ export default async function WritingPage() {
                 sizes="(max-width: 767px) 92vw, 46vw"
                 className={`object-contain ${intro.portraitPositionClass}`}
               />
+              {intro.portrait === '/images/writing-thesis-poster-closeup.jpg' && (
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute left-[27.1%] top-[21.5%] h-[30.5%] w-[40.3%]"
+                  style={PROFILE_FEATHER_STYLE}
+                />
+              )}
             </div>
           </div>
         </div>
