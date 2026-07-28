@@ -38,8 +38,11 @@ intro: >-
   writing.
 portrait: /images/uploads/portrait.png
 portraitPosition: center
+poetryImage: /images/uploads/poetryImage.jpg
 poetryImagePosition: center
+shortStoryImage: /images/uploads/shortStoryImage.jpg
 shortStoryImagePosition: center
-memoirImage: /images/uploads/memoirImage.png
-memoirImagePosition: bottom
+memoirImage: /images/uploads/memoirImage-new.jpg
+memoirImagePosition: center
+proseImage: /images/uploads/proseImage.jpg
 proseImagePosition: center
