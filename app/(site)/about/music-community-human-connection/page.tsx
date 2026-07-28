@@ -6,7 +6,7 @@ import { getAbout, toParagraphs } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Music, Community, and Human Connection',
-  description: "Why Charlotte chose music: its power to cross boundaries, create community, and help people truly know one another.",
+  description: "Why I chose music: its power to cross boundaries, create community, and help us truly know one another.",
 };
 
 export default async function MusicCommunityPage() {
