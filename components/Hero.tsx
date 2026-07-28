@@ -123,7 +123,7 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
             ref={figureRef}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            className="group relative h-[58svh] min-h-[25rem] max-h-[30rem] w-full overflow-hidden md:absolute md:inset-y-0 md:right-0 md:h-full md:max-h-none md:w-[70%]"
+            className="group relative h-[58svh] min-h-[25rem] max-h-[30rem] w-full overflow-hidden sm:h-[calc(74vw+4.5rem)] sm:max-h-[42rem] md:absolute md:inset-y-0 md:right-0 md:h-full md:min-h-0 md:max-h-none md:w-[70%]"
           >
             <div
               className={`absolute inset-x-0 bottom-0 top-[4.5rem] origin-top scale-[1.08] transition-transform duration-[6000ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:scale-[1.045] motion-reduce:transition-none md:inset-0 md:origin-center ${
