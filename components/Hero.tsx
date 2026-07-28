@@ -116,8 +116,9 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
         />
 
         <div className="relative mx-auto max-w-[100rem] md:min-h-[calc(100svh-4.5rem)]">
-          {/* On mobile the portrait begins behind the transparent nav. On desktop it
-              touches both section boundaries and dissolves at its left and right edges. */}
+          {/* On mobile the portrait starts below the fixed nav while the figure keeps
+              its compact footprint. On desktop it touches both section boundaries
+              and dissolves at its left and right edges. */}
           <div
             ref={figureRef}
             onMouseEnter={() => setHovered(true)}
@@ -125,7 +126,7 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
             className="group relative h-[46svh] min-h-[20rem] max-h-[26rem] w-full overflow-hidden md:absolute md:inset-y-0 md:right-0 md:h-full md:max-h-none md:w-[70%]"
           >
             <div
-              className={`absolute inset-0 scale-[1.08] transition-transform duration-[6000ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:scale-[1.045] motion-reduce:transition-none ${
+              className={`absolute inset-x-0 bottom-0 top-[4.5rem] origin-top scale-[1.08] transition-transform duration-[6000ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:scale-[1.045] motion-reduce:transition-none md:inset-0 md:origin-center ${
                 showColor ? 'scale-[1.045]' : ''
               }`}
             >
@@ -135,7 +136,7 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
                 fill
                 priority
                 sizes="(max-width: 767px) 100vw, 70vw"
-                className={`object-cover object-[center_8%] ${desktopPositionClass}`}
+                className={`object-cover object-top ${desktopPositionClass}`}
               />
               <Image
                 src={colorSrc}
@@ -144,7 +145,7 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
                 fill
                 priority
                 sizes="(max-width: 767px) 100vw, 70vw"
-                className={`object-cover object-[center_8%] transition-[opacity,filter] duration-[6000ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${desktopPositionClass} ${
+                className={`object-cover object-top transition-[opacity,filter] duration-[6000ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${desktopPositionClass} ${
                   showColor
                     ? 'opacity-100 saturate-100'
                     : 'opacity-0 saturate-[0.72]'
