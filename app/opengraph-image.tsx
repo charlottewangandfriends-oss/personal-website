@@ -53,6 +53,7 @@ export default async function OpenGraphImage() {
               height: '100%',
               objectFit: 'cover',
               objectPosition: '60% 28%',
+              // Move only the portrait; the overlay stays fixed for a seamless feather.
               transform: 'translateX(28px)',
             }}
           />
