@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   // /opengraph-image so every surface receives the correctly sized artwork.
   metadataBase: new URL('https://charlottewangmusic.com'),
   title: {
-    default: 'Charlotte Wang — Conductor and More',
+    default: 'Charlotte Wang, conductor and more',
     template: '%s — Charlotte Wang',
   },
   description:
@@ -32,18 +32,16 @@ export const metadata: Metadata = {
     canonical: 'https://charlottewangmusic.com',
   },
   openGraph: {
-    title: 'Charlotte Wang — Conductor and More',
-    description:
-      'Conductor, composer, soprano, and collaborative pianist whose work bridges choral, orchestral, and literary imagination.',
+    title: 'Charlotte Wang, conductor and more',
+    description: 'Transcending life with music and words.',
     url: 'https://charlottewangmusic.com',
     siteName: 'Charlotte Wang',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Charlotte Wang — Conductor & More',
-    description:
-      'Conductor, composer, soprano, and collaborative pianist whose work bridges choral, orchestral, and literary imagination.',
+    title: 'Charlotte Wang, conductor and more',
+    description: 'Transcending life with music and words.',
   },
 };
 
