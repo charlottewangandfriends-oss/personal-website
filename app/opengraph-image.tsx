@@ -1,12 +1,15 @@
+import { Buffer } from 'node:buffer';
 import { ImageResponse } from 'next/og';
+import { CORMORANT_GARAMOND_TITLE_BASE64 } from './fonts/cormorant-title-font';
 
 export const alt = 'Charlotte Wang — conductor, composer, soprano, and collaborator';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
 const SITE_URL = 'https://charlottewangmusic.com';
+export default async function OpenGraphImage() {
+  const cormorantData = Buffer.from(CORMORANT_GARAMOND_TITLE_BASE64, 'base64');
 
-export default function OpenGraphImage() {
   return new ImageResponse(
     (
       <div
@@ -26,7 +29,7 @@ export default function OpenGraphImage() {
             inset: 0,
             display: 'flex',
             background:
-              'radial-gradient(circle at 78% 18%, rgba(207,199,216,0.4), transparent 35%)',
+              'radial-gradient(circle at 76% 16%, rgba(207,199,216,0.42), transparent 38%)',
           }}
         />
 
@@ -36,20 +39,20 @@ export default function OpenGraphImage() {
             top: 0,
             right: 0,
             display: 'flex',
-            width: '61%',
+            width: '62%',
             height: '100%',
           }}
         >
           <img
             src={`${SITE_URL}/images/hero-color.jpg`}
             alt=""
-            width="732"
+            width="744"
             height="630"
             style={{
               width: '100%',
               height: '100%',
               objectFit: 'cover',
-              objectPosition: '58% 28%',
+              objectPosition: '56% 28%',
             }}
           />
           <div
@@ -58,34 +61,47 @@ export default function OpenGraphImage() {
               inset: 0,
               display: 'flex',
               background:
-                'linear-gradient(90deg, #f4f1ea 0%, rgba(244,241,234,0.96) 14%, rgba(244,241,234,0.64) 30%, transparent 53%)',
+                'linear-gradient(90deg, #f4f1ea 0%, rgba(244,241,234,0.98) 12%, rgba(244,241,234,0.88) 24%, rgba(244,241,234,0.48) 39%, rgba(244,241,234,0.12) 52%, transparent 66%)',
             }}
           />
         </div>
 
         <div
           style={{
+            position: 'absolute',
+            top: 0,
+            left: '34%',
+            display: 'flex',
+            width: '42%',
+            height: '100%',
+            background:
+              'linear-gradient(90deg, #f4f1ea 0%, rgba(244,241,234,0.98) 24%, rgba(238,232,233,0.72) 52%, rgba(215,205,216,0.22) 78%, transparent 100%)',
+          }}
+        />
+
+        <div
+          style={{
             position: 'relative',
             display: 'flex',
-            width: '58%',
+            width: '57%',
             height: '100%',
             flexDirection: 'column',
             justifyContent: 'center',
-            padding: '68px 0 60px 76px',
+            padding: '62px 0 58px 74px',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
             <img
               src={`${SITE_URL}/image.png`}
               alt=""
-              width="66"
-              height="66"
-              style={{ width: 66, height: 66, objectFit: 'contain' }}
+              width="54"
+              height="54"
+              style={{ width: 54, height: 54, objectFit: 'contain' }}
             />
             <div
               style={{
                 display: 'flex',
-                fontSize: 19,
+                fontSize: 18,
                 letterSpacing: '0.18em',
                 textTransform: 'uppercase',
                 color: '#7c7a43',
@@ -100,21 +116,22 @@ export default function OpenGraphImage() {
               display: 'flex',
               marginTop: 30,
               flexDirection: 'column',
-              fontFamily: 'Georgia, serif',
-              fontSize: 100,
-              lineHeight: 0.82,
-              letterSpacing: '-0.045em',
+              fontFamily: 'Cormorant Garamond',
+              fontSize: 104,
+              fontWeight: 500,
+              lineHeight: 0.91,
+              letterSpacing: '-0.04em',
             }}
           >
             <span>Charlotte</span>
-            <span style={{ marginLeft: 48, color: '#6a5241' }}>Wang</span>
+            <span style={{ marginLeft: 42, color: '#6a5241' }}>Wang</span>
           </div>
 
           <div
             style={{
               display: 'flex',
               width: 410,
-              marginTop: 42,
+              marginTop: 34,
               paddingTop: 18,
               borderTop: '1px solid rgba(74,51,36,0.28)',
               fontSize: 22,
@@ -126,6 +143,19 @@ export default function OpenGraphImage() {
         </div>
       </div>
     ),
-    size,
+    {
+      ...size,
+      fonts: [
+        {
+          name: 'Cormorant Garamond',
+          data: cormorantData.buffer.slice(
+            cormorantData.byteOffset,
+            cormorantData.byteOffset + cormorantData.byteLength,
+          ),
+          weight: 500,
+          style: 'normal',
+        },
+      ],
+    },
   );
 }

@@ -127,6 +127,10 @@ export default config({
           'Displayed as a wide band. Its height changes by screen size, so choose the most important area below.',
         ),
         parallaxPhotoPosition: imagePosition('Wide quote photo — crop focus', 'upper-center'),
+        parallaxPhotoMobilePosition: imagePosition(
+          'Wide quote photo — mobile crop focus',
+          'right',
+        ),
         parallaxQuote: fields.text({
           label: 'Quote over wide photo',
           multiline: true,

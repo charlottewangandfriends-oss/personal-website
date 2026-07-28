@@ -211,6 +211,10 @@ export async function getAbout() {
     portraitPositionClass: imagePositionClass(data?.portraitPosition),
     parallaxPhoto: data?.parallaxPhoto ?? DEFAULT_IMAGES.aboutParallax,
     parallaxPhotoPosition: imagePositionValue(data?.parallaxPhotoPosition, 'upper-center'),
+    parallaxPhotoMobilePosition: imagePositionValue(
+      data?.parallaxPhotoMobilePosition,
+      'right',
+    ),
     parallaxQuote:
       data?.parallaxQuote ||
       'Rehearsal rooms where people feel heard, trusted, and inspired to give their best.',
