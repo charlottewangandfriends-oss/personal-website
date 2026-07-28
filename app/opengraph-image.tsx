@@ -108,7 +108,7 @@ export default async function OpenGraphImage() {
                 whiteSpace: 'nowrap',
               }}
             >
-              Conductor, composer, soprano, and collaborator
+              Conductor · Composer · Soprano · Collaborator
             </div>
           </div>
 
