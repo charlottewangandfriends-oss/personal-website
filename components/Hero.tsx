@@ -116,14 +116,14 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
         />
 
         <div className="relative mx-auto max-w-[100rem] md:min-h-[calc(100svh-4.5rem)]">
-          {/* On mobile the portrait starts below the fixed nav while the figure keeps
-              its compact footprint. On desktop it touches both section boundaries
-              and dissolves at its left and right edges. */}
+          {/* On mobile the portrait starts below the fixed nav and has enough vertical
+              canvas to show the full face. On desktop it touches both section
+              boundaries and dissolves at its left and right edges. */}
           <div
             ref={figureRef}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            className="group relative h-[46svh] min-h-[20rem] max-h-[26rem] w-full overflow-hidden md:absolute md:inset-y-0 md:right-0 md:h-full md:max-h-none md:w-[70%]"
+            className="group relative h-[58svh] min-h-[25rem] max-h-[30rem] w-full overflow-hidden sm:h-[calc(74vw+4.5rem)] sm:max-h-[42rem] md:absolute md:inset-y-0 md:right-0 md:h-full md:min-h-0 md:max-h-none md:w-[70%]"
           >
             <div
               className={`absolute inset-x-0 bottom-0 top-[4.5rem] origin-top scale-[1.08] transition-transform duration-[6000ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:scale-[1.045] motion-reduce:transition-none md:inset-0 md:origin-center ${
@@ -157,7 +157,7 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
             <div className="pointer-events-none absolute inset-y-[-8%] -left-[9%] hidden w-[42%] bg-cream/70 blur-[52px] md:block" />
             <div className="pointer-events-none absolute inset-y-0 -left-px hidden w-[61%] bg-[linear-gradient(90deg,#f4f1ea_0%,#f4f1ea_18%,rgba(244,241,234,0.98)_34%,rgba(244,241,234,0.86)_50%,rgba(244,241,234,0.58)_68%,rgba(244,241,234,0.22)_84%,transparent_100%)] md:block" />
             <div className="pointer-events-none absolute inset-y-0 -right-px hidden w-[20%] bg-[linear-gradient(270deg,#f4f1ea_0%,rgba(244,241,234,0.92)_24%,rgba(244,241,234,0.58)_54%,rgba(244,241,234,0.18)_80%,transparent_100%)] md:block" />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[36%] bg-gradient-to-b from-transparent via-cream/55 to-cream md:hidden" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[14%] bg-gradient-to-b from-transparent via-cream/45 to-cream md:hidden" />
             <div className="pointer-events-none absolute inset-x-0 top-0 h-[14%] bg-gradient-to-b from-cream/25 to-transparent md:hidden" />
             <div
               aria-hidden="true"
@@ -172,7 +172,7 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
           </div>
 
           {/* Text enters the feathered part of the image on larger screens. */}
-          <div className="relative z-10 mx-auto -mt-14 flex max-w-6xl items-center px-6 pb-8 md:mt-0 md:min-h-[calc(100svh-4.5rem)] md:px-10 md:py-20">
+          <div className="relative z-10 mx-auto flex max-w-6xl items-center px-6 pb-8 pt-3 md:min-h-[calc(100svh-4.5rem)] md:px-10 md:py-20">
             <div className="max-w-xl md:w-[57%]">
               <p
                 className="reveal is-visible eyebrow max-w-[20rem] text-[0.62rem] leading-5 tracking-[0.22em] md:max-w-none md:text-xs"
