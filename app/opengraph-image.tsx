@@ -52,7 +52,7 @@ export default async function OpenGraphImage() {
               width: '100%',
               height: '100%',
               objectFit: 'cover',
-              objectPosition: '56% 28%',
+              objectPosition: '60% 28%',
             }}
           />
           <div
@@ -90,24 +90,25 @@ export default async function OpenGraphImage() {
             padding: '62px 0 58px 74px',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
             <img
               src={`${SITE_URL}/image.png`}
               alt=""
-              width="54"
-              height="54"
-              style={{ width: 54, height: 54, objectFit: 'contain' }}
+              width="50"
+              height="50"
+              style={{ width: 50, height: 50, objectFit: 'contain' }}
             />
             <div
               style={{
                 display: 'flex',
-                fontSize: 18,
-                letterSpacing: '0.18em',
+                fontSize: 14,
+                letterSpacing: '0.13em',
                 textTransform: 'uppercase',
                 color: '#7c7a43',
+                whiteSpace: 'nowrap',
               }}
             >
-              Conductor · Composer · Writer
+              Conductor, composer, soprano, and collaborator
             </div>
           </div>
 
@@ -138,7 +139,7 @@ export default async function OpenGraphImage() {
               color: '#6a5a4d',
             }}
           >
-            Music, words, and work made with others.
+            transcending life with music and words
           </div>
         </div>
       </div>
