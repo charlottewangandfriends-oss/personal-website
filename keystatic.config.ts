@@ -89,7 +89,7 @@ export default config({
           'Hero photo (black & white)',
           'Displayed at 3:4. Use the same framing as the color photo above.',
         ),
-        heroPhotoPosition: imagePosition('Hero photos — crop focus'),
+        heroPhotoPosition: imagePosition('Hero photos — crop focus', 'upper-center'),
       },
     }),
     about: singleton({
@@ -97,11 +97,23 @@ export default config({
       path: 'content/about',
       format: { data: 'yaml' },
       schema: {
-        heading: fields.text({ label: 'Page heading', defaultValue: 'Charlotte Wang, conductor and more' }),
+        heading: fields.text({ label: 'Name / main heading', defaultValue: 'Charlotte Wang' }),
+        subtitle: fields.text({
+          label: 'Subtitle',
+          defaultValue: 'conductor and more',
+        }),
         bio: fields.text({ label: 'Biography', multiline: true, defaultValue: ABOUT_BIO }),
+        cvUrl: fields.url({
+          label: 'Resume / CV live link',
+          description:
+            'Preferred. Paste a Google Doc or another live URL here. This link takes priority over the uploaded PDF.',
+          defaultValue:
+            'https://docs.google.com/document/d/1eMajwxyxCixh7N5pNV86ZszP-YIIE6mMV0Zu7HyeTIU/edit?tab=t.0',
+        }),
         cv: fields.file({
-          label: 'CV (PDF)',
-          description: 'Upload a PDF to enable the “Download CV” button.',
+          label: 'Resume / CV PDF (optional fallback)',
+          description:
+            'Used only when the live link above is empty. Keep this if you would like a downloadable backup.',
           directory: 'public/files',
           publicPath: '/files/',
         }),
@@ -181,10 +193,18 @@ export default config({
       path: 'content/writing-intro',
       format: { data: 'yaml' },
       schema: {
-        heading: fields.text({ label: 'Heading', defaultValue: 'Charlotte Wang, writer' }),
+        heading: fields.text({
+          label: 'Writing hero — name and role',
+          description:
+            'Use a comma between the large name and smaller role, for example: Charlotte Wang, writer.',
+          defaultValue: 'Charlotte Wang, writer',
+        }),
         intro: fields.text({ label: 'Intro', multiline: true, defaultValue: WRITING_INTRO }),
-        portrait: image('Portrait photo', 'Displayed at 4:5. The website trims anything outside that shape.'),
-        portraitPosition: imagePosition('Portrait — crop focus'),
+        portrait: image(
+          'Writing hero — poster on the wall',
+          'Upload the full installation photo. The website centers the main poster and feathers the surrounding wall and neighboring posters into the page.',
+        ),
+        portraitPosition: imagePosition('Writing hero — photo focus', 'upper-center'),
         categoriesEyebrow: fields.text({ label: 'Categories label', defaultValue: 'Categories' }),
         categoriesHeading: fields.text({
           label: 'Categories section heading',
@@ -198,7 +218,7 @@ export default config({
         }),
         poetryImage: image(
           'Poetry — card image',
-          'Displayed at 16:9. The website trims anything outside that shape.',
+          'Displayed at 16:9. After choosing the file, click the blue Save button so the image is committed to the branch shown at top left.',
         ),
         poetryImagePosition: imagePosition('Poetry — crop focus'),
         shortStoryLabel: fields.text({ label: 'Short Story — display title', defaultValue: 'Short Story' }),
@@ -209,23 +229,50 @@ export default config({
         }),
         shortStoryImage: image(
           'Short Story — card image',
-          'Displayed at 16:9. The website trims anything outside that shape.',
+          'Displayed at 16:9. After choosing the file, click the blue Save button so the image is committed to the branch shown at top left.',
         ),
         shortStoryImagePosition: imagePosition('Short Story — crop focus'),
         memoirLabel: fields.text({
-          label: 'Dear Past, Dear Tomorrow — display title',
-          defaultValue: 'Dear Past, Dear Tomorrow',
+          label: 'Dear Tomorrow, Dear Past — display title',
+          defaultValue: 'Dear Tomorrow, Dear Past',
         }),
         memoirDescription: fields.text({
-          label: 'Dear Past, Dear Tomorrow — description',
+          label: 'Dear Tomorrow, Dear Past — description',
           multiline: true,
-          defaultValue: "Selections and reflections from Charlotte's memoir project.",
+          defaultValue: "Charlotte's English honors thesis: a novella of friendship, memory, and becoming.",
         }),
         memoirImage: image(
-          'Dear Past, Dear Tomorrow — card image',
-          'Displayed at 16:9. The website trims anything outside that shape.',
+          'Dear Tomorrow, Dear Past — card image',
+          'Displayed at 16:9. After choosing the file, click the blue Save button so the image is committed to the branch shown at top left.',
         ),
-        memoirImagePosition: imagePosition('Dear Past, Dear Tomorrow — crop focus'),
+        memoirImagePosition: imagePosition('Dear Tomorrow, Dear Past — crop focus'),
+        memoirPdf: fields.file({
+          label: 'Dear Tomorrow, Dear Past — novella PDF',
+          description:
+            'The “Read the Novella” button on the project page opens this PDF in a new tab.',
+          directory: 'public/files/writing',
+          publicPath: '/files/writing/',
+        }),
+        memoirButtonLabel: fields.text({
+          label: 'Novella button label',
+          defaultValue: 'Read the Novella',
+        }),
+        memoirCollaborationEyebrow: fields.text({
+          label: 'Publishing section — small label',
+          defaultValue: 'Publishing & Collaboration',
+        }),
+        memoirCollaborationHeading: fields.text({
+          label: 'Publishing section — heading',
+          defaultValue: 'A story looking for its next life',
+        }),
+        memoirCollaborationBody: fields.text({
+          label: 'Publishing section — text',
+          description:
+            'Share publication, translation, adaptation, or other collaboration interests here. Separate paragraphs with a blank line.',
+          multiline: true,
+          defaultValue:
+            'This novella is open to conversations with publishers, editors, translators, and creative collaborators. For inquiries about publication, adaptation, translation, or related partnerships, please get in touch.',
+        }),
         proseLabel: fields.text({ label: 'Prose & Blogs — display title', defaultValue: 'Prose & Blogs' }),
         proseDescription: fields.text({
           label: 'Prose & Blogs — description',
@@ -234,7 +281,7 @@ export default config({
         }),
         proseImage: image(
           'Prose & Blogs — card image',
-          'Displayed at 16:9. The website trims anything outside that shape.',
+          'Displayed at 16:9. After choosing the file, click the blue Save button so the image is committed to the branch shown at top left.',
         ),
         proseImagePosition: imagePosition('Prose & Blogs — crop focus'),
       },
@@ -424,6 +471,33 @@ export default config({
         }),
       },
     }),
+    engagementsPage: singleton({
+      label: 'Engagements page',
+      path: 'content/engagements-page',
+      format: { data: 'yaml' },
+      schema: {
+        heading: fields.text({
+          label: 'Page heading',
+          defaultValue: 'Engagements',
+        }),
+        intro: fields.text({
+          label: 'Page introduction',
+          multiline: true,
+          defaultValue:
+            'Upcoming performances, conducting engagements, collaborations, and appearances.',
+        }),
+        footerHeading: fields.text({
+          label: 'Closing section — heading',
+          defaultValue: 'Work with Charlotte',
+        }),
+        footerBody: fields.text({
+          label: 'Closing section — text',
+          multiline: true,
+          defaultValue:
+            'For performance, conducting, commissioning, and collaboration inquiries, please get in touch.',
+        }),
+      },
+    }),
     contact: singleton({
       label: 'Contact page',
       path: 'content/contact',
@@ -444,6 +518,56 @@ export default config({
     }),
   },
   collections: {
+    engagements: collection({
+      label: 'Engagements — Schedule',
+      path: 'content/engagements/*',
+      slugField: 'title',
+      columns: ['title', 'date', 'venue'],
+      format: { data: 'yaml' },
+      schema: {
+        title: fields.slug({ name: { label: 'Event title' } }),
+        date: fields.date({
+          label: 'Date',
+          description: 'The event moves to Past Engagements automatically after this date.',
+          validation: { isRequired: true },
+        }),
+        endDate: fields.date({
+          label: 'End date (optional)',
+          description: 'Use this only for an engagement spanning more than one day.',
+        }),
+        time: fields.text({
+          label: 'Time',
+          description: 'For example: 7:30 PM or Time TBA.',
+        }),
+        venue: fields.text({ label: 'Venue / organization' }),
+        location: fields.text({
+          label: 'City / location',
+          description: 'For example: Ann Arbor, Michigan.',
+        }),
+        description: fields.text({
+          label: 'Event description',
+          multiline: true,
+        }),
+        detailsUrl: fields.url({
+          label: 'Tickets / details link',
+          description: 'Optional external page for tickets, registration, or event details.',
+        }),
+        detailsLabel: fields.text({
+          label: 'Link label',
+          defaultValue: 'Event details',
+        }),
+        order: fields.integer({
+          label: 'Order on the same date',
+          description: 'Lower numbers appear first when multiple events share a date.',
+          defaultValue: 0,
+        }),
+        hidden: fields.checkbox({
+          label: 'Hide from the website',
+          description: 'Keep this checked while an event is not ready to publish.',
+          defaultValue: false,
+        }),
+      },
+    }),
     videos: collection({
       label: 'Media — Videos',
       path: 'content/videos/*',
@@ -546,7 +670,7 @@ export default config({
           options: [
             { label: 'Poetry', value: 'poetry' },
             { label: 'Short Story', value: 'short-story' },
-            { label: 'Dear Past, Dear Tomorrow', value: 'dear-past-dear-tomorrow' },
+            { label: 'Dear Tomorrow, Dear Past', value: 'dear-past-dear-tomorrow' },
             { label: 'Proses & Blogs', value: 'prose-blog' },
           ],
           defaultValue: 'poetry',
