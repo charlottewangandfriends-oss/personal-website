@@ -123,11 +123,13 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
             ref={figureRef}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            className="group relative h-[58svh] min-h-[25rem] max-h-[30rem] w-full overflow-hidden sm:h-[calc(74vw+4.5rem)] sm:max-h-[42rem] md:absolute md:inset-y-0 md:right-0 md:h-full md:min-h-0 md:max-h-none md:w-[70%]"
+            className="group relative h-[64svh] min-h-[28rem] max-h-[34rem] w-full overflow-hidden sm:h-[calc(74vw+4.5rem)] sm:max-h-[42rem] md:absolute md:inset-y-0 md:right-0 md:h-full md:min-h-0 md:max-h-none md:w-[70%]"
           >
             <div
-              className={`absolute inset-x-0 bottom-0 top-[4.5rem] origin-top scale-[1.08] transition-transform duration-[6000ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:scale-[1.045] motion-reduce:transition-none md:inset-0 md:origin-center ${
-                showColor ? 'scale-[1.045]' : ''
+              className={`absolute inset-x-0 bottom-0 top-[4.5rem] origin-top transition-transform duration-[6000ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:scale-100 motion-reduce:transition-none md:inset-0 md:origin-center ${
+                showColor
+                  ? 'scale-100 md:scale-[1.045]'
+                  : 'scale-[1.025] md:scale-[1.08]'
               }`}
             >
               <Image
@@ -157,7 +159,7 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
             <div className="pointer-events-none absolute inset-y-[-8%] -left-[9%] hidden w-[42%] bg-cream/70 blur-[52px] md:block" />
             <div className="pointer-events-none absolute inset-y-0 -left-px hidden w-[61%] bg-[linear-gradient(90deg,#f4f1ea_0%,#f4f1ea_18%,rgba(244,241,234,0.98)_34%,rgba(244,241,234,0.86)_50%,rgba(244,241,234,0.58)_68%,rgba(244,241,234,0.22)_84%,transparent_100%)] md:block" />
             <div className="pointer-events-none absolute inset-y-0 -right-px hidden w-[20%] bg-[linear-gradient(270deg,#f4f1ea_0%,rgba(244,241,234,0.92)_24%,rgba(244,241,234,0.58)_54%,rgba(244,241,234,0.18)_80%,transparent_100%)] md:block" />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[14%] bg-gradient-to-b from-transparent via-cream/45 to-cream md:hidden" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[27%] bg-[linear-gradient(to_bottom,transparent_0%,rgba(244,241,234,0.05)_28%,rgba(244,241,234,0.18)_50%,rgba(244,241,234,0.48)_73%,rgba(244,241,234,0.82)_90%,#f4f1ea_100%)] md:hidden" />
             <div className="pointer-events-none absolute inset-x-0 top-0 h-[14%] bg-gradient-to-b from-cream/25 to-transparent md:hidden" />
             <div
               aria-hidden="true"
@@ -180,10 +182,11 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
               >
                 {tagline}
               </p>
-              <h1 className="mt-4 font-serif text-[3.55rem] leading-[0.84] tracking-[-0.045em] text-brown sm:text-7xl md:mt-5 md:text-[clamp(5.4rem,8vw,8rem)]">
+              <h1 className="mt-4 font-serif text-[3.55rem] leading-[0.93] tracking-[-0.045em] text-brown sm:text-7xl md:mt-5 md:text-[clamp(5.4rem,8vw,8rem)] md:leading-[0.84]">
                 Charlotte
-                <br />
-                <span className="ml-[0.18em] text-brown-soft md:ml-[0.28em]">Wang</span>
+                <span className="ml-[0.18em] mt-[0.08em] block text-brown-soft md:ml-[0.28em] md:mt-0">
+                  Wang
+                </span>
               </h1>
 
               {subtagline && (
@@ -247,7 +250,7 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
               <Link
                 key={chapter.href}
                 href={chapter.href}
-                className={`group relative overflow-hidden border-y border-line px-0 py-6 ${CHAPTER_CARD_CLASSES[index]}`}
+                className={`group relative overflow-hidden border-y border-line px-0 py-5 ${CHAPTER_CARD_CLASSES[index]}`}
               >
                 <span
                   aria-hidden="true"
@@ -260,13 +263,13 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
                     </span>
                     <span className="eyebrow">{chapter.eyebrow}</span>
                   </div>
-                  <h3 className={`mt-5 font-serif text-[2.15rem] text-brown transition-colors duration-500 group-hover:text-olive md:mt-8 ${CHAPTER_TITLE_CLASSES[index]}`}>
+                  <h3 className={`mt-4 font-serif text-[2.15rem] text-brown transition-colors duration-500 group-hover:text-olive md:mt-8 ${CHAPTER_TITLE_CLASSES[index]}`}>
                     {chapter.title}
                   </h3>
-                  <p className="mt-2.5 max-w-xs text-sm leading-6 text-brown-soft md:mt-4 md:leading-7">
+                  <p className="mt-1.5 max-w-xs pr-12 text-sm leading-6 text-brown-soft md:mt-4 md:pr-0 md:leading-7">
                     {chapter.description}
                   </p>
-                  <span className="mt-5 inline-block text-xl text-brown transition-transform duration-500 group-hover:translate-x-1 md:mt-auto md:pt-8">
+                  <span className="absolute bottom-0 right-1 inline-block text-xl text-brown transition-transform duration-500 group-hover:translate-x-1 md:static md:mt-auto md:self-start md:pt-8">
                     →
                   </span>
                 </div>

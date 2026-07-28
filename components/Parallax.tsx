@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import type { CSSProperties } from 'react';
 import { useEffect, useRef } from 'react';
 
 type Props = {
@@ -12,6 +13,7 @@ type Props = {
   /** Band height. */
   className?: string;
   objectPosition?: string;
+  mobileObjectPosition?: string;
   /** 0 = no movement, ~0.3 = subtle, 0.5 = strong. */
   speed?: number;
   /** Darken the image so overlaid text stays legible. */
@@ -25,6 +27,7 @@ export default function Parallax({
   cite,
   className = 'h-[60vh] md:h-[78vh]',
   objectPosition = 'center',
+  mobileObjectPosition,
   speed = 0.28,
   overlay = true,
   priority = false,
@@ -74,8 +77,13 @@ export default function Parallax({
           fill
           priority={priority}
           sizes="100vw"
-          className="object-cover"
-          style={{ objectPosition }}
+          className="object-cover [object-position:var(--parallax-mobile-position)] md:[object-position:var(--parallax-desktop-position)]"
+          style={
+            {
+              '--parallax-mobile-position': mobileObjectPosition ?? objectPosition,
+              '--parallax-desktop-position': objectPosition,
+            } as CSSProperties
+          }
         />
       </div>
 

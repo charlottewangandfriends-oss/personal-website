@@ -100,6 +100,7 @@ export default async function AboutPage() {
         <Parallax
           src={about.parallaxPhoto}
           objectPosition={about.parallaxPhotoPosition}
+          mobileObjectPosition={about.parallaxPhotoMobilePosition}
           quote={about.parallaxQuote}
           className="h-[52vh] md:h-[66vh]"
         />

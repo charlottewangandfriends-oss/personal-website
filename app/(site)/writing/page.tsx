@@ -96,29 +96,32 @@ export default async function WritingPage() {
       {/* The rest of the introduction reads like an editorial essay, with a
           generous title column and quiet section markers for each movement. */}
       {bodyParagraphs.length > 0 && (
-        <section className="mx-auto mt-20 max-w-[94rem] px-6 pb-6 md:mt-32 md:px-8">
-          <Reveal className="grid gap-14 border-t border-line pt-16 md:grid-cols-[0.22fr_0.78fr] md:gap-10 md:pt-24">
-            <div>
-              <h2 className="-ml-1 max-w-[17rem] font-serif text-brown md:-ml-3">
-                <span className="flex items-baseline whitespace-nowrap">
-                  <span className="text-3xl leading-none tracking-[-0.035em] md:text-[2.5rem]">
+        <section className="mx-auto mt-14 max-w-[94rem] px-6 pb-8 sm:px-8 md:mt-28 lg:px-10">
+          <Reveal className="border-t border-line/85 pt-10 md:grid md:grid-cols-[minmax(13rem,0.27fr)_minmax(0,0.73fr)] md:gap-x-12 md:pt-20 lg:gap-x-20">
+            <div className="md:self-start">
+              <h2 className="max-w-[20rem] font-serif text-brown">
+                <span className="flex flex-wrap items-end">
+                  <span className="mb-[0.18em] mr-2.5 text-[1.7rem] leading-none tracking-[-0.025em] md:text-[2rem]">
                     A
                   </span>
-                  <span className="ml-2 text-[3.65rem] lowercase leading-none tracking-[-0.055em] md:text-[4.6rem]">
+                  <span className="text-[clamp(3.45rem,18vw,4.5rem)] lowercase leading-[0.82] tracking-[-0.055em] md:text-[clamp(4rem,6vw,4.8rem)]">
                     writer
                   </span>
                 </span>
-                <span className="-mt-1 ml-[38%] block text-3xl italic leading-none tracking-[-0.035em] text-olive md:text-[2.7rem]">
-                  first
+                <span className="mt-2 flex items-center justify-end gap-3 pr-4">
+                  <span aria-hidden="true" className="h-px w-11 bg-line" />
+                  <span className="text-[1.85rem] italic leading-none tracking-[-0.025em] text-olive md:text-[2.25rem]">
+                    first
+                  </span>
                 </span>
               </h2>
             </div>
-            <div className="grid gap-x-16 lg:grid-cols-2">
+            <div className="mt-11 grid gap-y-11 md:mt-0 xl:grid-cols-2 xl:gap-x-16 xl:gap-y-14">
               {bodyParagraphs.map((paragraph, index) => (
                 <div
                   key={index}
-                  className={`mb-12 break-inside-avoid border-t border-line/70 pt-5 ${
-                    index % 2 === 1 ? 'lg:mt-10' : ''
+                  className={`break-inside-avoid border-t border-line/60 pt-4 ${
+                    index % 2 === 1 ? 'xl:translate-y-10' : ''
                   }`}
                 >
                   <span
@@ -127,7 +130,7 @@ export default async function WritingPage() {
                   >
                     {String(index + 1).padStart(2, '0')}
                   </span>
-                  <p className="mt-3 text-[1rem] leading-8 text-brown-soft first-letter:font-serif first-letter:text-[1.55em] first-letter:font-medium first-letter:leading-none first-letter:text-olive md:text-[1.06rem] md:leading-9">
+                  <p className="mt-3 text-pretty text-[1rem] leading-[1.85] text-brown-soft first-line:text-brown first-letter:font-serif first-letter:text-[1.24em] first-letter:font-semibold first-letter:tracking-[-0.02em] first-letter:text-brown md:text-[1.04rem] md:leading-[1.9]">
                     {paragraph}
                   </p>
                 </div>

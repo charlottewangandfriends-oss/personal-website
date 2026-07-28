@@ -48,4 +48,5 @@ bio: >-
 portrait: /images/charlotte-about-wide.svg
 portraitPosition: upper-center
 parallaxPhotoPosition: upper-center
+parallaxPhotoMobilePosition: right
 parallaxQuote: Music, an art of time that allows another dimension of life.
