@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 
 const links = [
   { href: '/', label: 'Home' },
+  { href: '/engagements', label: 'Engagements' },
   { href: '/about', label: 'About' },
   { href: '/media', label: 'Media' },
   { href: '/writing', label: 'Writing' },
@@ -36,7 +37,7 @@ export default function Nav() {
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
         scrolled || open
           ? 'bg-cream/90 backdrop-blur-md border-b border-line'
-          : 'bg-transparent border-b border-transparent'
+          : 'bg-cream/78 backdrop-blur-sm border-b border-line/40 md:bg-transparent md:backdrop-blur-none md:border-transparent'
       }`}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5 md:px-10">
@@ -47,7 +48,7 @@ export default function Nav() {
           Charlotte&nbsp;Wang
         </Link>
 
-        <ul className="hidden items-center gap-9 md:flex">
+        <ul className="hidden items-center gap-6 lg:gap-9 md:flex">
           {links.map((l) => (
             <li key={l.href}>
               <Link

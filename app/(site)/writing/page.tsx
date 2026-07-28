@@ -9,6 +9,11 @@ export const metadata: Metadata = {
   description: 'Poetry, short stories, reflections, and prose in English, Chinese, and French.',
 };
 
+const POSTER_WALL_STYLE = {
+  background:
+    'radial-gradient(ellipse 78% 88% at 54% 50%, rgba(137, 124, 77, 0.52) 0%, rgba(137, 124, 77, 0.32) 42%, rgba(137, 124, 77, 0.12) 64%, rgba(244, 241, 234, 0) 84%)',
+} as const;
+
 export default async function WritingPage() {
   const [intro, writings, categories] = await Promise.all([
     getWritingIntro(),
@@ -16,79 +21,150 @@ export default async function WritingPage() {
     getWritingCategories(),
   ]);
   const introParas = toParagraphs(intro.intro);
+  const [leadParagraph, ...bodyParagraphs] = introParas;
+  const [writerName, writerRole = 'writer'] = intro.heading
+    .split(',')
+    .map((part) => part.trim())
+    .filter(Boolean);
+  const writerNameParts = (writerName || 'Charlotte Wang').split(/\s+/);
+  const writerLastName = writerNameParts.pop();
+  const writerFirstName = writerNameParts.join(' ');
 
   return (
-    <div className="pt-32 pb-24 md:pt-40">
-      {/* Intro Header */}
-      <header className="mx-auto max-w-6xl px-6 md:px-10">
-        <div className="grid items-center gap-12 md:grid-cols-[1.1fr_0.9fr] md:gap-16">
-          <Reveal>
-            <span className="inline-block rounded-full bg-lavender-soft/75 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-brown ring-1 ring-lavender/40">
-              Writing
-            </span>
-            <h1 className="mt-4 font-serif text-5xl text-brown md:text-6xl">{intro.heading}</h1>
-            <div className="prose-warm mt-6 max-w-xl">
-              {introParas.length ? (
-                introParas.map((p, i) => <p key={i}>{p}</p>)
-              ) : (
-                <p>Coming soon.</p>
-              )}
+    <div className="pb-24 pt-20 md:pt-[4.5rem]">
+      {/* Keep the poster itself crisp. Only the halo behind it borrows the wall
+          colour and dissolves into the paper background. */}
+      <section
+        aria-label="Dear Tomorrow, Dear Past thesis poster installation"
+        className="relative overflow-hidden bg-cream"
+      >
+        <div className="relative mx-auto max-w-[100rem] md:min-h-[48rem]">
+          <Reveal className="relative z-10 mx-auto max-w-6xl px-6 pb-10 pt-14 md:flex md:min-h-[48rem] md:items-center md:px-10 md:py-20">
+            <div className="max-w-md md:w-[46%]">
+              <p className="eyebrow text-olive">Writing</p>
+              <h1 className="mt-5 font-serif leading-[0.9] text-brown">
+                <span className="block text-[3.7rem] tracking-[-0.045em] sm:text-7xl md:text-[clamp(5rem,7vw,7.4rem)]">
+                  <span className="block">{writerFirstName}</span>
+                  <span className="ml-[0.18em] block text-brown-soft">{writerLastName}</span>
+                </span>
+                <span className="mt-3 block text-2xl font-normal italic tracking-[-0.02em] text-olive md:mt-4 md:text-4xl">
+                  {writerRole}
+                </span>
+              </h1>
+              <p className="mt-7 max-w-sm border-t border-line pt-5 text-[0.98rem] leading-7 text-brown-soft md:mt-8 md:pt-6 md:text-base md:leading-8">
+                {leadParagraph || 'Coming soon.'}
+              </p>
             </div>
           </Reveal>
-          <Reveal
-            delay={120}
-            className="relative aspect-[4/5] overflow-hidden rounded-sm border border-line shadow-sm"
-          >
-            <Image
-              src={intro.portrait}
-              alt="Charlotte Wang"
-              fill
-              sizes="(max-width: 768px) 90vw, 40vw"
-              className={`object-cover ${intro.portraitPositionClass}`}
-            />
-          </Reveal>
-        </div>
-      </header>
 
-      {/* Writing Categories Superlink Cards */}
-      <section className="mx-auto max-w-6xl px-6 mt-20 md:px-10">
+          <div
+            className="relative mx-auto h-[132vw] min-h-[29rem] max-h-[36rem] w-full max-w-[26rem] px-4 pb-12 md:absolute md:inset-y-[5%] md:left-auto md:right-[2%] md:h-auto md:max-h-none md:max-w-none md:w-[50%] md:px-0 md:pb-0"
+          >
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -inset-x-16 -inset-y-10"
+              style={POSTER_WALL_STYLE}
+            />
+            <div className="relative h-full w-full">
+              <Image
+                src={intro.portrait}
+                alt="Dear Tomorrow, Dear Past senior thesis poster displayed at Amherst College"
+                fill
+                priority
+                sizes="(max-width: 767px) 92vw, 46vw"
+                className={`object-contain ${intro.portraitPositionClass}`}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-b from-transparent to-cream/95" />
+      </section>
+
+      {/* The rest of the introduction reads like an editorial essay, with a
+          generous title column and quiet section markers for each movement. */}
+      {bodyParagraphs.length > 0 && (
+        <section className="mx-auto mt-20 max-w-[94rem] px-6 pb-6 md:mt-32 md:px-8">
+          <Reveal className="grid gap-14 border-t border-line pt-16 md:grid-cols-[0.22fr_0.78fr] md:gap-10 md:pt-24">
+            <div>
+              <h2 className="-ml-1 max-w-[17rem] font-serif text-brown md:-ml-3">
+                <span className="flex items-baseline whitespace-nowrap">
+                  <span className="text-3xl leading-none tracking-[-0.035em] md:text-[2.5rem]">
+                    A
+                  </span>
+                  <span className="ml-2 text-[3.65rem] lowercase leading-none tracking-[-0.055em] md:text-[4.6rem]">
+                    writer
+                  </span>
+                </span>
+                <span className="-mt-1 ml-[38%] block text-3xl italic leading-none tracking-[-0.035em] text-olive md:text-[2.7rem]">
+                  first
+                </span>
+              </h2>
+            </div>
+            <div className="grid gap-x-16 lg:grid-cols-2">
+              {bodyParagraphs.map((paragraph, index) => (
+                <div
+                  key={index}
+                  className={`mb-12 break-inside-avoid border-t border-line/70 pt-5 ${
+                    index % 2 === 1 ? 'lg:mt-10' : ''
+                  }`}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="block text-[0.62rem] font-semibold tracking-[0.24em] text-olive/55"
+                  >
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <p className="mt-3 text-[1rem] leading-8 text-brown-soft first-letter:font-serif first-letter:text-[1.55em] first-letter:font-medium first-letter:leading-none first-letter:text-olive md:text-[1.06rem] md:leading-9">
+                    {paragraph}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </section>
+      )}
+
+      {/* Writing category links */}
+      <section className="mx-auto mt-20 max-w-6xl px-6 md:px-10">
         <Reveal>
-          <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-olive-soft/70 text-olive-deep">
-            {intro.categoriesEyebrow}
-          </span>
-          <h2 className="mt-3 font-serif text-3xl text-brown md:text-4xl">{intro.categoriesHeading}</h2>
+          <p className="eyebrow">{intro.categoriesEyebrow}</p>
+          <h2 className="mt-3 font-serif text-3xl text-brown md:text-4xl">
+            {intro.categoriesHeading}
+          </h2>
         </Reveal>
 
-        <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-2">
-          {categories.map((cat, i) => {
-            const count = writings.filter((w) => w.category === cat.value).length;
+        <div className="mt-10 grid gap-8 sm:grid-cols-2">
+          {categories.map((category, index) => {
+            const count = writings.filter((writing) => writing.category === category.value).length;
+
             return (
-              <Reveal key={cat.value} delay={i * 100}>
+              <Reveal key={category.value} delay={index * 100}>
                 <Link
-                  href={`/writing/${cat.value}`}
+                  href={`/writing/${category.value}`}
                   className="editorial-card group flex h-full flex-col overflow-hidden rounded-xl border border-line"
                 >
                   <div className="relative aspect-[16/9] overflow-hidden">
                     <Image
-                      src={cat.img}
-                      alt={cat.label}
+                      src={category.img}
+                      alt={category.label}
                       fill
                       sizes="(max-width: 768px) 90vw, 45vw"
-                      className={`object-cover ${cat.imgPositionClass} transition-transform duration-700 group-hover:scale-105`}
+                      className={`object-cover ${category.imgPositionClass} transition-transform duration-700 group-hover:scale-105`}
                     />
                   </div>
-                  <div className="p-8 flex flex-col flex-1 justify-between">
+                  <div className="flex flex-1 flex-col justify-between p-8">
                     <div>
                       <div className="flex justify-end">
-                        <span className="text-xs text-brown-soft/70 font-medium">
+                        <span className="text-xs font-medium text-brown-soft/70">
                           {count} {count === 1 ? 'piece' : 'pieces'}
                         </span>
                       </div>
                       <h3 className="mt-3 font-serif text-2xl text-brown transition-colors group-hover:text-olive">
-                        {cat.label}
+                        {category.label}
                       </h3>
                       <p className="mt-2 text-sm leading-relaxed text-brown-soft">
-                        {cat.description}
+                        {category.description}
                       </p>
                     </div>
                     <span className="link-underline mt-6 inline-block text-xs font-semibold uppercase tracking-wider text-olive">

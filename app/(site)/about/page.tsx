@@ -15,6 +15,10 @@ const HERO_FADE_STYLE = {
 export default async function AboutPage() {
   const about = await getAbout();
   const bio = toParagraphs(about.bio);
+  const resumeLabel = about.resumeExternal ? 'View Resume ↗' : 'Download Resume ↓';
+  const resumeLinkProps = about.resumeExternal
+    ? { target: '_blank' as const, rel: 'noreferrer' }
+    : { download: true };
 
   return (
     <article className="pt-[4.25rem] md:pt-[4.5rem]">
@@ -45,15 +49,19 @@ export default async function AboutPage() {
           <div className="relative z-10 mx-auto hidden h-full max-w-7xl items-center px-10 md:flex">
             <div className="ml-auto w-[44%] -translate-y-[3%] lg:w-[43%]">
               <p className="eyebrow">About</p>
-              <h1 className="mt-4 font-serif text-[2.3rem] leading-[0.98] text-brown lg:text-5xl xl:text-[3.6rem]">
+              <h1 className="mt-4 font-serif text-[3rem] leading-[0.94] tracking-[-0.025em] text-brown lg:text-[4rem] xl:text-[4.65rem]">
                 {about.heading}
               </h1>
-              {about.cv && (
+              <p className="mt-3 font-serif text-2xl italic text-brown-soft lg:text-3xl">
+                {about.subtitle}
+              </p>
+              {about.resumeHref && (
                 <a
-                  href={about.cv}
+                  href={about.resumeHref}
+                  {...resumeLinkProps}
                   className="mt-7 w-fit rounded-full border border-brown/70 px-6 py-2.5 text-sm tracking-wide text-brown transition-colors hover:bg-brown hover:text-cream"
                 >
-                  Download CV
+                  {resumeLabel}
                 </a>
               )}
             </div>
@@ -62,15 +70,19 @@ export default async function AboutPage() {
 
         <Reveal className="relative z-10 -mt-9 px-6 md:hidden">
           <p className="eyebrow">About</p>
-          <h1 className="mt-3 font-serif text-5xl leading-[0.98] text-brown">
+          <h1 className="mt-3 font-serif text-5xl leading-[0.94] tracking-[-0.025em] text-brown">
             {about.heading}
           </h1>
-          {about.cv && (
+          <p className="mt-2 font-serif text-2xl italic text-brown-soft">
+            {about.subtitle}
+          </p>
+          {about.resumeHref && (
             <a
-              href={about.cv}
+              href={about.resumeHref}
+              {...resumeLinkProps}
               className="mt-7 inline-block rounded-full border border-brown px-7 py-3 text-sm tracking-wide text-brown transition-colors hover:bg-brown hover:text-cream"
             >
-              Download CV
+              {resumeLabel}
             </a>
           )}
         </Reveal>

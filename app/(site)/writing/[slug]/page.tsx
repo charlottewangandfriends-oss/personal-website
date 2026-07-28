@@ -5,6 +5,7 @@ import Reveal from '@/components/Reveal';
 import {
   getWriting,
   getWritingCategories,
+  getWritingIntro,
   getWritings,
   toParagraphs,
   WRITING_CATEGORIES,
@@ -45,8 +46,15 @@ export default async function WritingSlugPage({
   // 1. Check if slug matches a Writing Category
   const category = categories.find((c) => c.value === slug);
   if (category) {
-    const allWritings = await getWritings();
+    const [allWritings, writingPage] = await Promise.all([
+      getWritings(),
+      getWritingIntro(),
+    ]);
     const items = allWritings.filter((w) => w.category === category.value);
+    const isMemoir = category.value === 'dear-past-dear-tomorrow';
+    const collaborationParagraphs = isMemoir
+      ? toParagraphs(writingPage.memoirCollaborationBody)
+      : [];
 
     return (
       <div className="pt-32 pb-24 md:pt-40">
@@ -65,17 +73,53 @@ export default async function WritingSlugPage({
             <p className="mt-4 max-w-xl text-lg text-brown-soft">
               {category.description}
             </p>
+            {isMemoir && writingPage.memoirPdf && (
+              <a
+                href={writingPage.memoirPdf}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-8 inline-flex rounded-full bg-brown px-7 py-3.5 text-sm tracking-wide text-cream transition-colors hover:bg-olive"
+              >
+                {writingPage.memoirButtonLabel} ↗
+              </a>
+            )}
           </Reveal>
         </header>
 
-        <div className="mx-auto max-w-4xl px-6 mt-14 md:px-10">
-          {items.length === 0 ? (
+        <div className="mx-auto mt-14 max-w-4xl px-6 md:px-10">
+          {isMemoir && (
+            <Reveal>
+              <section className="border-y border-line py-12 md:grid md:grid-cols-[0.72fr_1.28fr] md:gap-14 md:py-16">
+                <div>
+                  <p className="eyebrow">{writingPage.memoirCollaborationEyebrow}</p>
+                  <h2 className="mt-4 font-serif text-4xl leading-tight text-brown md:text-5xl">
+                    {writingPage.memoirCollaborationHeading}
+                  </h2>
+                </div>
+                <div className="mt-8 md:mt-0">
+                  <div className="space-y-4 text-[1.05rem] leading-8 text-brown-soft">
+                    {collaborationParagraphs.map((paragraph) => (
+                      <p key={paragraph}>{paragraph}</p>
+                    ))}
+                  </div>
+                  <Link
+                    href="/contact"
+                    className="link-underline mt-7 inline-block text-sm tracking-wide text-brown hover:text-olive"
+                  >
+                    Start a conversation →
+                  </Link>
+                </div>
+              </section>
+            </Reveal>
+          )}
+
+          {items.length === 0 && !isMemoir ? (
             <Reveal>
               <div className="rounded-xl border border-line bg-paper p-10 text-center">
                 <p className="text-base text-brown-soft/80">Pieces in this category will be published soon.</p>
               </div>
             </Reveal>
-          ) : (
+          ) : items.length > 0 ? (
             <ul className="flex flex-col">
               {items.map((w, i) => (
                 <Reveal as="li" key={w.slug} delay={i * 60}>
@@ -100,7 +144,7 @@ export default async function WritingSlugPage({
                 </Reveal>
               ))}
             </ul>
-          )}
+          ) : null}
 
           <Reveal delay={200} className="mt-16 border-t border-line pt-8">
             <Link
