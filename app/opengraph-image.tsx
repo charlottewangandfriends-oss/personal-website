@@ -53,6 +53,8 @@ export default async function OpenGraphImage() {
               height: '100%',
               objectFit: 'cover',
               objectPosition: '60% 28%',
+              // Move only the portrait; the overlay stays fixed for a seamless feather.
+              transform: 'translateX(28px)',
             }}
           />
           <div
@@ -139,7 +141,7 @@ export default async function OpenGraphImage() {
               color: '#6a5a4d',
             }}
           >
-            transcending life with music and words
+            Transcending life with music and words
           </div>
         </div>
       </div>
