@@ -43,6 +43,6 @@ poetryImagePosition: right
 shortStoryImage: /images/uploads/shortStoryImage.png
 shortStoryImagePosition: top
 memoirImage: /images/uploads/memoirImage.png
-memoirImagePosition: upper-center
+memoirImagePosition: center
 proseImage: /images/uploads/proseImage.png
 proseImagePosition: center
