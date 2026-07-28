@@ -47,6 +47,18 @@ const CHAPTER_TITLE_CLASSES = [
   'md:text-5xl',
   'md:text-[2.65rem]',
 ] as const;
+const DESKTOP_IMAGE_POSITION_CLASSES: Record<string, string> = {
+  'object-center': 'md:object-center',
+  'object-[center_30%]': 'md:object-[center_30%]',
+  'object-top': 'md:object-top',
+  'object-bottom': 'md:object-bottom',
+  'object-left': 'md:object-left',
+  'object-right': 'md:object-right',
+  'object-left-top': 'md:object-left-top',
+  'object-right-top': 'md:object-right-top',
+  'object-left-bottom': 'md:object-left-bottom',
+  'object-right-bottom': 'md:object-right-bottom',
+};
 
 /**
  * Editorial portrait that develops from black and white into color.
@@ -56,6 +68,8 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
   const [colored, setColored] = useState(false);
   const [hovered, setHovered] = useState(false);
   const figureRef = useRef<HTMLDivElement | null>(null);
+  const desktopPositionClass =
+    DESKTOP_IMAGE_POSITION_CLASSES[positionClass] ?? 'md:object-center';
 
   useEffect(() => {
     const el = figureRef.current;
@@ -108,7 +122,7 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
             ref={figureRef}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            className="group relative h-[50svh] min-h-[22rem] max-h-[29rem] w-full overflow-hidden md:absolute md:inset-y-0 md:right-0 md:h-full md:max-h-none md:w-[70%]"
+            className="group relative h-[46svh] min-h-[20rem] max-h-[26rem] w-full overflow-hidden md:absolute md:inset-y-0 md:right-0 md:h-full md:max-h-none md:w-[70%]"
           >
             <div
               className={`absolute inset-0 scale-[1.08] transition-transform duration-[6000ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:scale-[1.045] motion-reduce:transition-none ${
@@ -121,7 +135,7 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
                 fill
                 priority
                 sizes="(max-width: 767px) 100vw, 70vw"
-                className={`object-cover ${positionClass}`}
+                className={`object-cover object-[center_8%] ${desktopPositionClass}`}
               />
               <Image
                 src={colorSrc}
@@ -130,7 +144,7 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
                 fill
                 priority
                 sizes="(max-width: 767px) 100vw, 70vw"
-                className={`object-cover transition-[opacity,filter] duration-[6000ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${positionClass} ${
+                className={`object-cover object-[center_8%] transition-[opacity,filter] duration-[6000ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${desktopPositionClass} ${
                   showColor
                     ? 'opacity-100 saturate-100'
                     : 'opacity-0 saturate-[0.72]'
@@ -157,7 +171,7 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
           </div>
 
           {/* Text enters the feathered part of the image on larger screens. */}
-          <div className="relative z-10 mx-auto -mt-16 flex max-w-6xl items-center px-6 pb-12 md:mt-0 md:min-h-[calc(100svh-4.5rem)] md:px-10 md:py-20">
+          <div className="relative z-10 mx-auto -mt-14 flex max-w-6xl items-center px-6 pb-8 md:mt-0 md:min-h-[calc(100svh-4.5rem)] md:px-10 md:py-20">
             <div className="max-w-xl md:w-[57%]">
               <p
                 className="reveal is-visible eyebrow max-w-[20rem] text-[0.62rem] leading-5 tracking-[0.22em] md:max-w-none md:text-xs"
@@ -172,14 +186,14 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
               </h1>
 
               {subtagline && (
-                <div className="mt-7 max-w-md border-t border-line/90 pt-4 md:mt-9 md:pt-5">
+                <div className="mt-6 max-w-md border-t border-line/90 pt-4 md:mt-9 md:pt-5">
                   <p className="font-serif text-base italic leading-relaxed text-olive md:text-xl">
                     {subtagline}
                   </p>
                 </div>
               )}
 
-              <div className="mt-7 flex flex-wrap items-center gap-x-7 gap-y-4 md:mt-9">
+              <div className="mt-6 flex flex-wrap items-center gap-x-7 gap-y-4 md:mt-9">
                 <Link
                   href="/about"
                   className="group rounded-full bg-brown px-7 py-3.5 text-sm tracking-wide text-cream transition-colors duration-500 hover:bg-olive"
@@ -211,7 +225,7 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
           aria-hidden="true"
           className="pointer-events-none absolute left-1/2 top-0 h-72 w-[52rem] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,rgba(207,199,216,0.2),transparent_68%)]"
         />
-        <div className="relative mx-auto max-w-6xl px-6 py-16 md:px-10 md:py-24">
+        <div className="relative mx-auto max-w-6xl px-6 py-12 md:px-10 md:py-24">
           <div className="flex items-end justify-between gap-8">
             <div>
               <p className="eyebrow">Three ways in</p>
@@ -227,12 +241,12 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
             </p>
           </div>
 
-          <div className="mt-12 grid md:grid-cols-[1.2fr_1fr_0.8fr] md:items-start">
+          <div className="mt-9 grid md:mt-12 md:grid-cols-[1.2fr_1fr_0.8fr] md:items-start">
             {chapters.map((chapter, index) => (
               <Link
                 key={chapter.href}
                 href={chapter.href}
-                className={`group relative overflow-hidden border-y border-line px-0 py-9 ${CHAPTER_CARD_CLASSES[index]}`}
+                className={`group relative overflow-hidden border-y border-line px-0 py-6 ${CHAPTER_CARD_CLASSES[index]}`}
               >
                 <span
                   aria-hidden="true"
@@ -245,13 +259,13 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
                     </span>
                     <span className="eyebrow">{chapter.eyebrow}</span>
                   </div>
-                  <h3 className={`mt-8 font-serif text-4xl text-brown transition-colors duration-500 group-hover:text-olive ${CHAPTER_TITLE_CLASSES[index]}`}>
+                  <h3 className={`mt-5 font-serif text-[2.15rem] text-brown transition-colors duration-500 group-hover:text-olive md:mt-8 ${CHAPTER_TITLE_CLASSES[index]}`}>
                     {chapter.title}
                   </h3>
-                  <p className="mt-4 max-w-xs text-sm leading-7 text-brown-soft">
+                  <p className="mt-2.5 max-w-xs text-sm leading-6 text-brown-soft md:mt-4 md:leading-7">
                     {chapter.description}
                   </p>
-                  <span className="mt-8 inline-block text-xl text-brown transition-transform duration-500 group-hover:translate-x-1 md:mt-auto md:pt-8">
+                  <span className="mt-5 inline-block text-xl text-brown transition-transform duration-500 group-hover:translate-x-1 md:mt-auto md:pt-8">
                     →
                   </span>
                 </div>
