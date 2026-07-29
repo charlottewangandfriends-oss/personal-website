@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -17,6 +18,7 @@ export default function Nav() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const isHome = pathname === '/';
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -40,12 +42,24 @@ export default function Nav() {
           : 'bg-cream/78 backdrop-blur-sm border-b border-line/40 md:bg-transparent md:backdrop-blur-none md:border-transparent'
       }`}
     >
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5 md:px-10">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 md:px-10 md:py-5">
         <Link
           href="/"
-          className="font-serif text-xl tracking-tight text-brown md:text-2xl"
+          className="group flex items-center gap-3 font-serif text-xl tracking-tight text-brown md:text-2xl"
         >
-          Charlotte&nbsp;Wang
+          {!isHome && (
+            <span className="relative h-10 w-10 shrink-0 md:h-12 md:w-12">
+              <Image
+                src="/image.png"
+                alt=""
+                aria-hidden
+                fill
+                sizes="48px"
+                className="object-contain opacity-70 transition-opacity duration-300 group-hover:opacity-90"
+              />
+            </span>
+          )}
+          <span>Charlotte&nbsp;Wang</span>
         </Link>
 
         <ul className="hidden items-center gap-6 lg:gap-9 md:flex">
@@ -87,7 +101,6 @@ export default function Nav() {
         </button>
       </nav>
 
-      {/* Mobile menu */}
       <div
         className={`overflow-hidden transition-[max-height] duration-500 md:hidden ${
           open ? 'max-h-80' : 'max-h-0'
