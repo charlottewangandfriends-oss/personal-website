@@ -5,7 +5,6 @@ import dynamic from 'next/dynamic';
 export type NovellaReaderProps = {
   fileUrl: string;
   title: string;
-  downloadName: string;
 };
 
 const NovellaReaderClient = dynamic(() => import('./NovellaReaderClient'), {

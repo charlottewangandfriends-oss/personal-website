@@ -39,29 +39,9 @@ function ArrowIcon({ direction }: { direction: 'left' | 'right' }) {
   );
 }
 
-function DownloadIcon() {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      className="h-4 w-4"
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="1.7"
-    >
-      <path d="M12 3v12" />
-      <path d="m7 10 5 5 5-5" />
-      <path d="M5 21h14" />
-    </svg>
-  );
-}
-
 export default function NovellaReaderClient({
   fileUrl,
   title,
-  downloadName,
 }: NovellaReaderProps) {
   const stageRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef<number | null>(null);
@@ -216,15 +196,8 @@ export default function NovellaReaderClient({
               <div>
                 <p className="font-serif text-3xl text-cream">The book could not open.</p>
                 <p className="mt-3 text-sm leading-6 text-cream/70">
-                  You can still download the original PDF and read it offline.
+                  Please refresh the page and try opening the digital edition again.
                 </p>
-                <a
-                  href={fileUrl}
-                  download={downloadName}
-                  className="mt-6 inline-flex rounded-full bg-cream px-6 py-3 text-sm text-brown"
-                >
-                  Download PDF
-                </a>
               </div>
             </div>
           }
@@ -238,7 +211,7 @@ export default function NovellaReaderClient({
             {visiblePages.map((pageNumber) => (
               <figure
                 key={pageNumber}
-                className="novella-page overflow-hidden bg-white shadow-[0_18px_45px_rgba(0,0,0,0.28)] ring-1 ring-black/10"
+                className="novella-page relative select-none overflow-hidden bg-white shadow-[0_18px_45px_rgba(0,0,0,0.28)] ring-1 ring-black/10"
                 style={{ width: pageWidth }}
               >
                 <Page
@@ -261,6 +234,14 @@ export default function NovellaReaderClient({
                     />
                   }
                 />
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center overflow-hidden"
+                >
+                  <span className="-rotate-[28deg] whitespace-nowrap font-serif text-[clamp(1rem,2.1vw,1.7rem)] tracking-[0.09em] text-brown/[0.12] mix-blend-multiply">
+                    © Shuyao Charlotte Wang · Preview
+                  </span>
+                </div>
                 <figcaption className="sr-only">
                   {title}, PDF page {pageNumber}
                 </figcaption>
@@ -305,16 +286,6 @@ export default function NovellaReaderClient({
             className="novella-progress mt-1.5 block w-full"
           />
         </div>
-
-        <a
-          href={fileUrl}
-          download={downloadName}
-          aria-label="Download PDF"
-          className="hidden h-10 shrink-0 items-center gap-2 rounded-full px-3 text-sm text-brown transition-colors hover:bg-greige/70 md:flex"
-        >
-          <DownloadIcon />
-          <span>PDF</span>
-        </a>
 
         <button
           type="button"
