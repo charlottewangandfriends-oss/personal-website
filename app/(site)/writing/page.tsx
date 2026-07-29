@@ -137,7 +137,7 @@ export default async function WritingPage() {
                     writer
                   </span>
                 </span>
-                <span className="mt-2 flex items-center justify-end gap-3 pr-4">
+                <span className="mt-4 flex items-center justify-end gap-3 pr-12">
                   <span aria-hidden="true" className="h-px w-11 bg-line" />
                   <span className="text-[1.85rem] italic leading-none tracking-[-0.025em] text-olive md:text-[2.25rem]">
                     first
@@ -145,24 +145,16 @@ export default async function WritingPage() {
                 </span>
               </h2>
             </div>
-            <div className="mt-11 grid gap-y-11 md:mt-0 xl:grid-cols-2 xl:gap-x-16 xl:gap-y-14">
+            <div className="mt-11 max-w-[52rem] md:mt-0">
               {bodyParagraphs.map((paragraph, index) => (
-                <div
+                <p
                   key={index}
-                  className={`break-inside-avoid border-t border-line/60 pt-4 ${
-                    index % 2 === 1 ? 'xl:translate-y-10' : ''
+                  className={`text-pretty text-[1rem] leading-[1.85] text-brown-soft md:text-[1.04rem] md:leading-[1.9] ${
+                    index === 0 ? '' : 'mt-7'
                   }`}
                 >
-                  <span
-                    aria-hidden="true"
-                    className="block text-[0.62rem] font-semibold tracking-[0.24em] text-olive/55"
-                  >
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                  <p className="mt-3 text-pretty text-[1rem] leading-[1.85] text-brown-soft first-line:text-brown first-letter:font-serif first-letter:text-[1.24em] first-letter:font-semibold first-letter:tracking-[-0.02em] first-letter:text-brown md:text-[1.04rem] md:leading-[1.9]">
-                    {paragraph}
-                  </p>
-                </div>
+                  {paragraph}
+                </p>
               ))}
             </div>
           </Reveal>
