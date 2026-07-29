@@ -76,11 +76,10 @@ export default async function WritingSlugPage({
             {isMemoir && writingPage.memoirPdf && (
               <a
                 href={writingPage.memoirPdf}
-                target="_blank"
-                rel="noreferrer"
+                download="Dear-Tomorrow-Dear-Past-Charlotte-Wang.pdf"
                 className="mt-8 inline-flex rounded-full bg-brown px-7 py-3.5 text-sm tracking-wide text-cream transition-colors hover:bg-olive"
               >
-                {writingPage.memoirButtonLabel} ↗
+                {writingPage.memoirButtonLabel} ↓
               </a>
             )}
           </Reveal>
