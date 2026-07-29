@@ -59,7 +59,7 @@ export default async function AboutPage() {
                 <a
                   href={about.resumeHref}
                   {...resumeLinkProps}
-                  className="mt-7 w-fit rounded-full border border-brown/70 px-6 py-2.5 text-sm tracking-wide text-brown transition-colors hover:bg-brown hover:text-cream"
+                  className="mt-8 inline-flex w-fit rounded-full border border-brown/70 px-6 py-2.5 text-sm tracking-wide text-brown transition-colors hover:bg-brown hover:text-cream"
                 >
                   {resumeLabel}
                 </a>

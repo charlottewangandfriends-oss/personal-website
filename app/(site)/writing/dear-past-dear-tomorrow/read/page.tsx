@@ -10,8 +10,6 @@ export const metadata: Metadata = {
     'Read Shuyao Charlotte Wang’s novella Dear Tomorrow, Dear Past in an online digital edition.',
 };
 
-const DOWNLOAD_NAME = 'Dear-Tomorrow-Dear-Past-Charlotte-Wang.pdf';
-
 export default async function ReadNovellaPage() {
   const writingPage = await getWritingIntro();
   if (!writingPage.memoirPdf) notFound();
@@ -26,7 +24,7 @@ export default async function ReadNovellaPage() {
           ← Back to the novella
         </Link>
 
-        <div className="mt-8 border-y border-line py-8 md:grid md:grid-cols-[1fr_auto] md:items-end md:gap-10 md:py-10">
+        <div className="mt-8 border-y border-line py-8 md:py-10">
           <div>
             <p className="eyebrow">Digital Edition</p>
             <h1 className="mt-3 max-w-4xl font-serif text-4xl text-brown sm:text-5xl md:text-6xl">
@@ -36,13 +34,6 @@ export default async function ReadNovellaPage() {
               A novella by Shuyao Charlotte Wang
             </p>
           </div>
-          <a
-            href={writingPage.memoirPdf}
-            download={DOWNLOAD_NAME}
-            className="mt-6 inline-flex rounded-full border border-line bg-paper px-6 py-3 text-sm tracking-wide text-brown transition-colors hover:border-olive/45 hover:text-olive md:mt-0"
-          >
-            Download PDF ↓
-          </a>
         </div>
       </header>
 
@@ -50,7 +41,6 @@ export default async function ReadNovellaPage() {
         <NovellaReader
           fileUrl={writingPage.memoirPdf}
           title="Dear Tomorrow, Dear Past"
-          downloadName={DOWNLOAD_NAME}
         />
       </div>
     </article>

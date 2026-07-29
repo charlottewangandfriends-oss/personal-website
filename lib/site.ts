@@ -75,7 +75,7 @@ export const DEFAULT_IMAGES = {
   heroColor: '/images/hero-color.jpg',
   heroBw: '/images/hero-bw.jpg',
   aboutPortrait: '/images/charlotte-about-wide.svg',
-  aboutParallax: '/images/charlotte-conducting-live-2.jpg',
+  aboutParallax: '/images/uploads/about-concert-pencil.webp',
   storyCardPhoto: '/images/charlotte-conducting-live-2.jpg',
   statementCardPhoto: '/images/charlotte-group-backstage.jpg',
   myStoryHeroPhoto: '/images/charlotte-conducting-live-2.jpg',
@@ -169,7 +169,7 @@ export const WRITING_CATEGORIES = [
     value: 'dear-past-dear-tomorrow',
     label: 'Dear Tomorrow, Dear Past',
     description: 'Charlotte’s English honors thesis: a novella of friendship, memory, and becoming.',
-    img: '/images/hero-bw.jpg',
+    img: '/images/uploads/dear-tomorrow-dear-past-card.jpg',
   },
   {
     value: 'prose-blog',
@@ -248,6 +248,14 @@ export async function getWritingIntro() {
     portraitPositionClass: imagePositionClass(data?.portraitPosition, 'upper-center'),
     categoriesEyebrow: data?.categoriesEyebrow || 'Categories',
     categoriesHeading: data?.categoriesHeading || 'Explore Writing Works',
+    memoirPageEyebrow: data?.memoirPageEyebrow || 'Novella',
+    memoirPageBody: data?.memoirPageBody || '',
+    memoirCoverImage:
+      data?.memoirCoverImage ??
+      data?.memoirImage ??
+      '/images/uploads/dear-tomorrow-dear-past-cover.jpg',
+    memoirCoverAlt:
+      data?.memoirCoverAlt || 'Cover of Dear Tomorrow, Dear Past',
     memoirPdf: data?.memoirPdf ?? null,
     memoirButtonLabel: data?.memoirButtonLabel || 'Read the Novella',
     memoirCollaborationEyebrow:
@@ -257,12 +265,21 @@ export async function getWritingIntro() {
     memoirCollaborationBody:
       data?.memoirCollaborationBody ||
       'This novella is open to conversations with publishers, editors, translators, and creative collaborators. For inquiries about publication, adaptation, translation, or related partnerships, please get in touch.',
+    memoirContactLabel:
+      data?.memoirContactLabel || 'Start a conversation',
   };
 }
 
 export async function getWritingCategories() {
   const data = await reader.singletons.writing.read();
   return [
+    {
+      ...WRITING_CATEGORIES[2],
+      label: data?.memoirLabel || WRITING_CATEGORIES[2].label,
+      description: data?.memoirDescription || WRITING_CATEGORIES[2].description,
+      img: data?.memoirImage ?? WRITING_CATEGORIES[2].img,
+      imgPositionClass: imagePositionClass(data?.memoirImagePosition, 'top'),
+    },
     {
       ...WRITING_CATEGORIES[0],
       label: data?.poetryLabel || WRITING_CATEGORIES[0].label,
@@ -276,13 +293,6 @@ export async function getWritingCategories() {
       description: data?.shortStoryDescription || WRITING_CATEGORIES[1].description,
       img: data?.shortStoryImage ?? WRITING_CATEGORIES[1].img,
       imgPositionClass: imagePositionClass(data?.shortStoryImagePosition),
-    },
-    {
-      ...WRITING_CATEGORIES[2],
-      label: data?.memoirLabel || WRITING_CATEGORIES[2].label,
-      description: data?.memoirDescription || WRITING_CATEGORIES[2].description,
-      img: data?.memoirImage ?? WRITING_CATEGORIES[2].img,
-      imgPositionClass: imagePositionClass(data?.memoirImagePosition),
     },
     {
       ...WRITING_CATEGORIES[3],
@@ -420,6 +430,11 @@ export async function getEngagements() {
       const dateOrder = (a.date || '9999-12-31').localeCompare(b.date || '9999-12-31');
       return dateOrder || (a.order ?? 0) - (b.order ?? 0);
     });
+}
+
+export async function getEngagement(slug: string) {
+  const entry = await reader.collections.engagements.read(slug);
+  return entry ? { slug, ...entry } : null;
 }
 
 export async function getVideos() {

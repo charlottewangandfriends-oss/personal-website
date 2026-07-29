@@ -237,19 +237,40 @@ export default config({
         ),
         shortStoryImagePosition: imagePosition('Short Story — crop focus'),
         memoirLabel: fields.text({
-          label: 'Dear Tomorrow, Dear Past — display title',
+          label: 'Dear Tomorrow, Dear Past — page & card title',
           defaultValue: 'Dear Tomorrow, Dear Past',
         }),
         memoirDescription: fields.text({
-          label: 'Dear Tomorrow, Dear Past — description',
+          label: 'Dear Tomorrow, Dear Past — short introduction',
+          description:
+            'Shown under the title on the project page and on its Writing category card.',
           multiline: true,
           defaultValue: "Charlotte's English honors thesis: a novella of friendship, memory, and becoming.",
         }),
+        memoirPageEyebrow: fields.text({
+          label: 'Dear Tomorrow, Dear Past — small page label',
+          defaultValue: 'Novella',
+        }),
+        memoirPageBody: fields.text({
+          label: 'Dear Tomorrow, Dear Past — project page text',
+          description:
+            'Add the longer introduction for the novella page here. Separate paragraphs with a blank line.',
+          multiline: true,
+        }),
+        memoirCoverImage: image(
+          'Dear Tomorrow, Dear Past — project page cover',
+          'Upload the portrait book cover here. It is shown in full on the project page, without cropping. This is separate from the horizontal card image below.',
+        ),
+        memoirCoverAlt: fields.text({
+          label: 'Project page cover — image description',
+          description: 'A short accessible description of the cover image.',
+          defaultValue: 'Cover of Dear Tomorrow, Dear Past',
+        }),
         memoirImage: image(
-          'Dear Tomorrow, Dear Past — card image',
+          'Dear Tomorrow, Dear Past — category card image',
           'Displayed at 16:9. After choosing the file, click the blue Save button so the image is committed to the branch shown at top left.',
         ),
-        memoirImagePosition: imagePosition('Dear Tomorrow, Dear Past — crop focus'),
+        memoirImagePosition: imagePosition('Dear Tomorrow, Dear Past card — crop focus'),
         memoirPdf: fields.file({
           label: 'Dear Tomorrow, Dear Past — novella PDF',
           description:
@@ -276,6 +297,10 @@ export default config({
           multiline: true,
           defaultValue:
             'This novella is open to conversations with publishers, editors, translators, and creative collaborators. For inquiries about publication, adaptation, translation, or related partnerships, please get in touch.',
+        }),
+        memoirContactLabel: fields.text({
+          label: 'Publishing section — contact link label',
+          defaultValue: 'Start a conversation',
         }),
         proseLabel: fields.text({ label: 'Prose & Blogs — display title', defaultValue: 'Prose & Blogs' }),
         proseDescription: fields.text({
@@ -559,6 +584,15 @@ export default config({
         detailsLabel: fields.text({
           label: 'Link label',
           defaultValue: 'Event details',
+        }),
+        calendarUrl: fields.url({
+          label: 'Official U-M calendar link (optional)',
+          description:
+            'Paste the official Add to Calendar / ICS link from the U-M event page. Leave empty and the website will generate its own calendar file.',
+        }),
+        calendarLabel: fields.text({
+          label: 'Calendar button label',
+          defaultValue: 'Add to calendar',
         }),
         order: fields.integer({
           label: 'Order on the same date',

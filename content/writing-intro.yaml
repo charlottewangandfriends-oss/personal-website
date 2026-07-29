@@ -42,9 +42,13 @@ poetryImage: /images/uploads/poetryImage.png
 poetryImagePosition: right
 shortStoryImage: /images/uploads/shortStoryImage.png
 shortStoryImagePosition: top
-memoirImage: /images/uploads/memoirImage.png
-memoirImagePosition: center
+memoirImage: /images/uploads/dear-tomorrow-dear-past-card.jpg
+memoirImagePosition: top
 proseImage: /images/uploads/proseImage.png
+memoirPageEyebrow: Novella
+memoirPageBody: ''
+memoirCoverImage: /images/uploads/dear-tomorrow-dear-past-cover.jpg
+memoirCoverAlt: Cover of Dear Tomorrow, Dear Past
 memoirPdf: /files/writing/dear-tomorrow-dear-past.pdf
 memoirButtonLabel: Read the Novella
 memoirCollaborationEyebrow: Publishing & Collaboration
@@ -53,4 +57,5 @@ memoirCollaborationBody: >-
   This novella is open to conversations with publishers, editors, translators,
   and creative collaborators. For inquiries about publication, adaptation,
   translation, or related partnerships, please get in touch.
+memoirContactLabel: Start a conversation
 proseImagePosition: center

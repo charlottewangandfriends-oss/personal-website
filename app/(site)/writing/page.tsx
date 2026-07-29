@@ -9,9 +9,15 @@ export const metadata: Metadata = {
   description: 'Poetry, short stories, reflections, and prose in English, Chinese, and French.',
 };
 
-const POSTER_WALL_STYLE = {
-  background:
-    'radial-gradient(ellipse 78% 88% at 54% 50%, rgba(137, 124, 77, 0.52) 0%, rgba(137, 124, 77, 0.32) 42%, rgba(137, 124, 77, 0.12) 64%, rgba(244, 241, 234, 0) 84%)',
+const POSTER_WALL_MASK_STYLE = {
+  WebkitMaskImage:
+    'radial-gradient(ellipse 92% 94% at 52% 49%, black 64%, rgba(0,0,0,0.84) 76%, rgba(0,0,0,0.3) 88%, transparent 100%)',
+  maskImage:
+    'radial-gradient(ellipse 92% 94% at 52% 49%, black 64%, rgba(0,0,0,0.84) 76%, rgba(0,0,0,0.3) 88%, transparent 100%)',
+} as const;
+
+const POSTER_CROP_STYLE = {
+  clipPath: 'polygon(2.2% 4.4%, 93.6% 1.4%, 97.3% 96.8%, 2.1% 96.5%)',
 } as const;
 
 const PROFILE_FEATHER_STYLE = {
@@ -34,6 +40,8 @@ export default async function WritingPage() {
   const writerNameParts = (writerName || 'Charlotte Wang').split(/\s+/);
   const writerLastName = writerNameParts.pop();
   const writerFirstName = writerNameParts.join(' ');
+  const isPosterCloseup =
+    intro.portrait === '/images/writing-thesis-poster-closeup.jpg';
 
   return (
     <div className="pb-24 pt-20 md:pt-[4.5rem]">
@@ -43,9 +51,9 @@ export default async function WritingPage() {
         aria-label="Dear Tomorrow, Dear Past thesis poster installation"
         className="relative overflow-hidden bg-cream"
       >
-        <div className="relative mx-auto max-w-[100rem] md:min-h-[48rem]">
-          <Reveal className="relative z-10 mx-auto max-w-6xl px-6 pb-10 pt-14 md:flex md:min-h-[48rem] md:items-center md:px-10 md:py-20">
-            <div className="max-w-md md:w-[46%]">
+        <div className="relative mx-auto max-w-[94rem] md:min-h-[48rem]">
+          <Reveal className="relative z-10 mx-auto max-w-[88rem] px-8 pb-10 pt-14 sm:px-12 md:flex md:min-h-[48rem] md:items-center md:px-16 md:py-20 lg:px-20">
+            <div className="mx-auto max-w-md md:mx-0 md:w-[47%] md:pl-[2vw]">
               <p className="eyebrow text-olive">Writing</p>
               <h1 className="mt-5 font-serif leading-[0.9] text-brown">
                 <span className="block text-[3.7rem] tracking-[-0.045em] sm:text-7xl md:text-[clamp(5rem,7vw,7.4rem)]">
@@ -63,27 +71,48 @@ export default async function WritingPage() {
           </Reveal>
 
           <div
-            className="relative mx-auto mb-12 aspect-[463/708] w-[min(90vw,23.5rem)] md:absolute md:inset-y-[5%] md:right-[2%] md:mx-0 md:mb-0 md:w-auto"
+            className="relative mx-auto mb-12 aspect-[463/708] w-[min(88vw,23.5rem)] md:absolute md:inset-y-[5%] md:right-[3.5%] md:mx-0 md:mb-0 md:w-auto"
           >
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute -inset-x-16 -inset-y-10"
-              style={POSTER_WALL_STYLE}
+              className="pointer-events-none absolute -inset-x-20 -inset-y-12 bg-[radial-gradient(ellipse_at_center,rgba(137,124,77,0.12),rgba(244,241,234,0)_68%)] blur-2xl"
             />
             <div className="relative h-full w-full">
-              <Image
-                src={intro.portrait}
-                alt="Dear Tomorrow, Dear Past senior thesis poster displayed at Amherst College"
-                fill
-                priority
-                sizes="(max-width: 767px) 92vw, 46vw"
-                className={`object-contain ${intro.portraitPositionClass}`}
-              />
-              {intro.portrait === '/images/writing-thesis-poster-closeup.jpg' && (
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute left-[27.1%] top-[21.5%] h-[30.5%] w-[40.3%]"
-                  style={PROFILE_FEATHER_STYLE}
+              {isPosterCloseup ? (
+                <>
+                  <Image
+                    src={intro.portrait}
+                    alt=""
+                    aria-hidden="true"
+                    fill
+                    priority
+                    sizes="(max-width: 767px) 88vw, 46vw"
+                    className={`scale-[1.018] object-contain opacity-65 blur-[7px] ${intro.portraitPositionClass}`}
+                    style={POSTER_WALL_MASK_STYLE}
+                  />
+                  <Image
+                    src={intro.portrait}
+                    alt="Dear Tomorrow, Dear Past senior thesis poster displayed at Amherst College"
+                    fill
+                    priority
+                    sizes="(max-width: 767px) 88vw, 46vw"
+                    className={`object-contain ${intro.portraitPositionClass}`}
+                    style={POSTER_CROP_STYLE}
+                  />
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute left-[27.1%] top-[21.5%] h-[30.5%] w-[40.3%]"
+                    style={PROFILE_FEATHER_STYLE}
+                  />
+                </>
+              ) : (
+                <Image
+                  src={intro.portrait}
+                  alt="Dear Tomorrow, Dear Past senior thesis poster displayed at Amherst College"
+                  fill
+                  priority
+                  sizes="(max-width: 767px) 88vw, 46vw"
+                  className={`object-contain ${intro.portraitPositionClass}`}
                 />
               )}
             </div>
@@ -108,7 +137,7 @@ export default async function WritingPage() {
                     writer
                   </span>
                 </span>
-                <span className="mt-2 flex items-center justify-end gap-3 pr-4">
+                <span className="mt-4 flex items-center justify-end gap-3 pr-12">
                   <span aria-hidden="true" className="h-px w-11 bg-line" />
                   <span className="text-[1.85rem] italic leading-none tracking-[-0.025em] text-olive md:text-[2.25rem]">
                     first
@@ -116,24 +145,16 @@ export default async function WritingPage() {
                 </span>
               </h2>
             </div>
-            <div className="mt-11 grid gap-y-11 md:mt-0 xl:grid-cols-2 xl:gap-x-16 xl:gap-y-14">
+            <div className="mt-11 max-w-[52rem] md:mt-0">
               {bodyParagraphs.map((paragraph, index) => (
-                <div
+                <p
                   key={index}
-                  className={`break-inside-avoid border-t border-line/60 pt-4 ${
-                    index % 2 === 1 ? 'xl:translate-y-10' : ''
+                  className={`text-pretty text-[1rem] leading-[1.85] text-brown-soft md:text-[1.04rem] md:leading-[1.9] ${
+                    index === 0 ? '' : 'mt-7'
                   }`}
                 >
-                  <span
-                    aria-hidden="true"
-                    className="block text-[0.62rem] font-semibold tracking-[0.24em] text-olive/55"
-                  >
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                  <p className="mt-3 text-pretty text-[1rem] leading-[1.85] text-brown-soft first-line:text-brown first-letter:font-serif first-letter:text-[1.24em] first-letter:font-semibold first-letter:tracking-[-0.02em] first-letter:text-brown md:text-[1.04rem] md:leading-[1.9]">
-                    {paragraph}
-                  </p>
-                </div>
+                  {paragraph}
+                </p>
               ))}
             </div>
           </Reveal>

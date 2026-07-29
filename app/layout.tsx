@@ -37,11 +37,20 @@ export const metadata: Metadata = {
     url: 'https://charlottewangmusic.com',
     siteName: 'Charlotte Wang',
     type: 'website',
+    images: [
+      {
+        url: '/opengraph-image?v=20260729',
+        width: 1200,
+        height: 630,
+        alt: 'Charlotte Wang — conductor, composer, soprano, writer, and collaborator',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Charlotte Wang, conductor and more',
     description: 'Transcending life with music and words.',
+    images: ['/opengraph-image?v=20260729'],
   },
 };
 

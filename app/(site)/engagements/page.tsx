@@ -88,16 +88,31 @@ function EngagementList({
                   </div>
                 )}
 
-                {entry.detailsUrl && (
-                  <a
-                    href={entry.detailsUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="link-underline mt-6 inline-block text-sm tracking-wide text-brown hover:text-olive"
-                  >
-                    {entry.detailsLabel || 'Event details'} ↗
-                  </a>
-                )}
+                <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+                  {entry.detailsUrl && (
+                    <a
+                      href={entry.detailsUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="link-underline inline-block text-sm tracking-wide text-brown hover:text-olive"
+                    >
+                      {entry.detailsLabel || 'Event details'} ↗
+                    </a>
+                  )}
+                  {entry.date && (
+                    <a
+                      href={
+                        entry.calendarUrl ||
+                        `/engagements/${entry.slug}/calendar.ics`
+                      }
+                      target={entry.calendarUrl ? '_blank' : undefined}
+                      rel={entry.calendarUrl ? 'noreferrer' : undefined}
+                      className="link-underline inline-block text-sm tracking-wide text-olive hover:text-brown"
+                    >
+                      {entry.calendarLabel || 'Add to calendar'} ↗
+                    </a>
+                  )}
+                </div>
               </div>
             </article>
           </Reveal>
