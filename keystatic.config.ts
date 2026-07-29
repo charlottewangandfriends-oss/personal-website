@@ -253,7 +253,7 @@ export default config({
         memoirPdf: fields.file({
           label: 'Dear Tomorrow, Dear Past — novella PDF',
           description:
-            'The “Read the Novella” button on the project page opens this PDF in a new tab.',
+            'Used by the website’s page-turning reader. Upload a replacement PDF here, then click the blue Save button.',
           directory: 'public/files/writing',
           publicPath: '/files/writing/',
         }),

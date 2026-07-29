@@ -74,13 +74,21 @@ export default async function WritingSlugPage({
               {category.description}
             </p>
             {isMemoir && writingPage.memoirPdf && (
-              <a
-                href={writingPage.memoirPdf}
-                download="Dear-Tomorrow-Dear-Past-Charlotte-Wang.pdf"
-                className="mt-8 inline-flex rounded-full bg-brown px-7 py-3.5 text-sm tracking-wide text-cream transition-colors hover:bg-olive"
-              >
-                {writingPage.memoirButtonLabel} ↓
-              </a>
+              <div className="mt-8 flex flex-wrap items-center gap-4">
+                <Link
+                  href="/writing/dear-past-dear-tomorrow/read"
+                  className="inline-flex rounded-full bg-brown px-7 py-3.5 text-sm tracking-wide text-cream transition-colors hover:bg-olive"
+                >
+                  {writingPage.memoirButtonLabel} →
+                </Link>
+                <a
+                  href={writingPage.memoirPdf}
+                  download="Dear-Tomorrow-Dear-Past-Charlotte-Wang.pdf"
+                  className="link-underline text-sm tracking-wide text-brown-soft hover:text-brown"
+                >
+                  Download PDF ↓
+                </a>
+              </div>
             )}
           </Reveal>
         </header>
