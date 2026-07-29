@@ -75,7 +75,7 @@ export const DEFAULT_IMAGES = {
   heroColor: '/images/hero-color.jpg',
   heroBw: '/images/hero-bw.jpg',
   aboutPortrait: '/images/charlotte-about-wide.svg',
-  aboutParallax: '/images/charlotte-conducting-live-2.jpg',
+  aboutParallax: '/images/uploads/about-concert-pencil.webp',
   storyCardPhoto: '/images/charlotte-conducting-live-2.jpg',
   statementCardPhoto: '/images/charlotte-group-backstage.jpg',
   myStoryHeroPhoto: '/images/charlotte-conducting-live-2.jpg',
