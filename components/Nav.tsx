@@ -50,7 +50,7 @@ export default function Nav() {
           {!isHome && (
             <span className="relative h-10 w-10 shrink-0 md:h-12 md:w-12">
               <Image
-                src="/image.png"
+                src="/images/brand-mark-dandelion-2026.png"
                 alt=""
                 aria-hidden
                 fill
@@ -77,28 +77,45 @@ export default function Nav() {
           ))}
         </ul>
 
-        <button
-          aria-label="Toggle menu"
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="flex h-8 w-8 flex-col items-center justify-center gap-[5px] md:hidden"
-        >
-          <span
-            className={`h-px w-6 bg-brown transition-transform duration-300 ${
-              open ? 'translate-y-[6px] rotate-45' : ''
+        <div className="flex items-center gap-3 md:hidden">
+          <Link
+            href="/engagements"
+            aria-current={isActive('/engagements') ? 'page' : undefined}
+            className={`inline-flex items-center gap-1.5 text-[0.66rem] uppercase tracking-[0.12em] transition-colors ${
+              isActive('/engagements') ? 'text-olive' : 'text-brown-soft hover:text-brown'
             }`}
-          />
-          <span
-            className={`h-px w-6 bg-brown transition-opacity duration-300 ${
-              open ? 'opacity-0' : ''
-            }`}
-          />
-          <span
-            className={`h-px w-6 bg-brown transition-transform duration-300 ${
-              open ? '-translate-y-[6px] -rotate-45' : ''
-            }`}
-          />
-        </button>
+          >
+            <span
+              aria-hidden="true"
+              className="h-1.5 w-1.5 rounded-full bg-lavender shadow-[0_0_0_3px_rgba(207,199,216,0.22)]"
+            />
+            <span className="min-[350px]:hidden">Dates</span>
+            <span className="hidden min-[350px]:inline">Engagements</span>
+          </Link>
+
+          <button
+            aria-label="Toggle menu"
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            className="flex h-8 w-8 flex-col items-center justify-center gap-[5px]"
+          >
+            <span
+              className={`h-px w-6 bg-brown transition-transform duration-300 ${
+                open ? 'translate-y-[6px] rotate-45' : ''
+              }`}
+            />
+            <span
+              className={`h-px w-6 bg-brown transition-opacity duration-300 ${
+                open ? 'opacity-0' : ''
+              }`}
+            />
+            <span
+              className={`h-px w-6 bg-brown transition-transform duration-300 ${
+                open ? '-translate-y-[6px] -rotate-45' : ''
+              }`}
+            />
+          </button>
+        </div>
       </nav>
 
       <div

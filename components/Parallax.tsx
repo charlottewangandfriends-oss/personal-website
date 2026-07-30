@@ -88,7 +88,10 @@ export default function Parallax({
       </div>
 
       {overlay && quote && (
-        <div className="absolute inset-0 bg-brown/45" />
+        <>
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(63,47,33,0.56)_0%,rgba(63,47,33,0.34)_48%,rgba(63,47,33,0.12)_80%,transparent_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(207,199,216,0.05),transparent_42%,rgba(63,47,33,0.14))]" />
+        </>
       )}
 
       {quote && (

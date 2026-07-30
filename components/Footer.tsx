@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getContact } from '@/lib/site';
 
 const navLinks = [
+  { href: '/engagements', label: 'Engagements' },
   { href: '/about', label: 'About' },
   { href: '/media', label: 'Media' },
   { href: '/writing', label: 'Writing' },
@@ -24,7 +25,7 @@ export default async function Footer() {
           <div className="flex items-start gap-4 sm:gap-5">
             <div className="relative h-14 w-14 shrink-0 sm:h-16 sm:w-16 md:h-[4.5rem] md:w-[4.5rem]">
               <Image
-                src="/image.png"
+                src="/images/brand-mark-dandelion-2026.png"
                 alt="Charlotte Wang logo"
                 fill
                 sizes="72px"
