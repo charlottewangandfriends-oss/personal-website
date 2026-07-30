@@ -8,6 +8,19 @@ export const metadata: Metadata = {
   description: 'Upcoming performances, conducting engagements, and appearances by Charlotte Wang.',
 };
 
+export const revalidate = 3600;
+
+function todayInDetroit() {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Detroit',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(new Date());
+  const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+  return `${values.year}-${values.month}-${values.day}`;
+}
+
 function formatDate(value: string | null | undefined) {
   if (!value) return null;
   const date = new Date(`${value}T12:00:00`);
@@ -28,9 +41,11 @@ type Engagement = Awaited<ReturnType<typeof getEngagements>>[number];
 function EngagementList({
   entries,
   emptyMessage,
+  showCalendar = true,
 }: {
   entries: Engagement[];
   emptyMessage?: string;
+  showCalendar?: boolean;
 }) {
   if (!entries.length) {
     return emptyMessage ? (
@@ -99,7 +114,7 @@ function EngagementList({
                       {entry.detailsLabel || 'Event details'} ↗
                     </a>
                   )}
-                  {entry.date && (
+                  {showCalendar && entry.date && (
                     <a
                       href={
                         entry.calendarUrl ||
@@ -124,10 +139,12 @@ function EngagementList({
 
 export default async function EngagementsPage() {
   const [page, entries] = await Promise.all([getEngagementsPage(), getEngagements()]);
-  const today = new Date().toISOString().slice(0, 10);
-  const upcoming = entries.filter((entry) => !entry.date || entry.date >= today);
+  const today = todayInDetroit();
+  const upcoming = entries.filter(
+    (entry) => !entry.date || (entry.endDate || entry.date) >= today,
+  );
   const past = entries
-    .filter((entry) => entry.date && entry.date < today)
+    .filter((entry) => entry.date && (entry.endDate || entry.date) < today)
     .reverse();
 
   return (
@@ -175,7 +192,7 @@ export default async function EngagementsPage() {
               </h2>
             </Reveal>
             <div className="mt-8">
-              <EngagementList entries={past} />
+              <EngagementList entries={past} showCalendar={false} />
             </div>
           </section>
         )}

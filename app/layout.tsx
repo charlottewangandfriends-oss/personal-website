@@ -39,10 +39,10 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/opengraph-image?v=20260730',
+        url: '/opengraph-image?v=20260730-2',
         width: 1200,
         height: 630,
-        alt: 'Charlotte Wang — conductor, composer, soprano, writer, and collaborator',
+        alt: 'Charlotte Wang — conductor, composer, soprano, and collaborator',
       },
     ],
   },
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Charlotte Wang, conductor and more',
     description: 'Transcending life with music and words.',
-    images: ['/opengraph-image?v=20260730'],
+    images: ['/opengraph-image?v=20260730-2'],
   },
 };
 

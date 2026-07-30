@@ -4,15 +4,17 @@ import { join } from 'node:path';
 import { ImageResponse } from 'next/og';
 import { CORMORANT_GARAMOND_TITLE_BASE64 } from './fonts/cormorant-title-font';
 
-export const alt = 'Charlotte Wang — conductor, composer, soprano, writer, and collaborator';
+export const alt = 'Charlotte Wang — conductor, composer, soprano, and collaborator';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
 export default async function OpenGraphImage() {
   const cormorantData = Buffer.from(CORMORANT_GARAMOND_TITLE_BASE64, 'base64');
-  const brandMarkData = await readFile(
-    join(process.cwd(), 'public/images/brand-mark-light.png'),
-  );
+  const [portraitData, brandMarkData] = await Promise.all([
+    readFile(join(process.cwd(), 'public/images/hero-color.jpg')),
+    readFile(join(process.cwd(), 'public/images/brand-mark-dandelion-2026.png')),
+  ]);
+  const portraitSrc = `data:image/jpeg;base64,${portraitData.toString('base64')}`;
   const brandMarkSrc = `data:image/png;base64,${brandMarkData.toString('base64')}`;
 
   return new ImageResponse(
@@ -25,7 +27,7 @@ export default async function OpenGraphImage() {
           height: '100%',
           overflow: 'hidden',
           background: '#f4f1ea',
-          color: '#432d20',
+          color: '#4a3324',
         }}
       >
         <div
@@ -34,7 +36,7 @@ export default async function OpenGraphImage() {
             inset: 0,
             display: 'flex',
             background:
-              'radial-gradient(circle at 42% 0%, rgba(211,198,222,0.48), transparent 42%), linear-gradient(115deg, #f6f2ea 0%, #f2eee7 55%, #ebe4e4 100%)',
+              'radial-gradient(circle at 75% 13%, rgba(207,199,216,0.35), transparent 38%)',
           }}
         />
 
@@ -44,133 +46,116 @@ export default async function OpenGraphImage() {
             top: 0,
             right: 0,
             display: 'flex',
-            width: 505,
+            width: '62%',
             height: '100%',
-            overflow: 'hidden',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'column',
-            background:
-              'linear-gradient(145deg, #352218 0%, #4e3324 58%, #64503a 100%)',
-            borderLeft: '1px solid rgba(204,188,214,0.34)',
           }}
         >
+          <img
+            src={portraitSrc}
+            alt=""
+            width="744"
+            height="630"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: '60% 28%',
+              transform: 'translateX(28px)',
+            }}
+          />
           <div
             style={{
               position: 'absolute',
-              top: -180,
-              right: -150,
+              inset: 0,
               display: 'flex',
-              width: 440,
-              height: 440,
-              borderRadius: 440,
               background:
-                'radial-gradient(circle, rgba(201,184,215,0.28), rgba(201,184,215,0) 68%)',
+                'linear-gradient(90deg, #f4f1ea 0%, rgba(244,241,234,0.98) 12%, rgba(244,241,234,0.88) 24%, rgba(244,241,234,0.48) 39%, rgba(244,241,234,0.12) 52%, transparent 66%)',
             }}
           />
-          <img
-            src={brandMarkSrc}
-            alt=""
-            width="430"
-            height="385"
-            style={{
-              width: 430,
-              height: 385,
-              marginTop: -20,
-              objectFit: 'contain',
-            }}
-          />
-          <div
-            style={{
-              display: 'flex',
-              marginTop: -8,
-              fontFamily: 'Cormorant Garamond',
-              fontSize: 29,
-              letterSpacing: '0.2em',
-              color: '#e6d8c1',
-            }}
-          >
-            CON AMORE
-          </div>
         </div>
+
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: '34%',
+            display: 'flex',
+            width: '42%',
+            height: '100%',
+            background:
+              'linear-gradient(90deg, #f4f1ea 0%, rgba(244,241,234,0.98) 24%, rgba(238,232,233,0.72) 52%, rgba(215,205,216,0.22) 78%, transparent 100%)',
+          }}
+        />
+
+        <img
+          src={brandMarkSrc}
+          alt=""
+          width="390"
+          height="390"
+          style={{
+            position: 'absolute',
+            left: 305,
+            top: 175,
+            width: 390,
+            height: 390,
+            objectFit: 'contain',
+            opacity: 0.065,
+            transform: 'rotate(-5deg)',
+          }}
+        />
 
         <div
           style={{
             position: 'relative',
             display: 'flex',
-            width: 695,
+            width: '57%',
             height: '100%',
             flexDirection: 'column',
             justifyContent: 'center',
-            padding: '56px 60px 50px 70px',
+            padding: '62px 0 58px 74px',
           }}
         >
           <div
             style={{
               display: 'flex',
-              alignItems: 'center',
-              fontSize: 16,
-              letterSpacing: '0.15em',
+              fontSize: 14,
+              letterSpacing: '0.13em',
               textTransform: 'uppercase',
-              color: '#77763f',
+              color: '#7c7a43',
               whiteSpace: 'nowrap',
             }}
           >
-            Conductor · Composer · Soprano · Writer
+            Conductor · Composer · Soprano · Collaborator
           </div>
 
           <div
             style={{
               display: 'flex',
-              marginTop: 31,
+              marginTop: 30,
               flexDirection: 'column',
               fontFamily: 'Cormorant Garamond',
-              fontSize: 105,
+              fontSize: 104,
               fontWeight: 500,
-              lineHeight: 0.86,
-              letterSpacing: '-0.045em',
+              lineHeight: 0.91,
+              letterSpacing: '-0.04em',
             }}
           >
             <span>Charlotte</span>
-            <span style={{ marginLeft: 55, color: '#5d4636' }}>Wang</span>
+            <span style={{ marginLeft: 42, color: '#6a5241' }}>Wang</span>
           </div>
 
           <div
             style={{
               display: 'flex',
-              width: 475,
-              marginTop: 39,
-              paddingTop: 20,
-              borderTop: '1px solid rgba(67,45,32,0.25)',
-              fontSize: 23,
-              lineHeight: 1.35,
-              color: '#69594d',
+              width: 410,
+              marginTop: 34,
+              paddingTop: 18,
+              borderTop: '1px solid rgba(74,51,36,0.28)',
+              fontSize: 22,
+              color: '#6a5a4d',
             }}
           >
             Transcending life with music and words
-          </div>
-
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              marginTop: 31,
-              fontSize: 16,
-              letterSpacing: '0.08em',
-              color: '#786b61',
-            }}
-          >
-            <span
-              style={{
-                display: 'flex',
-                width: 8,
-                height: 8,
-                marginRight: 12,
-                borderRadius: 8,
-                background: '#b7a5c1',
-              }}
-            />
-            charlottewangmusic.com
           </div>
         </div>
       </div>
