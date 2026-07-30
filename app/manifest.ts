@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: 'Charlotte Wang',
     short_name: 'Charlotte Wang',
     description:
-      'Charlotte Wang — conductor, composer, soprano, writer, and collaborative pianist.',
+      'Charlotte Wang — conductor, composer, soprano, and collaborator.',
     start_url: '/',
     display: 'standalone',
     background_color: '#f4f1ea',
