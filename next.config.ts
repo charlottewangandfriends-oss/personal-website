@@ -1,6 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  outputFileTracingIncludes: {
+    "/engagements": [
+      "./content/engagements/**/*",
+      "./content/engagements-page.yaml",
+    ],
+    "/engagements/*": ["./content/engagements/**/*"],
+  },
   async headers() {
     return [
       {
