@@ -41,7 +41,9 @@ export default function VideoGrid({ videos }: { videos: Video[] }) {
             <figcaption className="mt-3">
               <p className="font-serif text-xl text-brown">{v.title}</p>
               {v.description && (
-                <p className="mt-1 text-sm leading-relaxed text-brown-soft">{v.description}</p>
+                <p className="mt-1 whitespace-pre-line text-sm leading-relaxed text-brown-soft">
+                  {v.description}
+                </p>
               )}
             </figcaption>
           </figure>

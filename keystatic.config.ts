@@ -551,7 +551,7 @@ export default config({
       label: 'Engagements — Schedule',
       path: 'content/engagements/*',
       slugField: 'title',
-      columns: ['title', 'date', 'venue'],
+      columns: ['title', 'date', 'featured', 'venue'],
       format: { data: 'yaml' },
       schema: {
         title: fields.slug({ name: { label: 'Event title' } }),
@@ -593,6 +593,12 @@ export default config({
         calendarLabel: fields.text({
           label: 'Calendar button label',
           defaultValue: 'Add to calendar',
+        }),
+        featured: fields.checkbox({
+          label: 'Feature this event',
+          description:
+            'Featured events appear in the Selected highlights section at the top of the Engagements page while remaining in the full calendar.',
+          defaultValue: false,
         }),
         order: fields.integer({
           label: 'Order on the same date',

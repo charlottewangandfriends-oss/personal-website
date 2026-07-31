@@ -9,15 +9,12 @@ export const metadata: Metadata = {
   description: 'Poetry, short stories, reflections, and prose in English, Chinese, and French.',
 };
 
-const POSTER_WALL_MASK_STYLE = {
-  WebkitMaskImage:
-    'radial-gradient(ellipse 92% 94% at 52% 49%, black 64%, rgba(0,0,0,0.84) 76%, rgba(0,0,0,0.3) 88%, transparent 100%)',
-  maskImage:
-    'radial-gradient(ellipse 92% 94% at 52% 49%, black 64%, rgba(0,0,0,0.84) 76%, rgba(0,0,0,0.3) 88%, transparent 100%)',
-} as const;
-
 const POSTER_CROP_STYLE = {
   clipPath: 'polygon(2.2% 4.4%, 93.6% 1.4%, 97.3% 96.8%, 2.1% 96.5%)',
+  WebkitMaskImage:
+    'radial-gradient(ellipse 99% 99% at 50% 50%, black 84%, rgba(0,0,0,0.96) 90%, rgba(0,0,0,0.52) 96%, transparent 100%)',
+  maskImage:
+    'radial-gradient(ellipse 99% 99% at 50% 50%, black 84%, rgba(0,0,0,0.96) 90%, rgba(0,0,0,0.52) 96%, transparent 100%)',
 } as const;
 
 const PROFILE_FEATHER_STYLE = {
@@ -45,8 +42,8 @@ export default async function WritingPage() {
 
   return (
     <div className="pb-24 pt-20 md:pt-[4.5rem]">
-      {/* Keep the poster itself crisp. Only the halo behind it borrows the wall
-          colour and dissolves into the paper background. */}
+      {/* Keep the poster itself crisp. Its outermost wall edge dissolves into
+          a quiet grey-lavender atmosphere without a painted rectangular halo. */}
       <section
         aria-label="Dear Tomorrow, Dear Past thesis poster installation"
         className="relative overflow-hidden bg-cream"
@@ -75,21 +72,11 @@ export default async function WritingPage() {
           >
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute -inset-x-20 -inset-y-12 bg-[radial-gradient(ellipse_at_center,rgba(137,124,77,0.12),rgba(244,241,234,0)_68%)] blur-2xl"
+              className="pointer-events-none absolute -inset-x-20 -inset-y-12 rounded-[48%] bg-[radial-gradient(ellipse_at_center,rgba(190,184,201,0.3)_0%,rgba(218,213,224,0.16)_48%,transparent_74%)] blur-3xl"
             />
             <div className="relative h-full w-full">
               {isPosterCloseup ? (
                 <>
-                  <Image
-                    src={intro.portrait}
-                    alt=""
-                    aria-hidden="true"
-                    fill
-                    priority
-                    sizes="(max-width: 767px) 88vw, 46vw"
-                    className={`scale-[1.018] object-contain opacity-65 blur-[7px] ${intro.portraitPositionClass}`}
-                    style={POSTER_WALL_MASK_STYLE}
-                  />
                   <Image
                     src={intro.portrait}
                     alt="Dear Tomorrow, Dear Past senior thesis poster displayed at Amherst College"

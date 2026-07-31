@@ -104,7 +104,7 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
 
   return (
     <>
-      <section className="relative isolate overflow-hidden bg-cream md:pt-[4.5rem]">
+      <section className="relative isolate overflow-hidden bg-lavender-soft md:pt-[4.5rem]">
         {/* Lavender is atmospheric here rather than a separate block. */}
         <div
           aria-hidden="true"
@@ -126,7 +126,7 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
             className="group relative h-[64svh] min-h-[28rem] max-h-[34rem] w-full overflow-hidden sm:h-[calc(74vw+4.5rem)] sm:max-h-[42rem] md:absolute md:inset-y-0 md:right-0 md:h-full md:min-h-0 md:max-h-none md:w-[70%]"
           >
             <div
-              className={`absolute inset-x-0 bottom-0 top-[4.5rem] origin-top transition-transform duration-[6000ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:scale-100 motion-reduce:transition-none md:inset-0 md:origin-center ${
+              className={`hero-portrait-feather absolute inset-x-0 bottom-0 top-[4.5rem] origin-top transition-transform duration-[6000ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:scale-100 motion-reduce:transition-none md:inset-0 md:origin-center ${
                 showColor
                   ? 'scale-100 md:scale-[1.045]'
                   : 'scale-[1.025] md:scale-[1.08]'
@@ -155,12 +155,6 @@ export default function Hero({ colorSrc, bwSrc, positionClass, tagline, subtagli
               />
             </div>
 
-            {/* Long, overlapping feathers keep the photograph from forming a visible seam. */}
-            <div className="pointer-events-none absolute inset-y-[-8%] -left-[9%] hidden w-[42%] bg-cream/70 blur-[52px] md:block" />
-            <div className="pointer-events-none absolute inset-y-0 -left-px hidden w-[61%] bg-[linear-gradient(90deg,#f4f1ea_0%,#f4f1ea_18%,rgba(244,241,234,0.98)_34%,rgba(244,241,234,0.86)_50%,rgba(244,241,234,0.58)_68%,rgba(244,241,234,0.22)_84%,transparent_100%)] md:block" />
-            <div className="pointer-events-none absolute inset-y-0 -right-px hidden w-[20%] bg-[linear-gradient(270deg,#f4f1ea_0%,rgba(244,241,234,0.92)_24%,rgba(244,241,234,0.58)_54%,rgba(244,241,234,0.18)_80%,transparent_100%)] md:block" />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[27%] bg-[linear-gradient(to_bottom,transparent_0%,rgba(244,241,234,0.05)_28%,rgba(244,241,234,0.18)_50%,rgba(244,241,234,0.48)_73%,rgba(244,241,234,0.82)_90%,#f4f1ea_100%)] md:hidden" />
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-[14%] bg-gradient-to-b from-cream/25 to-transparent md:hidden" />
             <div
               aria-hidden="true"
               className={`pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_68%_28%,rgba(207,199,216,0.25),transparent_44%)] transition-opacity duration-[6000ms] motion-reduce:transition-none ${
