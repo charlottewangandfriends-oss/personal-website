@@ -38,74 +38,6 @@ function formatDate(value: string | null | undefined) {
 
 type Engagement = Awaited<ReturnType<typeof getEngagements>>[number];
 
-function FeaturedEngagements({ entries }: { entries: Engagement[] }) {
-  if (!entries.length) return null;
-
-  return (
-    <section aria-labelledby="featured-engagements">
-      <Reveal>
-        <p className="eyebrow">Selected highlights</p>
-        <h2
-          id="featured-engagements"
-          className="mt-3 font-serif text-4xl text-brown md:text-5xl"
-        >
-          Featured
-        </h2>
-      </Reveal>
-
-      <ol className="mt-8 grid gap-5 md:grid-cols-2">
-        {entries.map((entry, index) => {
-          const date = formatDate(entry.date);
-          const paragraphs = toParagraphs(entry.description);
-
-          return (
-            <Reveal as="li" key={entry.slug} delay={Math.min(index * 70, 210)}>
-              <article className="editorial-card flex h-full flex-col rounded-[1.75rem] border border-line p-7 md:p-9">
-                <div className="flex items-start justify-between gap-5">
-                  <p className="eyebrow">Featured engagement</p>
-                  {date && (
-                    <time
-                      dateTime={entry.date || undefined}
-                      className="shrink-0 text-sm tracking-[0.08em] text-brown-soft"
-                    >
-                      {date.month} {date.day}, {date.year}
-                    </time>
-                  )}
-                </div>
-
-                <h3 className="mt-7 font-serif text-3xl text-brown md:text-4xl">
-                  {entry.title}
-                </h3>
-
-                {(entry.venue || entry.location || entry.time) && (
-                  <p className="mt-4 text-xs uppercase leading-6 tracking-[0.12em] text-olive">
-                    {[entry.venue, entry.location, entry.time].filter(Boolean).join(' · ')}
-                  </p>
-                )}
-
-                {paragraphs[0] && (
-                  <p className="mt-5 flex-1 leading-7 text-brown-soft">{paragraphs[0]}</p>
-                )}
-
-                {entry.detailsUrl && (
-                  <a
-                    href={entry.detailsUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="link-underline mt-7 w-fit text-sm tracking-wide text-brown hover:text-olive"
-                  >
-                    {entry.detailsLabel || 'Event details'} ↗
-                  </a>
-                )}
-              </article>
-            </Reveal>
-          );
-        })}
-      </ol>
-    </section>
-  );
-}
-
 function EngagementList({
   entries,
   emptyMessage,
@@ -124,20 +56,41 @@ function EngagementList({
   return (
     <ol className="border-t border-line">
       {entries.map((entry, index) => {
+        const isFeatured = entry.featured;
         const date = formatDate(entry.date);
         const endDate = formatDate(entry.endDate);
         const paragraphs = toParagraphs(entry.description);
 
         return (
-          <Reveal as="li" key={entry.slug} delay={Math.min(index * 50, 250)}>
-            <article className="grid gap-6 border-b border-line py-9 sm:grid-cols-[7rem_1fr] md:gap-10 md:py-12">
-              <time dateTime={entry.date || undefined} className="block text-brown">
+          <Reveal
+            as="li"
+            key={entry.slug}
+            delay={Math.min(index * 40, 200)}
+            className="border-b border-line"
+          >
+            <article
+              className={
+                isFeatured
+                  ? 'editorial-card my-5 grid gap-6 rounded-[1.5rem] border border-line border-l-[3px] border-l-lavender-deep/60 px-5 py-7 sm:grid-cols-[6.5rem_1fr] md:gap-10 md:px-8 md:py-9'
+                  : 'grid gap-4 py-6 sm:grid-cols-[5.5rem_1fr] md:gap-8 md:py-7'
+              }
+            >
+              <time
+                dateTime={entry.date || undefined}
+                className="flex items-baseline gap-2 text-brown sm:block"
+              >
                 {date ? (
                   <>
                     <span className="block text-xs uppercase tracking-[0.22em] text-olive">
                       {date.month}
                     </span>
-                    <span className="mt-1 block font-serif text-5xl leading-none">{date.day}</span>
+                    <span
+                      className={`block font-serif leading-none sm:mt-1 ${
+                        isFeatured ? 'text-4xl sm:text-5xl' : 'text-3xl sm:text-4xl'
+                      }`}
+                    >
+                      {date.day}
+                    </span>
                     <span className="mt-1 block text-xs tracking-[0.16em] text-brown-soft">
                       {date.year}
                     </span>
@@ -148,8 +101,16 @@ function EngagementList({
               </time>
 
               <div>
+                {isFeatured && <p className="eyebrow mb-3">Featured engagement</p>}
+
                 <div className="flex flex-col gap-2 md:flex-row md:items-baseline md:justify-between">
-                  <h3 className="font-serif text-3xl text-brown md:text-4xl">{entry.title}</h3>
+                  <h3
+                    className={`font-serif text-brown ${
+                      isFeatured ? 'text-3xl md:text-4xl' : 'text-2xl md:text-[1.85rem]'
+                    }`}
+                  >
+                    {entry.title}
+                  </h3>
                   {endDate && date && (
                     <p className="shrink-0 text-sm text-brown-soft">
                       {date.full} – {endDate.full}
@@ -158,26 +119,42 @@ function EngagementList({
                 </div>
 
                 {(entry.venue || entry.location || entry.time) && (
-                  <p className="mt-3 text-sm uppercase tracking-[0.12em] text-olive">
+                  <p
+                    className={`uppercase tracking-[0.12em] text-olive ${
+                      isFeatured ? 'mt-3 text-sm' : 'mt-2 text-xs leading-5'
+                    }`}
+                  >
                     {[entry.venue, entry.location, entry.time].filter(Boolean).join(' · ')}
                   </p>
                 )}
 
                 {paragraphs.length > 0 && (
-                  <div className="mt-5 max-w-2xl space-y-3 leading-7 text-brown-soft">
+                  <div
+                    className={`max-w-2xl text-brown-soft ${
+                      isFeatured
+                        ? 'mt-5 space-y-3 leading-7'
+                        : 'mt-3 space-y-2 text-sm leading-6'
+                    }`}
+                  >
                     {paragraphs.map((paragraph) => (
                       <p key={paragraph}>{paragraph}</p>
                     ))}
                   </div>
                 )}
 
-                <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+                <div
+                  className={`flex flex-wrap items-center gap-x-6 gap-y-3 ${
+                    isFeatured ? 'mt-6' : 'mt-4'
+                  }`}
+                >
                   {entry.detailsUrl && (
                     <a
                       href={entry.detailsUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="link-underline inline-block text-sm tracking-wide text-brown hover:text-olive"
+                      className={`link-underline inline-block tracking-wide text-brown hover:text-olive ${
+                        isFeatured ? 'text-sm' : 'text-xs'
+                      }`}
                     >
                       {entry.detailsLabel || 'Event details'} ↗
                     </a>
@@ -190,7 +167,9 @@ function EngagementList({
                       }
                       target={entry.calendarUrl ? '_blank' : undefined}
                       rel={entry.calendarUrl ? 'noreferrer' : undefined}
-                      className="link-underline inline-block text-sm tracking-wide text-olive hover:text-brown"
+                      className={`link-underline inline-block tracking-wide text-olive hover:text-brown ${
+                        isFeatured ? 'text-sm' : 'text-xs'
+                      }`}
                     >
                       {entry.calendarLabel || 'Add to calendar'} ↗
                     </a>
@@ -214,18 +193,6 @@ export default async function EngagementsPage() {
   const past = entries
     .filter((entry) => entry.date && (entry.endDate || entry.date) < today)
     .reverse();
-  const featured = entries
-    .filter((entry) => entry.featured)
-    .sort((a, b) => {
-      const aUpcoming = !a.date || (a.endDate || a.date) >= today;
-      const bUpcoming = !b.date || (b.endDate || b.date) >= today;
-
-      if (aUpcoming !== bUpcoming) return aUpcoming ? -1 : 1;
-
-      const aDate = a.date || '9999-12-31';
-      const bDate = b.date || '9999-12-31';
-      return aUpcoming ? aDate.localeCompare(bDate) : bDate.localeCompare(aDate);
-    });
 
   return (
     <div className="pb-24 pt-32 md:pt-40">
@@ -242,12 +209,7 @@ export default async function EngagementsPage() {
       </header>
 
       <main className="mx-auto mt-20 max-w-6xl px-6 md:px-10">
-        <FeaturedEngagements entries={featured} />
-
-        <section
-          aria-labelledby="upcoming-engagements"
-          className={featured.length > 0 ? 'mt-24' : undefined}
-        >
+        <section aria-labelledby="upcoming-engagements">
           <Reveal>
             <p className="eyebrow">Calendar</p>
             <h2
