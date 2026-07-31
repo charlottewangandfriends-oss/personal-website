@@ -69,10 +69,11 @@ function EngagementList({
             className="border-b border-line"
           >
             <article
+              data-featured={isFeatured ? 'true' : undefined}
               className={
                 isFeatured
-                  ? 'editorial-card my-5 grid gap-6 rounded-[1.5rem] border border-line border-l-[3px] border-l-lavender-deep/60 px-5 py-7 sm:grid-cols-[6.5rem_1fr] md:gap-10 md:px-8 md:py-9'
-                  : 'grid gap-4 py-6 sm:grid-cols-[5.5rem_1fr] md:gap-8 md:py-7'
+                  ? 'grid gap-4 border-l-[3px] border-l-lavender-deep py-8 pl-5 sm:grid-cols-[6rem_1fr] sm:gap-8 sm:pl-6 md:gap-9 md:py-9'
+                  : 'grid gap-3 py-5 sm:grid-cols-[4.75rem_1fr] md:gap-7 md:py-6'
               }
             >
               <time
@@ -101,12 +102,18 @@ function EngagementList({
               </time>
 
               <div>
-                {isFeatured && <p className="eyebrow mb-3">Featured engagement</p>}
+                {isFeatured && (
+                  <p className="mb-2 text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-lavender-deep">
+                    Featured
+                  </p>
+                )}
 
                 <div className="flex flex-col gap-2 md:flex-row md:items-baseline md:justify-between">
                   <h3
                     className={`font-serif text-brown ${
-                      isFeatured ? 'text-3xl md:text-4xl' : 'text-2xl md:text-[1.85rem]'
+                      isFeatured
+                        ? 'text-[2rem] sm:text-4xl'
+                        : 'text-xl sm:text-2xl md:text-[1.7rem]'
                     }`}
                   >
                     {entry.title}
@@ -152,9 +159,7 @@ function EngagementList({
                       href={entry.detailsUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className={`link-underline inline-block tracking-wide text-brown hover:text-olive ${
-                        isFeatured ? 'text-sm' : 'text-xs'
-                      }`}
+                      className="link-underline inline-flex min-h-11 items-center py-2 text-sm tracking-wide text-brown hover:text-olive"
                     >
                       {entry.detailsLabel || 'Event details'} ↗
                     </a>
@@ -167,9 +172,7 @@ function EngagementList({
                       }
                       target={entry.calendarUrl ? '_blank' : undefined}
                       rel={entry.calendarUrl ? 'noreferrer' : undefined}
-                      className={`link-underline inline-block tracking-wide text-olive hover:text-brown ${
-                        isFeatured ? 'text-sm' : 'text-xs'
-                      }`}
+                      className="link-underline inline-flex min-h-11 items-center py-2 text-sm tracking-wide text-olive hover:text-brown"
                     >
                       {entry.calendarLabel || 'Add to calendar'} ↗
                     </a>
