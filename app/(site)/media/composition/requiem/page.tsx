@@ -143,7 +143,7 @@ export default async function RequiemPage() {
                 )}
               </div>
               {featuredVideo?.description && (
-                <figcaption className="mt-4 max-w-3xl text-sm leading-relaxed text-brown-soft">
+                <figcaption className="mt-4 max-w-3xl whitespace-pre-line text-sm leading-relaxed text-brown-soft">
                   {featuredVideo.description}
                 </figcaption>
               )}
