@@ -597,7 +597,7 @@ export default config({
         featured: fields.checkbox({
           label: 'Feature this event',
           description:
-            'Featured events appear in the Selected highlights section at the top of the Engagements page while remaining in the full calendar.',
+            'Featured events stay in chronological order and receive stronger typography and a lavender marker within the main timeline.',
           defaultValue: false,
         }),
         order: fields.integer({
