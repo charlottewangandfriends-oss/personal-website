@@ -568,6 +568,12 @@ export default config({
           label: 'Time',
           description: 'For example: 7:30 PM or Time TBA.',
         }),
+        timezone: fields.text({
+          label: 'Time zone',
+          description:
+            'Use an IANA time zone, such as America/Detroit or Europe/Prague. This keeps Add to calendar accurate for performances outside Michigan.',
+          defaultValue: 'America/Detroit',
+        }),
         venue: fields.text({ label: 'Venue / organization' }),
         location: fields.text({
           label: 'City / location',
