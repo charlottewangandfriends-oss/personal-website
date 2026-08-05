@@ -4,6 +4,7 @@ type CalendarEngagement = {
   date: string;
   endDate?: string | null;
   time?: string | null;
+  timezone?: string | null;
   venue?: string | null;
   location?: string | null;
   description?: string | null;
@@ -48,6 +49,18 @@ function localDateTime(date: string, hour: number, minute: number) {
   return `${compactDate(date)}T${String(hour).padStart(2, '0')}${String(minute).padStart(2, '0')}00`;
 }
 
+function resolveTimeZone(value?: string | null) {
+  const fallback = 'America/Detroit';
+  if (!value) return fallback;
+
+  try {
+    new Intl.DateTimeFormat('en-US', { timeZone: value }).format();
+    return value;
+  } catch {
+    return fallback;
+  }
+}
+
 function addHours(hour: number, minute: number, hours: number) {
   const totalMinutes = hour * 60 + minute + hours * 60;
   return {
@@ -61,6 +74,7 @@ export function createEngagementCalendar(entry: CalendarEngagement) {
   CLOCK_PATTERN.lastIndex = 0;
   const startClock = parseClock(entry.time || '');
   const endClock = parseClock(entry.time || '');
+  const timeZone = resolveTimeZone(entry.timezone);
   const location = [entry.venue, entry.location].filter(Boolean).join(', ');
   const description = [entry.description, entry.detailsUrl]
     .filter(Boolean)
@@ -87,12 +101,12 @@ export function createEngagementCalendar(entry: CalendarEngagement) {
     const resolvedEnd = endClock || fallbackEnd;
 
     lines.push(
-      `DTSTART;TZID=America/Detroit:${localDateTime(
+      `DTSTART;TZID=${timeZone}:${localDateTime(
         startDate,
         startClock.hour,
         startClock.minute,
       )}`,
-      `DTEND;TZID=America/Detroit:${localDateTime(
+      `DTEND;TZID=${timeZone}:${localDateTime(
         endDate,
         resolvedEnd.hour,
         resolvedEnd.minute,
