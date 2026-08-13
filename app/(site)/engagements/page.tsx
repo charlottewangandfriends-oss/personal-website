@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import Reveal from '@/components/Reveal';
 import { getEngagements, getEngagementsPage, toParagraphs } from '@/lib/site';
 
 export const metadata: Metadata = {
@@ -8,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Upcoming performances, conducting engagements, and appearances by Charlotte Wang.',
 };
 
-export const revalidate = 3600;
+export const dynamic = 'force-static';
 
 function todayInDetroit() {
   const parts = new Intl.DateTimeFormat('en-US', {
@@ -55,19 +54,14 @@ function EngagementList({
 
   return (
     <ol className="border-t border-line">
-      {entries.map((entry, index) => {
+      {entries.map((entry) => {
         const isFeatured = entry.featured;
         const date = formatDate(entry.date);
         const endDate = formatDate(entry.endDate);
         const paragraphs = toParagraphs(entry.description);
 
         return (
-          <Reveal
-            as="li"
-            key={entry.slug}
-            delay={Math.min(index * 40, 200)}
-            className="border-b border-line"
-          >
+          <li key={entry.slug} className="border-b border-line">
             <article
               data-featured={isFeatured ? 'true' : undefined}
               className={
@@ -180,7 +174,7 @@ function EngagementList({
                 </div>
               </div>
             </article>
-          </Reveal>
+          </li>
         );
       })}
     </ol>
@@ -200,7 +194,7 @@ export default async function EngagementsPage() {
   return (
     <div className="pb-24 pt-32 md:pt-40">
       <header className="mx-auto max-w-6xl px-6 md:px-10">
-        <Reveal>
+        <div>
           <p className="eyebrow">Schedule</p>
           <h1 className="mt-4 font-serif text-5xl text-brown sm:text-6xl md:text-7xl">
             {page.heading}
@@ -208,12 +202,12 @@ export default async function EngagementsPage() {
           <p className="mt-7 max-w-2xl text-lg leading-8 text-brown-soft md:text-xl">
             {page.intro}
           </p>
-        </Reveal>
+        </div>
       </header>
 
       <main className="mx-auto mt-20 max-w-6xl px-6 md:px-10">
         <section aria-labelledby="upcoming-engagements">
-          <Reveal>
+          <div>
             <p className="eyebrow">Calendar</p>
             <h2
               id="upcoming-engagements"
@@ -221,7 +215,7 @@ export default async function EngagementsPage() {
             >
               Upcoming
             </h2>
-          </Reveal>
+          </div>
           <div className="mt-8">
             <EngagementList
               entries={upcoming}
@@ -232,7 +226,7 @@ export default async function EngagementsPage() {
 
         {past.length > 0 && (
           <section aria-labelledby="past-engagements" className="mt-24">
-            <Reveal>
+            <div>
               <p className="eyebrow">Archive</p>
               <h2
                 id="past-engagements"
@@ -240,14 +234,14 @@ export default async function EngagementsPage() {
               >
                 Past engagements
               </h2>
-            </Reveal>
+            </div>
             <div className="mt-8">
               <EngagementList entries={past} showCalendar={false} />
             </div>
           </section>
         )}
 
-        <Reveal className="mt-24 border-y border-line py-12 md:flex md:items-end md:justify-between md:gap-12">
+        <div className="mt-24 border-y border-line py-12 md:flex md:items-end md:justify-between md:gap-12">
           <div>
             <p className="eyebrow">Inquiries</p>
             <h2 className="mt-3 font-serif text-4xl text-brown">{page.footerHeading}</h2>
@@ -259,7 +253,7 @@ export default async function EngagementsPage() {
           >
             Get in touch →
           </Link>
-        </Reveal>
+        </div>
       </main>
     </div>
   );
