@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Upcoming performances, conducting engagements, and appearances by Charlotte Wang.',
 };
 
-export const dynamic = 'force-static';
+export const revalidate = 3600;
 
 function todayInDetroit() {
   const parts = new Intl.DateTimeFormat('en-US', {
