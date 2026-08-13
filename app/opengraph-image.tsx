@@ -95,7 +95,7 @@ export default async function OpenGraphImage() {
           style={{
             position: 'absolute',
             left: 305,
-            top: 175,
+            top: 68,
             width: 390,
             height: 390,
             objectFit: 'contain',
