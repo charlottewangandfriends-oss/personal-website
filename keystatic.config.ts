@@ -547,6 +547,57 @@ export default config({
     }),
   },
   collections: {
+    aboutAreas: collection({
+      label: 'About — Areas',
+      path: 'content/about-areas/*',
+      slugField: 'title',
+      columns: ['title', 'order'],
+      format: { data: 'yaml' },
+      schema: {
+        title: fields.slug({ name: { label: 'Page title' } }),
+        eyebrow: fields.text({
+          label: 'Small label above the title',
+          defaultValue: 'About',
+        }),
+        intro: fields.text({
+          label: 'Short introduction',
+          multiline: true,
+        }),
+        body: fields.text({
+          label: 'Page text',
+          description: 'Separate paragraphs with a blank line.',
+          multiline: true,
+        }),
+        heroImage: image(
+          'Page image (optional)',
+          'Displayed at 16:9. Leave empty when a text-led page is more honest than a generic photo.',
+        ),
+        heroImagePosition: imagePosition('Page image — crop focus'),
+        heroAlt: fields.text({
+          label: 'Image description (accessibility)',
+          description: 'Briefly describe the image for visitors using screen readers.',
+        }),
+        primaryLinkLabel: fields.text({ label: 'First related link — label' }),
+        primaryLinkHref: fields.text({
+          label: 'First related link — URL',
+          description: 'An internal path such as /media/conducting, or a full external URL.',
+        }),
+        secondaryLinkLabel: fields.text({ label: 'Second related link — label' }),
+        secondaryLinkHref: fields.text({
+          label: 'Second related link — URL',
+          description: 'An internal path or a full external URL.',
+        }),
+        tertiaryLinkLabel: fields.text({ label: 'Third related link — label' }),
+        tertiaryLinkHref: fields.text({
+          label: 'Third related link — URL',
+          description: 'Optional. An internal path or a full external URL.',
+        }),
+        order: fields.integer({
+          label: 'Display order',
+          defaultValue: 0,
+        }),
+      },
+    }),
     engagements: collection({
       label: 'Engagements — Schedule',
       path: 'content/engagements/*',

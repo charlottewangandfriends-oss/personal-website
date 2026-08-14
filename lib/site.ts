@@ -239,6 +239,28 @@ export async function getAbout() {
   };
 }
 
+export async function getAboutArea(slug: string) {
+  const entry = await reader.collections.aboutAreas.read(slug);
+  return entry
+    ? {
+        slug,
+        ...entry,
+        heroImagePositionClass: imagePositionClass(entry.heroImagePosition),
+      }
+    : null;
+}
+
+export async function getAboutAreas() {
+  const entries = await reader.collections.aboutAreas.all();
+  return entries
+    .map((entry) => ({
+      slug: entry.slug,
+      ...entry.entry,
+      heroImagePositionClass: imagePositionClass(entry.entry.heroImagePosition),
+    }))
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+}
+
 export async function getWritingIntro() {
   const data = await reader.singletons.writing.read();
   return {
