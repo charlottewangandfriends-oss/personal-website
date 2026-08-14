@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { ABOUT_AREA_LINKS } from '@/lib/about-area-links';
 
 const links = [
   { href: '/', label: 'Home' },
@@ -18,6 +19,7 @@ export default function Nav() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
   const isHome = pathname === '/';
 
   useEffect(() => {
@@ -29,7 +31,21 @@ export default function Nav() {
 
   useEffect(() => {
     setOpen(false);
+    setAboutOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
+      setAboutOpen(false);
+      if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur();
+      }
+    };
+
+    document.addEventListener('keydown', closeOnEscape);
+    return () => document.removeEventListener('keydown', closeOnEscape);
+  }, []);
 
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname.startsWith(href);
@@ -37,7 +53,7 @@ export default function Nav() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        scrolled || open
+        scrolled || open || aboutOpen
           ? 'bg-cream/90 backdrop-blur-md border-b border-line'
           : 'bg-cream/78 backdrop-blur-sm border-b border-line/40 md:bg-transparent md:backdrop-blur-none md:border-transparent'
       }`}
@@ -63,18 +79,94 @@ export default function Nav() {
         </Link>
 
         <ul className="hidden items-center gap-6 lg:gap-9 md:flex">
-          {links.map((l) => (
-            <li key={l.href}>
-              <Link
-                href={l.href}
-                className={`link-underline text-sm tracking-wide transition-colors ${
-                  isActive(l.href) ? 'text-olive' : 'text-brown-soft hover:text-brown'
-                }`}
+          {links.map((l) =>
+            l.href === '/about' ? (
+              <li
+                key={l.href}
+                className="group relative"
+                onMouseEnter={() => setAboutOpen(true)}
+                onMouseLeave={() => setAboutOpen(false)}
+                onBlur={(event) => {
+                  if (!event.currentTarget.contains(event.relatedTarget)) {
+                    setAboutOpen(false);
+                  }
+                }}
               >
-                {l.label}
-              </Link>
-            </li>
-          ))}
+                <div className="flex items-center gap-0.5">
+                  <Link
+                    href={l.href}
+                    aria-haspopup="true"
+                    onFocus={() => setAboutOpen(true)}
+                    className={`link-underline text-sm tracking-wide transition-colors ${
+                      isActive(l.href) ? 'text-olive' : 'text-brown-soft hover:text-brown'
+                    }`}
+                  >
+                    {l.label}
+                  </Link>
+                  <button
+                    type="button"
+                    aria-label="Show About sections"
+                    aria-controls="desktop-about-sections"
+                    aria-expanded={aboutOpen}
+                    onClick={() => setAboutOpen((value) => !value)}
+                    className="flex h-7 w-7 items-center justify-center rounded-full text-brown-soft transition-colors hover:bg-lavender-soft hover:text-brown focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-olive"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className={`text-[0.6rem] transition-transform duration-300 ${
+                        aboutOpen ? 'rotate-180' : ''
+                      }`}
+                    >
+                      ▾
+                    </span>
+                  </button>
+                </div>
+
+                <div
+                  id="desktop-about-sections"
+                  className={`absolute left-1/2 top-full w-44 -translate-x-1/2 pt-3 transition-[opacity,transform,visibility] duration-300 group-hover:visible group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 motion-reduce:transition-none ${
+                    aboutOpen
+                      ? 'visible pointer-events-auto translate-y-0 opacity-100'
+                      : 'invisible pointer-events-none -translate-y-1 opacity-0'
+                  }`}
+                >
+                  <ul
+                    aria-label="About sections"
+                    className="overflow-hidden rounded-sm border border-lavender-deep/25 bg-paper/95 py-2 shadow-[0_16px_38px_rgba(63,47,33,0.12)] backdrop-blur-md"
+                  >
+                    {ABOUT_AREA_LINKS.map((area) => {
+                      const href = `/about/${area.slug}`;
+                      const active = pathname === href;
+                      return (
+                        <li key={area.slug}>
+                          <Link
+                            href={href}
+                            aria-current={active ? 'page' : undefined}
+                            className={`block px-4 py-2.5 text-xs uppercase tracking-[0.14em] transition-colors hover:bg-lavender-soft/80 hover:text-brown focus-visible:bg-lavender-soft/80 focus-visible:text-brown focus-visible:outline-none ${
+                              active ? 'text-olive' : 'text-brown-soft'
+                            }`}
+                          >
+                            {area.label}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </li>
+            ) : (
+              <li key={l.href}>
+                <Link
+                  href={l.href}
+                  className={`link-underline text-sm tracking-wide transition-colors ${
+                    isActive(l.href) ? 'text-olive' : 'text-brown-soft hover:text-brown'
+                  }`}
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ),
+          )}
         </ul>
 
         <div className="flex items-center gap-3 md:hidden">
@@ -95,8 +187,13 @@ export default function Nav() {
 
           <button
             aria-label="Toggle menu"
+            aria-controls="mobile-site-menu"
             aria-expanded={open}
-            onClick={() => setOpen((v) => !v)}
+            onClick={() => {
+              const nextOpen = !open;
+              setOpen(nextOpen);
+              if (!nextOpen) setAboutOpen(false);
+            }}
             className="flex h-8 w-8 flex-col items-center justify-center gap-[5px]"
           >
             <span
@@ -119,23 +216,84 @@ export default function Nav() {
       </nav>
 
       <div
-        className={`overflow-hidden transition-[max-height] duration-500 md:hidden ${
-          open ? 'max-h-80' : 'max-h-0'
+        id="mobile-site-menu"
+        className={`transition-[max-height] duration-500 md:hidden ${
+          open
+            ? 'max-h-[calc(100svh-4.5rem)] overflow-y-auto overscroll-contain'
+            : 'max-h-0 overflow-hidden'
         }`}
       >
         <ul className="flex flex-col gap-1 px-6 pb-6">
-          {links.map((l) => (
-            <li key={l.href}>
-              <Link
-                href={l.href}
-                className={`block py-2 font-serif text-2xl ${
-                  isActive(l.href) ? 'text-olive' : 'text-brown'
-                }`}
-              >
-                {l.label}
-              </Link>
-            </li>
-          ))}
+          {links.map((l) =>
+            l.href === '/about' ? (
+              <li key={l.href}>
+                <div className="flex items-center justify-between">
+                  <Link
+                    href={l.href}
+                    className={`block flex-1 py-2 font-serif text-2xl ${
+                      isActive(l.href) ? 'text-olive' : 'text-brown'
+                    }`}
+                  >
+                    {l.label}
+                  </Link>
+                  <button
+                    type="button"
+                    aria-label="Toggle About sections"
+                    aria-controls="mobile-about-sections"
+                    aria-expanded={aboutOpen}
+                    onClick={() => setAboutOpen((value) => !value)}
+                    className="flex h-11 w-11 items-center justify-center rounded-full text-brown transition-colors hover:bg-lavender-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-olive"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className={`text-sm transition-transform duration-300 ${
+                        aboutOpen ? 'rotate-180' : ''
+                      }`}
+                    >
+                      ▾
+                    </span>
+                  </button>
+                </div>
+
+                {aboutOpen && (
+                  <ul
+                    id="mobile-about-sections"
+                    aria-label="About sections"
+                    className="mb-2 ml-2 border-l border-lavender-deep/30 pl-4"
+                  >
+                    {ABOUT_AREA_LINKS.map((area) => {
+                      const href = `/about/${area.slug}`;
+                      const active = pathname === href;
+                      return (
+                        <li key={area.slug}>
+                          <Link
+                            href={href}
+                            aria-current={active ? 'page' : undefined}
+                            className={`flex min-h-11 items-center text-sm uppercase tracking-[0.13em] ${
+                              active ? 'text-olive' : 'text-brown-soft'
+                            }`}
+                          >
+                            {area.label}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+              </li>
+            ) : (
+              <li key={l.href}>
+                <Link
+                  href={l.href}
+                  className={`block py-2 font-serif text-2xl ${
+                    isActive(l.href) ? 'text-olive' : 'text-brown'
+                  }`}
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ),
+          )}
         </ul>
       </div>
     </header>
