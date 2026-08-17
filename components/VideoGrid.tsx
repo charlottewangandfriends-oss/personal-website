@@ -4,6 +4,7 @@ type Video = {
   slug: string;
   title: string;
   youtubeUrl: string | null;
+  orientation?: 'landscape' | 'portrait' | null;
   description: string | null;
 };
 
@@ -17,12 +18,17 @@ export default function VideoGrid({ videos }: { videos: Video[] }) {
   }
 
   return (
-    <div className="grid gap-8 sm:grid-cols-2">
+    <div className={`grid gap-8 ${videos.length === 1 ? 'mx-auto max-w-2xl' : 'sm:grid-cols-2'}`}>
       {videos.map((v) => {
         const id = youtubeId(v.youtubeUrl);
+        const isPortrait = v.orientation === 'portrait';
         return (
-          <figure key={v.slug} className="group">
-            <div className="relative aspect-video overflow-hidden rounded-sm border border-line bg-greige">
+          <figure key={v.slug} className={`group ${isPortrait ? 'mx-auto w-full max-w-sm' : ''}`}>
+            <div
+              className={`relative overflow-hidden rounded-sm border border-line bg-greige ${
+                isPortrait ? 'aspect-[9/16]' : 'aspect-video'
+              }`}
+            >
               {id ? (
                 <iframe
                   className="absolute inset-0 h-full w-full"

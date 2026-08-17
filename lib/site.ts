@@ -331,6 +331,9 @@ export async function getMediaPage() {
   return {
     heading: data?.heading || 'Watch & Listen',
     intro: data?.intro || "Explore Charlotte's musical works by category below.",
+    conductingRecordingsNote:
+      data?.conductingRecordingsNote ||
+      'Due to copyright restrictions, full-length rehearsal and performance recordings are available privately upon request.',
   };
 }
 
