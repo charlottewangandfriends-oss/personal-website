@@ -7,7 +7,9 @@ import MediaIntroSections from '@/components/MediaIntroSections';
 import VideoGrid from '@/components/VideoGrid';
 import {
   getCompositionFeature,
+  getContact,
   getGallery,
+  getMediaPage,
   getMediaIntroSections,
   getVideoCategories,
   getVideos,
@@ -36,10 +38,12 @@ export default async function MediaCategoryPage({
   params: Promise<{ category: string }>;
 }) {
   const { category } = await params;
-  const [categories, allVideos, compositionFeature] = await Promise.all([
+  const [categories, allVideos, compositionFeature, mediaPage, contact] = await Promise.all([
     getVideoCategories(),
     getVideos(),
     getCompositionFeature(),
+    getMediaPage(),
+    getContact(),
   ]);
   const cat = categories.find((c) => c.value === category);
   if (!cat) notFound();
@@ -126,6 +130,20 @@ export default async function MediaCategoryPage({
           <Reveal delay={80} className={showVideosHeading ? 'mt-8' : ''}>
             <VideoGrid videos={videos} />
           </Reveal>
+          {cat.value === 'conducting' && (
+            <Reveal delay={140} className="mt-10 max-w-2xl border-l border-lavender-deep/40 pl-5">
+              <p className="text-sm leading-relaxed text-brown-soft">
+                {mediaPage.conductingRecordingsNote}{' '}
+                <a
+                  href={`mailto:${contact.email}`}
+                  className="link-underline font-semibold text-olive"
+                >
+                  Request recordings by email
+                </a>
+                .
+              </p>
+            </Reveal>
+          )}
         </section>
 
         {photos.length > 0 && (

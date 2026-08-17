@@ -332,6 +332,13 @@ export default config({
           multiline: true,
           defaultValue: 'Conducting performances, rehearsals, and musical collaborations.',
         }),
+        conductingRecordingsNote: fields.text({
+          label: 'Conducting — private recordings note',
+          description: 'Shown below the conducting videos, beside the contact email link.',
+          multiline: true,
+          defaultValue:
+            'Due to copyright restrictions, full-length rehearsal and performance recordings are available privately upon request.',
+        }),
         conductingImage: image(
           'Conducting — card image',
           'Displayed at 16:10. The website trims anything outside that shape.',
@@ -683,6 +690,14 @@ export default config({
           defaultValue: 'conducting',
         }),
         youtubeUrl: fields.url({ label: 'YouTube URL' }),
+        orientation: fields.select({
+          label: 'Video orientation',
+          options: [
+            { label: 'Landscape (16:9)', value: 'landscape' },
+            { label: 'Portrait (9:16)', value: 'portrait' },
+          ],
+          defaultValue: 'landscape',
+        }),
         description: fields.text({ label: 'Description', multiline: true }),
         order: fields.integer({ label: 'Sort order', defaultValue: 0 }),
       },

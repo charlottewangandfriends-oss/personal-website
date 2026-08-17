@@ -2,6 +2,9 @@ heading: Watch & Listen
 intro: Explore Charlotte's musical works by category below.
 conductingLabel: Conducting
 conductingDescription: Conducting performances, rehearsals, and musical collaborations.
+conductingRecordingsNote: >-
+  Due to copyright restrictions, full-length rehearsal and performance
+  recordings are available privately upon request.
 compositionLabel: Composition
 compositionDescription: Original compositions and performances of Charlotte's music.
 compositionImage: /images/uploads/compositionImage.png
