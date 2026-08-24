@@ -128,22 +128,24 @@ export default async function MediaCategoryPage({
             </Reveal>
           )}
           <Reveal delay={80} className={showVideosHeading ? 'mt-8' : ''}>
-            <VideoGrid videos={videos} />
+            <VideoGrid
+              videos={videos}
+              supplemental={
+                cat.value === 'conducting' ? (
+                  <p className="text-sm leading-relaxed text-brown-soft">
+                    {mediaPage.conductingRecordingsNote}{' '}
+                    <a
+                      href={`mailto:${contact.email}`}
+                      className="link-underline font-semibold text-olive"
+                    >
+                      Request recordings by email
+                    </a>
+                    .
+                  </p>
+                ) : undefined
+              }
+            />
           </Reveal>
-          {cat.value === 'conducting' && (
-            <Reveal delay={140} className="mt-10 max-w-2xl border-l border-lavender-deep/40 pl-5">
-              <p className="text-sm leading-relaxed text-brown-soft">
-                {mediaPage.conductingRecordingsNote}{' '}
-                <a
-                  href={`mailto:${contact.email}`}
-                  className="link-underline font-semibold text-olive"
-                >
-                  Request recordings by email
-                </a>
-                .
-              </p>
-            </Reveal>
-          )}
         </section>
 
         {photos.length > 0 && (
