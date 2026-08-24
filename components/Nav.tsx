@@ -11,8 +11,16 @@ const links = [
   { href: '/engagements', label: 'Engagements' },
   { href: '/about', label: 'About' },
   { href: '/media', label: 'Media' },
-  { href: '/writing', label: 'Writing' },
   { href: '/contact', label: 'Contact' },
+];
+
+const aboutLinks = [
+  ...ABOUT_AREA_LINKS.filter((area) => area.slug !== 'more').map((area) => ({
+    href: `/about/${area.slug}`,
+    label: area.label,
+  })),
+  { href: '/writing', label: 'Writing' },
+  { href: '/about/more', label: 'More' },
 ];
 
 export default function Nav() {
@@ -49,6 +57,7 @@ export default function Nav() {
 
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname.startsWith(href);
+  const isAboutActive = isActive('/about') || isActive('/writing');
 
   return (
     <header
@@ -92,33 +101,41 @@ export default function Nav() {
                   }
                 }}
               >
-                <div className="flex items-center gap-0.5">
+                <div className="flex items-center gap-1.5">
                   <Link
                     href={l.href}
                     aria-haspopup="true"
                     onFocus={() => setAboutOpen(true)}
                     className={`link-underline text-sm tracking-wide transition-colors ${
-                      isActive(l.href) ? 'text-olive' : 'text-brown-soft hover:text-brown'
+                      isAboutActive ? 'text-olive' : 'text-brown-soft hover:text-brown'
                     }`}
                   >
                     {l.label}
                   </Link>
                   <button
                     type="button"
-                    aria-label="Show About sections"
+                    aria-label="Toggle About sections"
                     aria-controls="desktop-about-sections"
                     aria-expanded={aboutOpen}
                     onClick={() => setAboutOpen((value) => !value)}
-                    className="flex h-7 w-7 items-center justify-center rounded-full text-brown-soft transition-colors hover:bg-lavender-soft hover:text-brown focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-olive"
+                    className="flex h-7 w-5 items-center justify-center text-brown-soft transition-colors hover:text-brown focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-olive"
                   >
-                    <span
+                    <svg
                       aria-hidden="true"
-                      className={`text-[0.6rem] transition-transform duration-300 ${
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      className={`h-3.5 w-3.5 transition-transform duration-300 ${
                         aboutOpen ? 'rotate-180' : ''
                       }`}
                     >
-                      ▾
-                    </span>
+                      <path
+                        d="m3.75 6 4.25 4 4.25-4"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
                   </button>
                 </div>
 
@@ -134,13 +151,12 @@ export default function Nav() {
                     aria-label="About sections"
                     className="overflow-hidden rounded-sm border border-lavender-deep/25 bg-paper/95 py-2 shadow-[0_16px_38px_rgba(63,47,33,0.12)] backdrop-blur-md"
                   >
-                    {ABOUT_AREA_LINKS.map((area) => {
-                      const href = `/about/${area.slug}`;
-                      const active = pathname === href;
+                    {aboutLinks.map((area) => {
+                      const active = isActive(area.href);
                       return (
-                        <li key={area.slug}>
+                        <li key={area.href}>
                           <Link
-                            href={href}
+                            href={area.href}
                             aria-current={active ? 'page' : undefined}
                             className={`block px-4 py-2.5 text-xs uppercase tracking-[0.14em] transition-colors hover:bg-lavender-soft/80 hover:text-brown focus-visible:bg-lavender-soft/80 focus-visible:text-brown focus-visible:outline-none ${
                               active ? 'text-olive' : 'text-brown-soft'
@@ -231,7 +247,7 @@ export default function Nav() {
                   <Link
                     href={l.href}
                     className={`block flex-1 py-2 font-serif text-2xl ${
-                      isActive(l.href) ? 'text-olive' : 'text-brown'
+                      isAboutActive ? 'text-olive' : 'text-brown'
                     }`}
                   >
                     {l.label}
@@ -244,14 +260,22 @@ export default function Nav() {
                     onClick={() => setAboutOpen((value) => !value)}
                     className="flex h-11 w-11 items-center justify-center rounded-full text-brown transition-colors hover:bg-lavender-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-olive"
                   >
-                    <span
+                    <svg
                       aria-hidden="true"
-                      className={`text-sm transition-transform duration-300 ${
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      className={`h-4 w-4 transition-transform duration-300 ${
                         aboutOpen ? 'rotate-180' : ''
                       }`}
                     >
-                      ▾
-                    </span>
+                      <path
+                        d="m3.75 6 4.25 4 4.25-4"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
                   </button>
                 </div>
 
@@ -261,13 +285,12 @@ export default function Nav() {
                     aria-label="About sections"
                     className="mb-2 ml-2 border-l border-lavender-deep/30 pl-4"
                   >
-                    {ABOUT_AREA_LINKS.map((area) => {
-                      const href = `/about/${area.slug}`;
-                      const active = pathname === href;
+                    {aboutLinks.map((area) => {
+                      const active = isActive(area.href);
                       return (
-                        <li key={area.slug}>
+                        <li key={area.href}>
                           <Link
-                            href={href}
+                            href={area.href}
                             aria-current={active ? 'page' : undefined}
                             className={`flex min-h-11 items-center text-sm uppercase tracking-[0.13em] ${
                               active ? 'text-olive' : 'text-brown-soft'
