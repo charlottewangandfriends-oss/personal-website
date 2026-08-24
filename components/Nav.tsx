@@ -8,9 +8,9 @@ import { ABOUT_AREA_LINKS } from '@/lib/about-area-links';
 
 const links = [
   { href: '/', label: 'Home' },
-  { href: '/engagements', label: 'Engagements' },
   { href: '/about', label: 'About' },
   { href: '/media', label: 'Media' },
+  { href: '/engagements', label: 'Engagements' },
   { href: '/contact', label: 'Contact' },
 ];
 
