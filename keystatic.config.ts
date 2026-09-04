@@ -575,6 +575,37 @@ export default config({
           description: 'Separate paragraphs with a blank line.',
           multiline: true,
         }),
+        highlightsHeading: fields.text({
+          label: 'Selected work — heading',
+          description: 'Optional. For example: Selected Collaborations.',
+        }),
+        highlights: fields.array(
+          fields.object(
+            {
+              date: fields.text({
+                label: 'Date / year',
+                description: 'For example: October 2025.',
+              }),
+              title: fields.text({ label: 'Project / repertoire' }),
+              description: fields.text({
+                label: 'Credit and context',
+                multiline: true,
+              }),
+              href: fields.text({
+                label: 'Related link (optional)',
+                description: 'An internal path or a full external URL.',
+              }),
+              linkLabel: fields.text({
+                label: 'Related link — label (optional)',
+              }),
+            },
+            { label: 'Selected work entry' },
+          ),
+          {
+            label: 'Selected work',
+            description: 'A concise list of representative projects, collaborations, or engagements.',
+          },
+        ),
         heroImage: image(
           'Page image (optional)',
           'Displayed at 16:9. Leave empty when a text-led page is more honest than a generic photo.',
