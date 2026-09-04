@@ -36,6 +36,7 @@ export default async function AboutAreaPage({
   if (!area || !ABOUT_AREA_LINKS.some((item) => item.slug === slug)) notFound();
 
   const paragraphs = toParagraphs(area.body);
+  const highlights = (area.highlights ?? []).filter((item) => item.title.trim());
   const relatedLinks = [
     { label: area.primaryLinkLabel, href: area.primaryLinkHref },
     { label: area.secondaryLinkLabel, href: area.secondaryLinkHref },
@@ -94,6 +95,65 @@ export default async function AboutAreaPage({
               <p className="italic text-brown-soft/70">More about this work is coming soon.</p>
             )}
           </Reveal>
+
+          {highlights.length > 0 && (
+            <Reveal delay={100} className="mt-16 max-w-4xl">
+              <section aria-labelledby={`${slug}-highlights-heading`}>
+                <p className="eyebrow">Selected work</p>
+                <h2
+                  id={`${slug}-highlights-heading`}
+                  className="mt-3 font-serif text-3xl text-brown md:text-4xl"
+                >
+                  {area.highlightsHeading || 'Selected highlights'}
+                </h2>
+                <ol className="mt-8 border-t border-line">
+                  {highlights.map((item) => {
+                    const href = item.href.trim();
+                    const external = /^https?:\/\//.test(href);
+                    const linkLabel = item.linkLabel.trim() || 'Learn more';
+                    const linkClassName =
+                      'link-underline mt-3 inline-flex min-h-11 items-center text-xs uppercase tracking-[0.12em] text-olive hover:text-brown focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-olive';
+
+                    return (
+                      <li
+                        key={`${item.date}-${item.title}`}
+                        className="grid gap-3 border-b border-line py-7 md:grid-cols-[10.5rem_minmax(0,1fr)] md:gap-9"
+                      >
+                        <p className="pt-1 text-xs uppercase leading-relaxed tracking-[0.12em] text-olive">
+                          {item.date}
+                        </p>
+                        <div>
+                          <h3 className="font-serif text-xl leading-snug text-brown md:text-2xl">
+                            {item.title}
+                          </h3>
+                          {item.description && (
+                            <p className="mt-2 max-w-2xl text-[1rem] leading-relaxed text-brown-soft md:text-[1.04rem]">
+                              {item.description}
+                            </p>
+                          )}
+                          {href &&
+                            (external ? (
+                              <a
+                                href={href}
+                                target="_blank"
+                                rel="noreferrer"
+                                className={linkClassName}
+                              >
+                                {linkLabel} ↗
+                              </a>
+                            ) : (
+                              <Link href={href} className={linkClassName}>
+                                {linkLabel} →
+                              </Link>
+                            ))}
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ol>
+              </section>
+            </Reveal>
+          )}
 
           {relatedLinks.length > 0 && (
             <Reveal delay={120}>
