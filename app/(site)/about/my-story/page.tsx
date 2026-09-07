@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import Reveal from '@/components/Reveal';
+import WorkingDraftNote from '@/components/WorkingDraftNote';
 import { getAbout, toParagraphs } from '@/lib/site';
 
 export const metadata: Metadata = {
@@ -40,6 +41,7 @@ export default async function MyStoryPage() {
         </Reveal>
 
         <section className="mt-14 max-w-3xl">
+          <WorkingDraftNote />
           <Reveal className="prose-warm text-[1.1rem] leading-relaxed">
             {myStory.length ? (
               myStory.map((p, i) => <p key={i} className="mb-6">{p}</p>)
