@@ -5,8 +5,8 @@ import Reveal from '@/components/Reveal';
 import { getAbout, toParagraphs } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Music, Community, and Human Connection',
-  description: "Why I chose music: its power to cross boundaries, create community, and help us truly know one another.",
+  title: 'Why I Make Music',
+  description: 'A personal note on why I make music, from teaching and community choirs to playing with friends.',
 };
 
 export default async function MusicCommunityPage() {
@@ -23,7 +23,7 @@ export default async function MusicCommunityPage() {
           >
             ← Back to About
           </Link>
-          <p className="eyebrow mt-6">Statement</p>
+          <p className="eyebrow mt-6">A personal note</p>
           <h1 className="mt-3 font-serif text-4xl text-brown sm:text-5xl md:text-6xl">
             {about.statementHeading}
           </h1>
