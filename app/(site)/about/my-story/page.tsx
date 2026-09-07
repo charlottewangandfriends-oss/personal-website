@@ -5,8 +5,8 @@ import Reveal from '@/components/Reveal';
 import { getAbout, toParagraphs } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: "Charlotte's Music Journey",
-  description: "Explore Charlotte's path from Amherst College to graduate studies in choral conducting at the University of Michigan.",
+  title: 'How I Came to Music',
+  description: 'How Amherst College, a choral-orchestral Requiem, and graduate study shaped Charlotte Wang’s path into music.',
 };
 
 export default async function MyStoryPage() {

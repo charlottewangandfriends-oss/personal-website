@@ -4,9 +4,11 @@ intro: >-
   Charlotte's compositions grow from language, voice, memory, and ensemble
   storytelling.
 body: |-
-  Charlotte studied composition with Eric Sawyer at Amherst College. Her honors thesis, Requiem: Ceaseless Life, is an eight-movement work for baritone soloist, SATB choir, and reduced orchestra, bringing together her interests in poetry, vocal writing, and large-ensemble form.
+  Charlotte studied composition with Eric Sawyer at Amherst College. Her honors thesis, Requiem: Ceaseless Life, is an eight-movement work for baritone soloist, SATB choir, and reduced orchestra. She composed, organized, and conducted its premiere as both the culmination of her undergraduate work and a gift to the department that had made her a musician.
 
-  Her other works include Your Spring, L'Avril à Nashville, and When Viola Breathes, you can hear my voice. Across different forces, she is drawn to music that feels lived-in: shaped by words, relationships, and the particular people making it.
+  The Requiem was written for particular people. Charlotte developed the libretto with Haoran Tong through repeated exchanges, asking for language that could carry the ideas while remaining direct enough to sing. She built the choral writing first, then gave the orchestra its own material in conversation with the voices. Knowing many of the performers in advance, she shaped parts around their individual strengths, wrote four percussion parts for four percussionist friends, and consulted players when a passage tested the limits of an instrument. The ensemble did not simply realize the score; its fingerprints were already in the score.
+
+  Her other works include Your Spring, L'Avril à Nashville, and When Viola Breathes, you can hear my voice. Across different forces, she is drawn to music made with specific voices, relationships, and performers in mind.
 heroImage: /images/uploads/compositionImage.png
 heroImagePosition: center
 heroAlt: Charlotte Wang at the podium during a performance of her music
@@ -14,4 +16,6 @@ primaryLinkLabel: Explore compositions
 primaryLinkHref: /media/composition
 secondaryLinkLabel: 'Requiem: Ceaseless Life'
 secondaryLinkHref: /media/composition/requiem
+tertiaryLinkLabel: Read the Amherst Student feature
+tertiaryLinkHref: https://amherststudent.com/article/music-major-charlotte-wang-24-presents-composition-thesis-requiem-ceaseless-life/
 order: 2

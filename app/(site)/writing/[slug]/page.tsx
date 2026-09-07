@@ -189,7 +189,11 @@ export default async function WritingSlugPage({
                       </span>
                     </div>
                     {w.excerpt && (
-                      <p className="mt-2.5 max-w-2xl text-sm leading-relaxed text-brown-soft">
+                      <p
+                        className={`mt-2.5 max-w-2xl text-sm leading-relaxed text-brown-soft ${
+                          w.category === 'poetry' ? 'whitespace-pre-line' : ''
+                        }`}
+                      >
                         {w.excerpt}
                       </p>
                     )}
@@ -244,7 +248,11 @@ export default async function WritingSlugPage({
 
         <Reveal delay={100} className="prose-warm mt-10 text-[1.1rem] leading-loose">
           {body.length ? (
-            body.map((p, i) => <p key={i}>{p}</p>)
+            body.map((p, i) => (
+              <p key={i} className={piece.category === 'poetry' ? 'whitespace-pre-line' : undefined}>
+                {p}
+              </p>
+            ))
           ) : (
             <p className="italic text-brown-soft/70">This piece will be published soon.</p>
           )}
