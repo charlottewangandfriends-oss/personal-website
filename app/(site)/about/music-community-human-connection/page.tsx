@@ -6,7 +6,8 @@ import { getAbout, toParagraphs } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Why I Make Music',
-  description: 'A personal note on why I make music, from teaching and community choirs to playing with friends.',
+  description:
+    'Charlotte Wang on artistic ambition without elitism, and how teaching, composition, community, and collaboration keep music human.',
 };
 
 export default async function MusicCommunityPage() {
