@@ -3,8 +3,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Reveal from '@/components/Reveal';
+import WorkingDraftNote from '@/components/WorkingDraftNote';
 import { ABOUT_AREA_LINKS } from '@/lib/about-area-links';
 import { getAboutArea, toParagraphs } from '@/lib/site';
+
+const WORKING_DRAFT_AREAS = new Set(['conducting', 'composition', 'piano', 'more']);
 
 export function generateStaticParams() {
   return ABOUT_AREA_LINKS.map((area) => ({ area: area.slug }));
@@ -84,6 +87,8 @@ export default async function AboutAreaPage({
         )}
 
         <div className={area.heroImage ? 'mt-14' : 'mt-12'}>
+          {WORKING_DRAFT_AREAS.has(slug) && <WorkingDraftNote />}
+
           <Reveal className="max-w-3xl">
             {paragraphs.length > 0 ? (
               <div className="prose-warm text-[1.08rem] md:text-[1.14rem]">
