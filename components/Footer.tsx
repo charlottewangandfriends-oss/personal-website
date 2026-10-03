@@ -52,6 +52,15 @@ export default async function Footer() {
                   {l.label}
                 </Link>
               ))}
+              <a
+                href="https://bwv147-study-hub.charlottewang541.chatgpt.site"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-underline w-fit text-sm text-brown-soft hover:text-brown focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-olive"
+              >
+                Charlotte&apos;study hub
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
             </nav>
 
             <div className="flex min-w-0 flex-col gap-2.5">
