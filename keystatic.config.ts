@@ -671,6 +671,10 @@ export default config({
           label: 'Event description',
           multiline: true,
         }),
+        conductorCredit: fields.text({
+          label: 'Conductor / artistic director credit (optional)',
+          description: 'Shown in small print below the event description, for example: Conductor: Jane Smith.',
+        }),
         detailsUrl: fields.url({
           label: 'Tickets / details link',
           description: 'Optional external page for tickets, registration, or event details.',

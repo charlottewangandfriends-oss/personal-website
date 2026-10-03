@@ -143,6 +143,12 @@ function EngagementList({
                   </div>
                 )}
 
+                {entry.conductorCredit && (
+                  <p className="mt-2 text-xs leading-5 text-brown-soft">
+                    {entry.conductorCredit}
+                  </p>
+                )}
+
                 <div
                   className={`flex flex-wrap items-center gap-x-6 gap-y-3 ${
                     isFeatured ? 'mt-6' : 'mt-4'
