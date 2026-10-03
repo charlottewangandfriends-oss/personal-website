@@ -646,8 +646,7 @@ export default config({
         title: fields.slug({ name: { label: 'Event title' } }),
         date: fields.date({
           label: 'Date',
-          description: 'The event moves to Past Engagements automatically after this date.',
-          validation: { isRequired: true },
+          description: 'Leave blank for a date to be announced. Dated events move to Past Engagements automatically after this date.',
         }),
         endDate: fields.date({
           label: 'End date (optional)',
