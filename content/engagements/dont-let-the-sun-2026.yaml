@@ -10,6 +10,6 @@ description: >-
 detailsUrl: https://smtd.umich.edu/event/17-november-2026/
 detailsLabel: Official U-M event page
 calendarLabel: Add to calendar
-featured: true
+featured: false
 order: 0
 hidden: false

@@ -14,5 +14,6 @@ description: >-
 detailsUrl: https://smtd.umich.edu/event/11-october-2026-4/
 detailsLabel: Official U-M event page
 calendarLabel: Add to calendar
+featured: true
 order: 0
 hidden: false
