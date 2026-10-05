@@ -549,7 +549,7 @@ export default config({
         email: fields.text({ label: 'Email', defaultValue: 'charlottewangmusic@gmail.com' }),
         facebook: fields.url({ label: 'Facebook URL', defaultValue: 'https://www.facebook.com/charlotte.wang.5454' }),
         instagram: fields.url({ label: 'Instagram URL', defaultValue: 'https://www.instagram.com/char_l_o_t_te/' }),
-        youtube: fields.url({ label: 'YouTube URL', defaultValue: 'https://www.youtube.com/@lottiethepotato1529/featured' }),
+        youtube: fields.url({ label: 'YouTube URL', defaultValue: 'https://www.youtube.com/@Charlottewangmusic' }),
       },
     }),
   },

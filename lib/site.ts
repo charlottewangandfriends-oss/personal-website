@@ -428,7 +428,7 @@ export async function getContact() {
     email: data?.email ?? 'charlottewangmusic@gmail.com',
     facebook: data?.facebook ?? 'https://www.facebook.com/charlotte.wang.5454',
     instagram: data?.instagram ?? 'https://www.instagram.com/char_l_o_t_te/',
-    youtube: data?.youtube ?? 'https://www.youtube.com/@lottiethepotato1529/featured',
+    youtube: data?.youtube ?? 'https://www.youtube.com/@Charlottewangmusic',
   };
 }
 
