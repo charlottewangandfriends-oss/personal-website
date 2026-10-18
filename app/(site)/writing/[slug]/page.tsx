@@ -177,6 +177,16 @@ export default async function WritingSlugPage({
             </Reveal>
           )}
 
+          {category.value === 'prose-blog' && (
+            <Reveal className="mb-10 rounded-xl border border-line bg-paper p-7">
+              <p className="eyebrow">Collection</p>
+              <Link href="/writing/prose-blog/birthday-reflections" className="mt-3 inline-block font-serif text-3xl text-brown hover:text-olive">
+                Birthday Reflections →
+              </Link>
+              <p className="mt-3 text-sm leading-relaxed text-brown-soft">Annual reflections, collected by year.</p>
+            </Reveal>
+          )}
+
           {items.length === 0 && !isMemoir ? (
             <Reveal>
               <div className="rounded-xl border border-line bg-paper p-10 text-center">

@@ -515,3 +515,15 @@ export async function getWriting(slug: string) {
   const entry = await reader.collections.writings.read(slug);
   return entry ? { slug, ...entry } : null;
 }
+
+export async function getBirthdayReflections() {
+  const entries = await reader.collections.birthdayReflections.all();
+  return entries.map((e) => ({ slug: e.slug, ...e.entry }))
+    .filter((e) => e.bodyEn?.trim() || e.bodyZh?.trim())
+    .sort((a, b) => b.year.localeCompare(a.year));
+}
+
+export async function getBirthdayReflection(year: string) {
+  const entry = await reader.collections.birthdayReflections.read(year);
+  return entry ? { slug: year, ...entry } : null;
+}

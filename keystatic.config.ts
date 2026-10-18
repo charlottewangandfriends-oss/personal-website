@@ -808,6 +808,18 @@ export default config({
         order: fields.integer({ label: 'Sort order', defaultValue: 0 }),
       },
     }),
+    birthdayReflections: collection({
+      label: 'Writing — Birthday Reflections',
+      path: 'content/birthday-reflections/*',
+      slugField: 'year',
+      format: { data: 'yaml' },
+      schema: {
+        year: fields.slug({ name: { label: 'Year' } }),
+        date: fields.date({ label: 'Birthday date' }),
+        bodyEn: fields.text({ label: 'English reflection', multiline: true }),
+        bodyZh: fields.text({ label: '中文随笔', multiline: true }),
+      },
+    }),
     writings: collection({
       label: 'Writing pieces',
       path: 'content/writings/*',
