@@ -33,6 +33,7 @@ export default async function BirthdayReflectionPage({ params }: { params: Promi
         <p className="eyebrow mt-8">Birthday Reflections</p>
         <h1 className="mt-3 font-serif text-4xl text-brown md:text-5xl">{entry.year}</h1>
         {entry.date && <p className="mt-3 text-sm text-brown-soft/70">{new Date(entry.date).toLocaleDateString('en-US', { timeZone: 'UTC', year: 'numeric', month: 'long', day: 'numeric' })}</p>}
+        {entry.sourceDate && entry.sourceDate !== entry.date && <p className="mt-2 text-sm text-brown-soft/70">Originally posted {new Date(entry.sourceDate).toLocaleDateString('en-US', { timeZone: 'UTC', year: 'numeric', month: 'long', day: 'numeric' })}</p>}
         {versions.length > 1 && <nav aria-label="Languages" className="mt-6 flex gap-5">{versions.map((version) => <a key={version.lang} href={`#${version.lang}`} className="link-underline text-sm text-brown">{version.label}</a>)}</nav>}
       </Reveal>
       {versions.map((version) => (

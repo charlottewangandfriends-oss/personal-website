@@ -816,6 +816,7 @@ export default config({
       schema: {
         year: fields.slug({ name: { label: 'Year' } }),
         date: fields.date({ label: 'Birthday date' }),
+        sourceDate: fields.date({ label: 'Original post date (if different)' }),
         bodyEn: fields.text({ label: 'English reflection', multiline: true }),
         bodyZh: fields.text({ label: '中文随笔', multiline: true }),
       },
