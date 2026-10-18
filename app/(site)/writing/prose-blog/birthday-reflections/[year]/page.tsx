@@ -36,6 +36,12 @@ export default async function BirthdayReflectionPage({ params }: { params: Promi
         {entry.sourceDate && entry.sourceDate !== entry.date && <p className="mt-2 text-sm text-brown-soft/70">Originally posted {new Date(entry.sourceDate).toLocaleDateString('en-US', { timeZone: 'UTC', year: 'numeric', month: 'long', day: 'numeric' })}</p>}
         {versions.length > 1 && <nav aria-label="Languages" className="mt-6 flex gap-5">{versions.map((version) => <a key={version.lang} href={`#${version.lang}`} className="link-underline text-sm text-brown">{version.label}</a>)}</nav>}
       </Reveal>
+      {entry.photo && <figure className="mt-10">
+        {/* Preserve the original photograph's full frame and aspect ratio. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={entry.photo} alt={entry.photoAlt || `Birthday photograph, ${entry.year}`} className="mx-auto h-auto max-h-[38rem] w-auto max-w-full rounded-sm" />
+        {entry.photoCaption && <figcaption className="mt-3 text-center text-sm text-brown-soft/80">{entry.photoCaption}</figcaption>}
+      </figure>}
       {versions.map((version) => (
         <section key={version.lang} id={version.lang} lang={version.lang} className="mt-10 scroll-mt-28">
           <h2 className="eyebrow mb-6">{version.label}</h2>
