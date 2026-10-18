@@ -12,6 +12,14 @@ import {
   WRITING_CATEGORIES,
 } from '@/lib/site';
 
+function inlineEmphasis(text: string) {
+  return text.split(/(\*[^*]+\*)/g).map((part, index) =>
+    part.startsWith('*') && part.endsWith('*')
+      ? <em key={index}>{part.slice(1, -1)}</em>
+      : part
+  );
+}
+
 const langLabel: Record<string, string> = { en: 'English', zh: '中文', fr: 'Français' };
 
 export async function generateStaticParams() {
@@ -52,6 +60,9 @@ export default async function WritingSlugPage({
       getWritingIntro(),
     ]);
     const items = allWritings.filter((w) => w.category === category.value);
+    if (category.value === 'prose-blog') {
+      items.sort((a, b) => (b.date ?? '').localeCompare(a.date ?? ''));
+    }
     const isMemoir = category.value === 'dear-past-dear-tomorrow';
     const collaborationParagraphs = isMemoir
       ? toParagraphs(writingPage.memoirCollaborationBody)
@@ -238,6 +249,7 @@ export default async function WritingSlugPage({
           {piece.date && (
             <p className="mt-3 text-sm text-brown-soft/70">
               {new Date(piece.date).toLocaleDateString('en-US', {
+                timeZone: 'UTC',
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric',
@@ -249,8 +261,8 @@ export default async function WritingSlugPage({
         <Reveal delay={100} className="prose-warm mt-10 text-[1.1rem] leading-loose">
           {body.length ? (
             body.map((p, i) => (
-              <p key={i} className={piece.category === 'poetry' ? 'whitespace-pre-line' : undefined}>
-                {p}
+              <p key={i} className="whitespace-pre-line">
+                {inlineEmphasis(p)}
               </p>
             ))
           ) : (
