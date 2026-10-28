@@ -19,6 +19,7 @@ export default async function RequiemPage() {
   const videoId = youtubeId(featuredVideo?.youtubeUrl);
   const introduction = toParagraphs(content.detailIntroduction);
   const about = toParagraphs(content.aboutBody);
+  const librettistNotes = toParagraphs(content.librettistNotes);
   const premiere = toParagraphs(content.premiereBody);
   const collaboration = toParagraphs(content.collaborationBody);
   const programHref = content.programUrl || content.programPdf;
@@ -45,12 +46,6 @@ export default async function RequiemPage() {
               ))}
             </div>
           )}
-          <Link
-            href="/media/composition/requiem/libretto"
-            className="link-underline mt-5 inline-block text-sm tracking-wide text-olive"
-          >
-            {content.librettoCredit} →
-          </Link>
         </Reveal>
       </header>
 
@@ -78,6 +73,18 @@ export default async function RequiemPage() {
                 >
                   {content.librettoLinkLabel} →
                 </Link>
+                {librettistNotes.length > 0 && (
+                  <section aria-labelledby="librettist-notes-heading" className="mt-10">
+                    <h3 id="librettist-notes-heading" className="font-serif text-2xl text-brown md:text-3xl">
+                      Notes from the librettist
+                    </h3>
+                    <div className="prose-warm mt-5 text-base md:text-lg">
+                      {librettistNotes.map((paragraph, index) => (
+                        <p key={index}>{paragraph}</p>
+                      ))}
+                    </div>
+                  </section>
+                )}
               </div>
             </div>
           </Reveal>

@@ -339,6 +339,11 @@ export async function getMediaPage() {
 
 export async function getCompositionFeature() {
   const data = await reader.singletons.compositionFeature.read();
+  // Keep the editor's source intact while displaying its introductory notes separately.
+  const librettoBody = data?.librettoBody || '';
+  const librettoStart = /^LIBRETTO\s*$/m.exec(librettoBody);
+  const hasLibrettistNotes = /^Librettist[’']s Note:/.test(librettoBody.trimStart());
+  const notesEnd = hasLibrettistNotes ? librettoStart?.index : undefined;
 
   return {
     featureEyebrow: data?.featureEyebrow || 'Featured work',
@@ -357,7 +362,10 @@ export async function getCompositionFeature() {
       "Requiem: Ceaseless Life brings together Charlotte's interests in composition, text, voice, and ensemble storytelling.",
     featuredVideoSlug: data?.featuredVideo || 'requiem-ceaseless-life',
     librettoUrl: data?.librettoUrl?.trim() || null,
-    librettoBody: data?.librettoBody || '',
+    librettistNotes: notesEnd === undefined
+      ? ''
+      : librettoBody.slice(0, notesEnd).trim().replace(/^Librettist[’']s Note:\s*/, ''),
+    librettoBody: notesEnd === undefined ? librettoBody : librettoBody.slice(notesEnd),
     librettoCredit: data?.librettoCredit || 'Libretto by Haoran Tong',
     librettoLinkLabel: data?.librettoLinkLabel || 'Read the libretto',
     premiereHeading: data?.premiereHeading || 'Premiere concert',
